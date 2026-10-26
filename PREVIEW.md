@@ -1,6 +1,6 @@
 # 试玩网页
 
-[下载试玩版 ZIP](https://github.com/emmaajy/FoundPhone-Studio/raw/refs/heads/main/foundphone-preview.zip)
+[下载试玩版 ZIP](https://github.com/wljmzclm/FoundPhone-Studio/raw/refs/heads/main/foundphone-preview.zip)
 
 下载并解压后，使用 Chrome 或 Edge 打开 foundphone-preview.html，锁屏密码为 **2711**。图片、图标、故事及运行时代码均已包含，无需安装依赖或启动服务。
 
