@@ -3,7 +3,7 @@
   "id": "mu-zhicheng-phone",
   "title": "穆祉丞的手机",
   "description": "以穆祉丞的视角探索手机，从王橹杰的新微博通知开始。后续主剧情待补充。",
-  "revision": 16,
+  "revision": 17,
   "phone": {
     "owner": "穆祉丞",
     "date": "2026-10-25",
@@ -124,7 +124,8 @@
             "sendPhase": "wechat",
             "attachment": "sms",
             "originalSms": "【蜜雪冰城】尊敬的客户，您分期购买的 [冰鲜柠檬水] 本月应付 0.33 元（1/12期），现已逾期，请您尽快将足额款项及滞纳金存入指定的扣款账户，否则将计入个人征信系统，对您造成不良影响。"
-          }
+          },
+          "avatar": "./story-assets/mu-zhicheng-avatar.jpg"
         },
         {
           "id": "friend-who",
@@ -146,7 +147,8 @@
             "sendOnTap": "true",
             "sendPhase": "wechat",
             "sendAfter": "friend-who"
-          }
+          },
+          "avatar": "./story-assets/mu-zhicheng-avatar.jpg"
         },
         {
           "id": "friend-maybe",
@@ -180,7 +182,8 @@
             "sendOnTap": "true",
             "sendPhase": "wechat-continued",
             "sendAfter": "friend-douyin-shot"
-          }
+          },
+          "avatar": "./story-assets/mu-zhicheng-avatar.jpg"
         },
         {
           "id": "friend-ex",
@@ -202,7 +205,8 @@
             "sendOnTap": "true",
             "sendPhase": "wechat-continued",
             "sendAfter": "friend-ex"
-          }
+          },
+          "avatar": "./story-assets/mu-zhicheng-avatar.jpg"
         },
         {
           "id": "friend-copy",
@@ -224,7 +228,8 @@
             "sendOnTap": "true",
             "sendPhase": "wechat-continued",
             "sendAfter": "friend-copy"
-          }
+          },
+          "avatar": "./story-assets/mu-zhicheng-avatar.jpg"
         },
         {
           "id": "friend-copied",
@@ -236,18 +241,6 @@
           "meta": {}
         },
         {
-          "id": "friend-quote",
-          "body": "不要再打扰我的生活。你突如其来的短信很冒昧，对我来说是种困扰。这么久了，突然出现，是因为最近不太顺心吧?但和我再次建立联系又有什么意义?难道会让你我的生活更好过吗?你知道的，我从来不做那些没意义的事，更别提你我之间那点不起眼的情分了。不被你在乎的关系早该放开了，现在突然打扰我的生活很没礼貌，你太自私。我不喜欢藕断丝连的感觉，安静当个过客吧，我们以后不会再有联系了。",
-          "senderId": "mu-zhiyou",
-          "hidden": true,
-          "time": "2026-10-25 04:15",
-          "kind": "image",
-          "meta": {
-            "attachment": "douyin",
-            "originalSms": "【蜜雪冰城】尊敬的客户，您分期购买的 [冰鲜柠檬水] 本月应付 0.33 元（1/12期），现已逾期，请您尽快将足额款项及滞纳金存入指定的扣款账户，否则将计入个人征信系统，对您造成不良影响。"
-          }
-        },
-        {
           "id": "mu-send-him",
           "body": "你让我发给他？",
           "senderId": "owner",
@@ -257,8 +250,9 @@
           "meta": {
             "sendOnTap": "true",
             "sendPhase": "wechat-continued",
-            "sendAfter": "friend-quote"
-          }
+            "sendAfter": "friend-copied"
+          },
+          "avatar": "./story-assets/mu-zhicheng-avatar.jpg"
         },
         {
           "id": "friend-play",
@@ -289,7 +283,8 @@
             "sendOnTap": "true",
             "sendPhase": "wechat-continued",
             "sendAfter": "friend-curious"
-          }
+          },
+          "avatar": "./story-assets/mu-zhicheng-avatar.jpg"
         }
       ]
     },
@@ -322,7 +317,8 @@
             "historyOnly": "true",
             "deliveryStatus": "failed",
             "dateLabel": "7月27日 00:09"
-          }
+          },
+          "avatar": "./story-assets/mu-zhicheng-avatar.jpg"
         },
         {
           "id": "wang-history-02",
@@ -333,7 +329,8 @@
           "meta": {
             "historyOnly": "true",
             "deliveryStatus": "failed"
-          }
+          },
+          "avatar": "./story-assets/mu-zhicheng-avatar.jpg"
         },
         {
           "id": "wang-history-03",
@@ -344,7 +341,8 @@
           "meta": {
             "historyOnly": "true",
             "deliveryStatus": "failed"
-          }
+          },
+          "avatar": "./story-assets/mu-zhicheng-avatar.jpg"
         },
         {
           "id": "wang-history-04",
@@ -355,7 +353,8 @@
           "meta": {
             "historyOnly": "true",
             "deliveryStatus": "failed"
-          }
+          },
+          "avatar": "./story-assets/mu-zhicheng-avatar.jpg"
         },
         {
           "id": "wang-history-05",
@@ -366,7 +365,8 @@
           "meta": {
             "historyOnly": "true",
             "deliveryStatus": "failed"
-          }
+          },
+          "avatar": "./story-assets/mu-zhicheng-avatar.jpg"
         },
         {
           "id": "wang-history-06",
@@ -377,7 +377,8 @@
           "meta": {
             "historyOnly": "true",
             "deliveryStatus": "failed"
-          }
+          },
+          "avatar": "./story-assets/mu-zhicheng-avatar.jpg"
         },
         {
           "id": "wang-history-07",
@@ -388,7 +389,8 @@
           "meta": {
             "historyOnly": "true",
             "deliveryStatus": "failed"
-          }
+          },
+          "avatar": "./story-assets/mu-zhicheng-avatar.jpg"
         },
         {
           "id": "wang-history-08",
@@ -399,7 +401,8 @@
           "meta": {
             "historyOnly": "true",
             "deliveryStatus": "failed"
-          }
+          },
+          "avatar": "./story-assets/mu-zhicheng-avatar.jpg"
         },
         {
           "id": "wang-history-09",
@@ -411,7 +414,8 @@
             "historyOnly": "true",
             "deliveryStatus": "failed",
             "dateLabel": "8月13日 16:10"
-          }
+          },
+          "avatar": "./story-assets/mu-zhicheng-avatar.jpg"
         },
         {
           "id": "wang-history-10",
@@ -422,7 +426,8 @@
           "meta": {
             "historyOnly": "true",
             "deliveryStatus": "failed"
-          }
+          },
+          "avatar": "./story-assets/mu-zhicheng-avatar.jpg"
         },
         {
           "id": "wang-history-11",
@@ -433,7 +438,8 @@
           "meta": {
             "historyOnly": "true",
             "deliveryStatus": "failed"
-          }
+          },
+          "avatar": "./story-assets/mu-zhicheng-avatar.jpg"
         },
         {
           "id": "wang-history-12",
@@ -445,7 +451,8 @@
             "historyOnly": "true",
             "deliveryStatus": "failed",
             "dateLabel": "8月17日 23:11"
-          }
+          },
+          "avatar": "./story-assets/mu-zhicheng-avatar.jpg"
         },
         {
           "id": "wang-history-13",
@@ -456,7 +463,8 @@
           "meta": {
             "historyOnly": "true",
             "deliveryStatus": "failed"
-          }
+          },
+          "avatar": "./story-assets/mu-zhicheng-avatar.jpg"
         },
         {
           "id": "wang-history-14",
@@ -467,7 +475,8 @@
           "meta": {
             "historyOnly": "true",
             "deliveryStatus": "failed"
-          }
+          },
+          "avatar": "./story-assets/mu-zhicheng-avatar.jpg"
         },
         {
           "id": "wang-history-15",
@@ -478,7 +487,8 @@
           "meta": {
             "historyOnly": "true",
             "deliveryStatus": "failed"
-          }
+          },
+          "avatar": "./story-assets/mu-zhicheng-avatar.jpg"
         },
         {
           "id": "wang-history-16",
@@ -490,7 +500,8 @@
             "historyOnly": "true",
             "deliveryStatus": "failed",
             "dateLabel": "9月27日 09:13"
-          }
+          },
+          "avatar": "./story-assets/mu-zhicheng-avatar.jpg"
         },
         {
           "id": "wang-history-17",
@@ -502,7 +513,8 @@
             "historyOnly": "true",
             "deliveryStatus": "failed",
             "dateLabel": "04:41"
-          }
+          },
+          "avatar": "./story-assets/mu-zhicheng-avatar.jpg"
         },
         {
           "id": "wang-history-18",
@@ -513,7 +525,8 @@
           "meta": {
             "historyOnly": "true",
             "deliveryStatus": "failed"
-          }
+          },
+          "avatar": "./story-assets/mu-zhicheng-avatar.jpg"
         },
         {
           "id": "wang-history-19",
@@ -524,7 +537,8 @@
           "meta": {
             "historyOnly": "true",
             "deliveryStatus": "failed"
-          }
+          },
+          "avatar": "./story-assets/mu-zhicheng-avatar.jpg"
         }
       ]
     }
@@ -699,7 +713,8 @@
           "sendOnTap": "true",
           "sendPhase": "final-sms"
         },
-        "read": true
+        "read": true,
+        "avatar": "./story-assets/mu-zhicheng-avatar.jpg"
       },
       {
         "id": "sms-copy-reply-1",
@@ -723,7 +738,8 @@
           "sendPhase": "final-sms",
           "sendAfter": "sms-copy-reply-1"
         },
-        "read": true
+        "read": true,
+        "avatar": "./story-assets/mu-zhicheng-avatar.jpg"
       },
       {
         "id": "sms-question-reply-1",
@@ -747,7 +763,8 @@
           "sendPhase": "final-sms",
           "sendAfter": "sms-question-reply-1"
         },
-        "read": true
+        "read": true,
+        "avatar": "./story-assets/mu-zhicheng-avatar.jpg"
       },
       {
         "id": "sms-who",
@@ -762,7 +779,8 @@
           "sendPhase": "final-sms",
           "sendAfter": "sms-dont-know"
         },
-        "read": true
+        "read": true,
+        "avatar": "./story-assets/mu-zhicheng-avatar.jpg"
       },
       {
         "id": "sms-who-reply-1",
@@ -786,7 +804,8 @@
           "sendPhase": "final-sms",
           "sendAfter": "sms-who-reply-1"
         },
-        "read": true
+        "read": true,
+        "avatar": "./story-assets/mu-zhicheng-avatar.jpg"
       },
       {
         "id": "sms-why-text-reply-1",
@@ -810,7 +829,8 @@
           "sendPhase": "final-sms",
           "sendAfter": "sms-why-text-reply-1"
         },
-        "read": true
+        "read": true,
+        "avatar": "./story-assets/mu-zhicheng-avatar.jpg"
       },
       {
         "id": "sms-bro-reply-1",
@@ -834,7 +854,8 @@
           "sendPhase": "final-sms",
           "sendAfter": "sms-bro-reply-1"
         },
-        "read": true
+        "read": true,
+        "avatar": "./story-assets/mu-zhicheng-avatar.jpg"
       },
       {
         "id": "sms-who-again-reply-1",
@@ -876,7 +897,8 @@
           "sendPhase": "final-sms",
           "sendAfter": "sms-who-again-reply-3"
         },
-        "read": true
+        "read": true,
+        "avatar": "./story-assets/mu-zhicheng-avatar.jpg"
       },
       {
         "id": "sms-wang",
@@ -891,7 +913,8 @@
           "sendPhase": "final-sms",
           "sendAfter": "sms-meaning"
         },
-        "read": true
+        "read": true,
+        "avatar": "./story-assets/mu-zhicheng-avatar.jpg"
       },
       {
         "id": "sms-wang-reply-1",
@@ -933,7 +956,8 @@
           "sendPhase": "final-sms",
           "sendAfter": "sms-wang-reply-3"
         },
-        "read": true
+        "read": true,
+        "avatar": "./story-assets/mu-zhicheng-avatar.jpg"
       },
       {
         "id": "sms-past",
@@ -948,7 +972,8 @@
           "sendPhase": "final-sms",
           "sendAfter": "sms-no-block"
         },
-        "read": true
+        "read": true,
+        "avatar": "./story-assets/mu-zhicheng-avatar.jpg"
       },
       {
         "id": "sms-look-ahead",
@@ -963,7 +988,8 @@
           "sendPhase": "final-sms",
           "sendAfter": "sms-past"
         },
-        "read": true
+        "read": true,
+        "avatar": "./story-assets/mu-zhicheng-avatar.jpg"
       },
       {
         "id": "sms-doing-well",
@@ -978,7 +1004,8 @@
           "sendPhase": "final-sms",
           "sendAfter": "sms-look-ahead"
         },
-        "read": true
+        "read": true,
+        "avatar": "./story-assets/mu-zhicheng-avatar.jpg"
       },
       {
         "id": "sms-doing-well-reply-1",
@@ -1020,7 +1047,8 @@
           "sendPhase": "final-sms",
           "sendAfter": "sms-doing-well-reply-3"
         },
-        "read": true
+        "read": true,
+        "avatar": "./story-assets/mu-zhicheng-avatar.jpg"
       },
       {
         "id": "sms-my-words",
@@ -1035,7 +1063,8 @@
           "sendPhase": "final-sms",
           "sendAfter": "sms-not-joke"
         },
-        "read": true
+        "read": true,
+        "avatar": "./story-assets/mu-zhicheng-avatar.jpg"
       },
       {
         "id": "sms-dont-disturb",
@@ -1050,7 +1079,8 @@
           "sendPhase": "final-sms",
           "sendAfter": "sms-my-words"
         },
-        "read": true
+        "read": true,
+        "avatar": "./story-assets/mu-zhicheng-avatar.jpg"
       },
       {
         "id": "sms-trouble",
@@ -1065,7 +1095,8 @@
           "sendPhase": "final-sms",
           "sendAfter": "sms-dont-disturb"
         },
-        "read": true
+        "read": true,
+        "avatar": "./story-assets/mu-zhicheng-avatar.jpg"
       },
       {
         "id": "sms-worlds",
@@ -1080,7 +1111,8 @@
           "sendPhase": "final-sms",
           "sendAfter": "sms-trouble"
         },
-        "read": true
+        "read": true,
+        "avatar": "./story-assets/mu-zhicheng-avatar.jpg"
       },
       {
         "id": "sms-ordinary",
@@ -1095,7 +1127,8 @@
           "sendPhase": "final-sms",
           "sendAfter": "sms-worlds"
         },
-        "read": true
+        "read": true,
+        "avatar": "./story-assets/mu-zhicheng-avatar.jpg"
       },
       {
         "id": "sms-sleep-early",
@@ -1110,7 +1143,8 @@
           "sendPhase": "final-sms",
           "sendAfter": "sms-ordinary"
         },
-        "read": true
+        "read": true,
+        "avatar": "./story-assets/mu-zhicheng-avatar.jpg"
       },
       {
         "id": "sms-dark-circles",
@@ -1125,7 +1159,8 @@
           "sendPhase": "final-sms",
           "sendAfter": "sms-sleep-early"
         },
-        "read": true
+        "read": true,
+        "avatar": "./story-assets/mu-zhicheng-avatar.jpg"
       },
       {
         "id": "sms-dark-circles-reply-1",
@@ -1149,7 +1184,8 @@
           "sendPhase": "final-sms",
           "sendAfter": "sms-dark-circles-reply-1"
         },
-        "read": true
+        "read": true,
+        "avatar": "./story-assets/mu-zhicheng-avatar.jpg"
       },
       {
         "id": "sms-hard-miss",
@@ -1164,7 +1200,8 @@
           "sendPhase": "final-sms",
           "sendAfter": "sms-weibo"
         },
-        "read": true
+        "read": true,
+        "avatar": "./story-assets/mu-zhicheng-avatar.jpg"
       },
       {
         "id": "sms-let-go",
@@ -1179,7 +1216,8 @@
           "sendPhase": "final-sms",
           "sendAfter": "sms-hard-miss"
         },
-        "read": true
+        "read": true,
+        "avatar": "./story-assets/mu-zhicheng-avatar.jpg"
       },
       {
         "id": "sms-forget",
@@ -1194,7 +1232,8 @@
           "sendPhase": "final-sms",
           "sendAfter": "sms-let-go"
         },
-        "read": true
+        "read": true,
+        "avatar": "./story-assets/mu-zhicheng-avatar.jpg"
       },
       {
         "id": "sms-forget-reply-1",
@@ -1254,7 +1293,8 @@
           "sendPhase": "final-sms",
           "sendAfter": "sms-forget-reply-5"
         },
-        "read": true
+        "read": true,
+        "avatar": "./story-assets/mu-zhicheng-avatar.jpg"
       },
       {
         "id": "sms-question-last-reply-1",
@@ -1278,7 +1318,8 @@
           "sendPhase": "final-sms",
           "sendAfter": "sms-question-last-reply-1"
         },
-        "read": true
+        "read": true,
+        "avatar": "./story-assets/mu-zhicheng-avatar.jpg"
       }
     ],
     "douyin": [
@@ -1554,7 +1595,7 @@
       "id": "receive-friend-who",
       "label": "穆之友回复：？谁发的这么抽象",
       "type": "delay",
-      "delayMs": 1000,
+      "delayMs": 2500,
       "actions": [
         {
           "type": "unlock",
@@ -1597,7 +1638,7 @@
       "id": "receive-friend-maybe",
       "label": "穆之友回复：我好像知道了",
       "type": "delay",
-      "delayMs": 1000,
+      "delayMs": 2500,
       "actions": [
         {
           "type": "unlock",
@@ -1614,7 +1655,7 @@
       "id": "receive-friend-douyin-shot",
       "label": "穆之友回复：不要再打扰我的生活。你突如其来的短信",
       "type": "delay",
-      "delayMs": 1000,
+      "delayMs": 2500,
       "actions": [
         {
           "type": "unlock",
@@ -1709,7 +1750,7 @@
       "id": "receive-friend-ex",
       "label": "穆之友回复：可能你的某个前任想你了",
       "type": "delay",
-      "delayMs": 1000,
+      "delayMs": 2500,
       "actions": [
         {
           "type": "unlock",
@@ -1752,7 +1793,7 @@
       "id": "receive-friend-copy",
       "label": "穆之友回复：不要再打扰我的生活。你突如其来的短信",
       "type": "delay",
-      "delayMs": 1000,
+      "delayMs": 2500,
       "actions": [
         {
           "type": "unlock",
@@ -1795,28 +1836,11 @@
       "id": "receive-friend-copied",
       "label": "穆之友回复：帮你复制的文案",
       "type": "delay",
-      "delayMs": 1000,
+      "delayMs": 2500,
       "actions": [
         {
           "type": "unlock",
           "key": "friend-copied",
-          "value": true
-        }
-      ],
-      "once": true,
-      "next": [
-        "receive-friend-quote"
-      ]
-    },
-    {
-      "id": "receive-friend-quote",
-      "label": "穆之友回复：不要再打扰我的生活。你突如其来的短信",
-      "type": "delay",
-      "delayMs": 1000,
-      "actions": [
-        {
-          "type": "unlock",
-          "key": "friend-quote",
           "value": true
         }
       ],
@@ -1834,7 +1858,7 @@
           "value": "wechat-continued"
         },
         {
-          "key": "unlocked:friend-quote",
+          "key": "unlocked:friend-copied",
           "op": "eq",
           "value": true
         }
@@ -1855,7 +1879,7 @@
       "id": "receive-friend-play",
       "label": "穆之友回复：对啊陪他玩梗",
       "type": "delay",
-      "delayMs": 1000,
+      "delayMs": 2500,
       "actions": [
         {
           "type": "unlock",
@@ -1872,7 +1896,7 @@
       "id": "receive-friend-curious",
       "label": "穆之友回复：再说了你不想知道他是谁嘛",
       "type": "delay",
-      "delayMs": 1000,
+      "delayMs": 2500,
       "actions": [
         {
           "type": "unlock",
@@ -1957,7 +1981,7 @@
       "id": "receive-sms-copy-reply-1",
       "label": "未知号码回复：？",
       "type": "delay",
-      "delayMs": 1000,
+      "delayMs": 2500,
       "actions": [
         {
           "type": "unlock",
@@ -2000,7 +2024,7 @@
       "id": "receive-sms-question-reply-1",
       "label": "未知号码回复：你知道我是谁?",
       "type": "delay",
-      "delayMs": 1000,
+      "delayMs": 2500,
       "actions": [
         {
           "type": "unlock",
@@ -2069,7 +2093,7 @@
       "id": "receive-sms-who-reply-1",
       "label": "未知号码回复：谁也不是",
       "type": "delay",
-      "delayMs": 1000,
+      "delayMs": 2500,
       "actions": [
         {
           "type": "unlock",
@@ -2112,7 +2136,7 @@
       "id": "receive-sms-why-text-reply-1",
       "label": "未知号码回复：我以为你不会回我",
       "type": "delay",
-      "delayMs": 1000,
+      "delayMs": 2500,
       "actions": [
         {
           "type": "unlock",
@@ -2155,7 +2179,7 @@
       "id": "receive-sms-bro-reply-1",
       "label": "未知号码回复：不是兄弟",
       "type": "delay",
-      "delayMs": 1000,
+      "delayMs": 2500,
       "actions": [
         {
           "type": "unlock",
@@ -2198,7 +2222,7 @@
       "id": "receive-sms-who-again-reply-1",
       "label": "未知号码回复：认不出来就算了",
       "type": "delay",
-      "delayMs": 1000,
+      "delayMs": 2500,
       "actions": [
         {
           "type": "unlock",
@@ -2215,7 +2239,7 @@
       "id": "receive-sms-who-again-reply-2",
       "label": "未知号码回复：我只是有点想你了",
       "type": "delay",
-      "delayMs": 1000,
+      "delayMs": 2500,
       "actions": [
         {
           "type": "unlock",
@@ -2232,7 +2256,7 @@
       "id": "receive-sms-who-again-reply-3",
       "label": "未知号码回复：不用管我",
       "type": "delay",
-      "delayMs": 1000,
+      "delayMs": 2500,
       "actions": [
         {
           "type": "unlock",
@@ -2301,7 +2325,7 @@
       "id": "receive-sms-wang-reply-1",
       "label": "未知号码回复：对不起",
       "type": "delay",
-      "delayMs": 1000,
+      "delayMs": 2500,
       "actions": [
         {
           "type": "unlock",
@@ -2318,7 +2342,7 @@
       "id": "receive-sms-wang-reply-2",
       "label": "未知号码回复：别把我拉黑好嘛",
       "type": "delay",
-      "delayMs": 1000,
+      "delayMs": 2500,
       "actions": [
         {
           "type": "unlock",
@@ -2335,7 +2359,7 @@
       "id": "receive-sms-wang-reply-3",
       "label": "未知号码回复：我以后不给你发了",
       "type": "delay",
-      "delayMs": 1000,
+      "delayMs": 2500,
       "actions": [
         {
           "type": "unlock",
@@ -2456,7 +2480,7 @@
       "id": "receive-sms-doing-well-reply-1",
       "label": "未知号码回复：不好",
       "type": "delay",
-      "delayMs": 1000,
+      "delayMs": 2500,
       "actions": [
         {
           "type": "unlock",
@@ -2473,7 +2497,7 @@
       "id": "receive-sms-doing-well-reply-2",
       "label": "未知号码回复：没有你",
       "type": "delay",
-      "delayMs": 1000,
+      "delayMs": 2500,
       "actions": [
         {
           "type": "unlock",
@@ -2490,7 +2514,7 @@
       "id": "receive-sms-doing-well-reply-3",
       "label": "未知号码回复：我过得一点都不好",
       "type": "delay",
-      "delayMs": 1000,
+      "delayMs": 2500,
       "actions": [
         {
           "type": "unlock",
@@ -2715,7 +2739,7 @@
       "id": "receive-sms-dark-circles-reply-1",
       "label": "未知号码回复：你在哪看见的?",
       "type": "delay",
-      "delayMs": 1000,
+      "delayMs": 2500,
       "actions": [
         {
           "type": "unlock",
@@ -2836,7 +2860,7 @@
       "id": "receive-sms-forget-reply-1",
       "label": "未知号码回复：不要忘记我好嘛",
       "type": "delay",
-      "delayMs": 1000,
+      "delayMs": 2500,
       "actions": [
         {
           "type": "unlock",
@@ -2853,7 +2877,7 @@
       "id": "receive-sms-forget-reply-2",
       "label": "未知号码回复：不要忘记我",
       "type": "delay",
-      "delayMs": 1000,
+      "delayMs": 2500,
       "actions": [
         {
           "type": "unlock",
@@ -2870,7 +2894,7 @@
       "id": "receive-sms-forget-reply-3",
       "label": "未知号码回复：不要拉黑我",
       "type": "delay",
-      "delayMs": 1000,
+      "delayMs": 2500,
       "actions": [
         {
           "type": "unlock",
@@ -2887,7 +2911,7 @@
       "id": "receive-sms-forget-reply-4",
       "label": "未知号码回复：我不会再打扰你了",
       "type": "delay",
-      "delayMs": 1000,
+      "delayMs": 2500,
       "actions": [
         {
           "type": "unlock",
@@ -2904,7 +2928,7 @@
       "id": "receive-sms-forget-reply-5",
       "label": "未知号码回复：你也是",
       "type": "delay",
-      "delayMs": 1000,
+      "delayMs": 2500,
       "actions": [
         {
           "type": "unlock",
@@ -2947,7 +2971,7 @@
       "id": "receive-sms-question-last-reply-1",
       "label": "未知号码回复：睡个好觉",
       "type": "delay",
-      "delayMs": 1000,
+      "delayMs": 2500,
       "actions": [
         {
           "type": "unlock",
@@ -3090,14 +3114,14 @@
           "target": "mu-sms-shot"
         },
         {
-          "advanceMs": 1000
+          "advanceMs": 2500
         },
         {
           "event": "sendMessage",
           "target": "mu-dont-know"
         },
         {
-          "advanceMs": 2000
+          "advanceMs": 5000
         },
         {
           "event": "openApp",
@@ -3108,28 +3132,28 @@
           "target": "mu-what-joke"
         },
         {
-          "advanceMs": 1000
+          "advanceMs": 2500
         },
         {
           "event": "sendMessage",
           "target": "mu-no-ex"
         },
         {
-          "advanceMs": 1000
+          "advanceMs": 2500
         },
         {
           "event": "sendMessage",
           "target": "mu-why"
         },
         {
-          "advanceMs": 2000
+          "advanceMs": 2500
         },
         {
           "event": "sendMessage",
           "target": "mu-send-him"
         },
         {
-          "advanceMs": 2000
+          "advanceMs": 5000
         },
         {
           "event": "sendMessage",
@@ -3169,14 +3193,14 @@
           "target": "mu-sms-shot"
         },
         {
-          "advanceMs": 1000
+          "advanceMs": 2500
         },
         {
           "event": "sendMessage",
           "target": "mu-dont-know"
         },
         {
-          "advanceMs": 2000
+          "advanceMs": 5000
         },
         {
           "event": "openApp",
@@ -3187,28 +3211,28 @@
           "target": "mu-what-joke"
         },
         {
-          "advanceMs": 1000
+          "advanceMs": 2500
         },
         {
           "event": "sendMessage",
           "target": "mu-no-ex"
         },
         {
-          "advanceMs": 1000
+          "advanceMs": 2500
         },
         {
           "event": "sendMessage",
           "target": "mu-why"
         },
         {
-          "advanceMs": 2000
+          "advanceMs": 2500
         },
         {
           "event": "sendMessage",
           "target": "mu-send-him"
         },
         {
-          "advanceMs": 2000
+          "advanceMs": 5000
         },
         {
           "event": "sendMessage",
@@ -3219,14 +3243,14 @@
           "target": "sms-copy"
         },
         {
-          "advanceMs": 1000
+          "advanceMs": 2500
         },
         {
           "event": "sendMessage",
           "target": "sms-question"
         },
         {
-          "advanceMs": 1000
+          "advanceMs": 2500
         },
         {
           "event": "sendMessage",
@@ -3237,28 +3261,28 @@
           "target": "sms-who"
         },
         {
-          "advanceMs": 1000
+          "advanceMs": 2500
         },
         {
           "event": "sendMessage",
           "target": "sms-why-text"
         },
         {
-          "advanceMs": 1000
+          "advanceMs": 2500
         },
         {
           "event": "sendMessage",
           "target": "sms-bro"
         },
         {
-          "advanceMs": 1000
+          "advanceMs": 2500
         },
         {
           "event": "sendMessage",
           "target": "sms-who-again"
         },
         {
-          "advanceMs": 3000
+          "advanceMs": 7500
         },
         {
           "event": "sendMessage",
@@ -3269,7 +3293,7 @@
           "target": "sms-wang"
         },
         {
-          "advanceMs": 3000
+          "advanceMs": 7500
         },
         {
           "event": "sendMessage",
@@ -3288,7 +3312,7 @@
           "target": "sms-doing-well"
         },
         {
-          "advanceMs": 3000
+          "advanceMs": 7500
         },
         {
           "event": "sendMessage",
@@ -3323,7 +3347,7 @@
           "target": "sms-dark-circles"
         },
         {
-          "advanceMs": 1000
+          "advanceMs": 2500
         },
         {
           "event": "sendMessage",
@@ -3342,14 +3366,14 @@
           "target": "sms-forget"
         },
         {
-          "advanceMs": 5000
+          "advanceMs": 12500
         },
         {
           "event": "sendMessage",
           "target": "sms-question-last"
         },
         {
-          "advanceMs": 1000
+          "advanceMs": 2500
         },
         {
           "event": "sendMessage",

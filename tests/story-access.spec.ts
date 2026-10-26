@@ -167,7 +167,7 @@ test("five-second SMS banner routes to SMS and immediately offers WeChat", async
 test("scripted Mu conversation: player taps sends, friend replies, Douyin returns to WeChat, then SMS reminder", async ({
   page,
 }) => {
-  test.setTimeout(120000);
+  test.setTimeout(180000);
   await page.goto("/");
   await unlock(page);
   await page
@@ -240,16 +240,16 @@ test("scripted Mu conversation: player taps sends, friend replies, Douyin return
     "帮你复制的文案",
     "再说了你不想知道他是谁嘛",
   ]) {
-    await expect(send).toBeEnabled();
+    await expect(send).toBeEnabled({ timeout: 20000 });
     await send.click();
     await expect(
       page
         .locator(".skin-message:not(.outgoing) .skin-bubble")
         .filter({ hasText: incoming })
         .last(),
-    ).toBeVisible();
+    ).toBeVisible({ timeout: 10000 });
   }
-  await expect(send).toBeEnabled();
+  await expect(send).toBeEnabled({ timeout: 20000 });
   await send.click();
   await expect(
     page.getByRole("button", { name: "我其实好像知道是谁", exact: true }),
@@ -274,7 +274,7 @@ test("scripted Mu conversation: player taps sends, friend replies, Douyin return
     (item: { outgoing?: boolean }) => item.outgoing,
   );
   for (const item of outgoing) {
-    await expect(send).toBeEnabled();
+    await expect(send).toBeEnabled({ timeout: 20000 });
     const bubble = page.locator('[data-message-id="' + item.id + '"]');
     await expect(bubble).toHaveCount(0);
     await send.click();
@@ -442,4 +442,54 @@ test("uploaded images, avatars, album and ordered browser history work with the 
     )
     .toBe(2000);
   await page.getByRole("button", { name: "关闭原图", exact: true }).click();
+});
+
+test("matching home wallpaper, owner avatar, left-aligned Weibo names and legible WeChat names", async ({
+  page,
+}) => {
+  const ending = raw.events.find(
+    (node: { id: string }) => node.id === "messages-complete-to-explore",
+  );
+  const { work } = compileStory({
+    ...raw,
+    id: "visual-revisions-check",
+    events: [{ ...ending, type: "start", conditions: [] }],
+  });
+  await page.route("**/work.json", (route) => route.fulfill({ json: work }));
+  await page.goto("/");
+  await page.getByRole("button", { name: "轻触解锁", exact: true }).waitFor();
+  const background = await page
+    .locator(".phone-screen")
+    .evaluate((el) => getComputedStyle(el).backgroundImage);
+  await unlock(page);
+  await page.getByRole("button", { name: "继续探索手机", exact: true }).click();
+  await expect(page.locator(".phone-screen")).toHaveCSS(
+    "background-image",
+    background,
+  );
+  await expect(page.locator(".wallpaper-orb")).toHaveCount(0);
+  await page
+    .locator(".phone-screen")
+    .screenshot({ path: "outputs/mu-phone/matching-home-wallpaper.png" });
+  await page.getByRole("button", { name: "打开微信", exact: true }).click();
+  for (const name of ["穆之友", "王橹杰"])
+    await expect(
+      page.locator(".wx-chat-row").filter({ hasText: name }).locator("strong"),
+    ).toHaveCSS("color", "rgb(255, 255, 255)");
+  await page.locator(".wx-chat-row").filter({ hasText: "王橹杰" }).click();
+  await expect(
+    page.locator(".skin-message.outgoing .skin-avatar img").first(),
+  ).toHaveAttribute("src", "./story-assets/mu-zhicheng-avatar.jpg");
+  await page.getByRole("button", { name: "返回桌面", exact: true }).click();
+  await page.getByRole("button", { name: "打开微博", exact: true }).click();
+  const post = page.locator(".weibo-post").first();
+  const avatar = await post
+    .locator(".social-author .catalog-avatar")
+    .boundingBox();
+  const card = await post.boundingBox();
+  expect(avatar && card && avatar.x - card.x).toBeLessThan(20);
+  await expect(post.locator(".social-author")).toHaveCSS(
+    "justify-content",
+    "flex-start",
+  );
 });

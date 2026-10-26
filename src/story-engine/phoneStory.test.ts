@@ -25,11 +25,13 @@ it("delivers the first SMS after 5000ms, then WeChat only on entering SMS, and e
   state = dispatch(work, state, "storyComplete", "messages");
   expect(state.endings).toEqual([]);
   state = dispatch(work, state, "sendMessage", "mu-sms-shot");
-  state = advance(work, state, 1000);
+  state = advance(work, state, 2499);
+  expect(state.unlocked).not.toContain("friend-who");
+  state = advance(work, state, 1);
   expect(state.unlocked).toContain("friend-who");
   expect(state.unlocked).not.toContain("mu-dont-know");
   state = dispatch(work, state, "sendMessage", "mu-dont-know");
-  state = advance(work, state, 2000);
+  state = advance(work, state, 5000);
   expect(state.variables.storyPhase).toBe("douyin");
   state = dispatch(work, state, "openApp", "douyin");
   expect(state.variables.storyPhase).toBe("wechat-continued");

@@ -221,3 +221,8 @@
   font-weight: 700;
   line-height: 1;
 }
+.phone-shell.ios18 .wechat-ui.scripted-wechat-dark .wx-chat-row strong,
+.phone-shell.ios18 .wechat-ui.scripted-wechat-dark .wx-nav strong,
+.phone-shell.ios18 .wechat-ui.scripted-wechat-dark .wx-contact {
+  color: #fff;
+}

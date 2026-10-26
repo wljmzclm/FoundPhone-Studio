@@ -190,3 +190,22 @@
 .weibo-author-cover[data-reference="true"] header button svg {
   opacity: 0;
 }
+.phone-shell.ios18 .weibo-author-page .weibo-post .social-author {
+  display: flex;
+  width: 100%;
+  justify-content: flex-start;
+  align-items: center;
+  text-align: left;
+  padding: 14px 13px;
+}
+.phone-shell.ios18 .weibo-author-page .weibo-author-name {
+  justify-content: flex-start;
+  text-align: left;
+}
+.phone-shell.ios18 .weibo-author-page .weibo-author-name h2 {
+  text-align: left;
+}
+.phone-shell.ios18 .weibo-post-detail .post-detail-author {
+  justify-content: flex-start;
+  text-align: left;
+}

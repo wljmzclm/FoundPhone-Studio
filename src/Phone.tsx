@@ -325,7 +325,7 @@ function PhoneRuntime({
         <div
           className={`phone-screen wallpaper-${work.phone.wallpaper} ${locked ? "is-locked" : ""} ${app ? "in-app" : ""} ${keyboard ? "keyboard-open" : ""}`}
           style={
-            locked && work.phone.lockWallpaper
+            work.phone.lockWallpaper
               ? {
                   backgroundImage: `url("${safeMedia(work.phone.lockWallpaper)}")`,
                   backgroundSize: "contain",
@@ -399,7 +399,7 @@ function PhoneRuntime({
             }
           }}
         >
-          {!(locked && work.phone.lockWallpaper) && (
+          {!work.phone.lockWallpaper && (
             <>
               <div className="wallpaper-orb orb-one" />
               <div className="wallpaper-orb orb-two" />
@@ -1038,6 +1038,7 @@ function AppContent({
             <Skin
               appId={app.id}
               owner={work.phone.owner}
+              ownerAvatar={items.find((i) => i.outgoing && i.avatar)?.avatar}
               virtualTime={state.time}
               ui={state.ui?.[app.id]}
               onUi={creator ? undefined : onUi}
