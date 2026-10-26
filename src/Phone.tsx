@@ -1,4 +1,5 @@
 import { StatusGlyph } from "./ios/StatusGlyph";
+import { PersistentNetease } from "./skins/PersistentNetease";
 import { SocialDetail, socialDetailApps } from "./skins/SocialDetails";
 import { NativeCalculator } from "./ios/Calculator";
 import { HomeLauncher } from "./launcher/HomeLauncher";
@@ -135,6 +136,7 @@ function PhoneRuntime({
   onRuntime?: (s: Runtime) => void;
 }) {
   const [app, setApp] = useState("");
+  const [musicOpened, setMusicOpened] = useState(false);
   const [homeRequest, setHomeRequest] = useState(0);
   const [locked, setLocked] = useState(!creator);
   const [pinOpen, setPinOpen] = useState(false);
@@ -270,6 +272,7 @@ function PhoneRuntime({
   const open = (id: string) => {
     if (!canOpenApp(work, runtimeRef.current, id)) return;
     setApp(id);
+    if (id === "netease") setMusicOpened(true);
     setKeyboard(false);
     setRecent((v) => [id, ...v.filter((a) => a !== id)].slice(0, 8));
     setFolder("");
@@ -544,6 +547,13 @@ function PhoneRuntime({
               />
             )}
           </AnimatePresence>
+          {musicOpened && work.data.netease?.[0]?.meta.neteaseSongId && (
+            <PersistentNetease
+              item={work.data.netease[0]}
+              active={app === "netease" && !locked}
+              onBack={() => setApp("")}
+            />
+          )}
           {folder && (
             <div className="folder-overlay" onClick={() => setFolder("")}>
               <h2>{folder}</h2>

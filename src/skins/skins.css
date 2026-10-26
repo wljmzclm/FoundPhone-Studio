@@ -4130,3 +4130,51 @@
 .catalog-slot[hidden] {
   display: none;
 }
+.persistent-netease {
+  position: absolute;
+  inset: 54px 0 32px;
+  z-index: 15;
+  background: #171719;
+  color: #fff;
+  overflow: auto;
+}
+.persistent-netease.background {
+  visibility: hidden;
+  pointer-events: none;
+}
+.persistent-netease .app-nav {
+  color: #fff;
+}
+.netease-online-content {
+  padding: 28px 18px;
+  text-align: center;
+}
+.netease-online-cover {
+  margin: 0 auto 24px;
+  width: 156px;
+  height: 156px;
+  border-radius: 24px;
+  background: linear-gradient(135deg, #a72838, #361c29);
+  display: grid;
+  place-items: center;
+  font-size: 76px;
+}
+.netease-online-content iframe {
+  width: 100%;
+  height: 110px;
+  border: 0;
+  margin: 16px 0;
+  background: #fff;
+  border-radius: 12px;
+}
+.netease-online-content p,
+.netease-online-content small {
+  color: #bdbdc5;
+  font-size: 13px;
+  line-height: 1.7;
+}
+.netease-online-content a {
+  display: block;
+  margin-top: 18px;
+  color: #ff8090;
+}

@@ -493,3 +493,37 @@ test("matching home wallpaper, owner avatar, left-aligned Weibo names and legibl
     "flex-start",
   );
 });
+
+test("Netease opens after unlock and keeps the same player when leaving", async ({
+  page,
+}) => {
+  let loads = 0;
+  await page.route("https://music.163.com/outchain/**", (route) => {
+    loads++;
+    return route.fulfill({
+      contentType: "text/html; charset=utf-8",
+      body: '<button id="play">播放</button><script>document.querySelector("button").onclick=()=>document.body.dataset.playing="true"</script>',
+    });
+  });
+  await page.goto("/");
+  await unlock(page);
+  await page
+    .getByRole("button", { name: "打开网易云音乐", exact: true })
+    .click();
+  const player = page.frameLocator('iframe[title="网易云官方音乐播放器"]');
+  await player.getByRole("button", { name: "播放", exact: true }).click();
+  await page
+    .locator(".persistent-netease")
+    .getByRole("button", { name: "返回桌面", exact: true })
+    .click();
+  await expect(page.locator(".persistent-netease")).toHaveClass(/background/);
+  await expect(player.locator("body")).toHaveAttribute("data-playing", "true");
+  await page.getByRole("button", { name: "打开微信", exact: true }).click();
+  await expect(player.locator("body")).toHaveAttribute("data-playing", "true");
+  await page.getByRole("button", { name: "返回桌面", exact: true }).click();
+  await page
+    .getByRole("button", { name: "打开网易云音乐", exact: true })
+    .click();
+  await expect(page.locator(".persistent-netease")).toHaveClass(/active/);
+  expect(loads).toBe(1);
+});

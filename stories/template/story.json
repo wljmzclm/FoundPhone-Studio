@@ -3,7 +3,7 @@
   "id": "mu-zhicheng-phone",
   "title": "穆祉丞的手机",
   "description": "以穆祉丞的视角探索手机，从王橹杰的新微博通知开始。后续主剧情待补充。",
-  "revision": 17,
+  "revision": 18,
   "phone": {
     "owner": "穆祉丞",
     "date": "2026-10-25",
@@ -18,7 +18,8 @@
         "wechat",
         "messages",
         "weibo",
-        "douyin"
+        "douyin",
+        "netease"
       ],
       "afterEnding": [
         "photos",
@@ -75,6 +76,15 @@
     {
       "id": "safari",
       "name": "浏览器",
+      "installed": true,
+      "visible": true,
+      "dock": false,
+      "folder": "",
+      "icon": ""
+    },
+    {
+      "id": "netease",
+      "name": "网易云音乐",
       "installed": true,
       "visible": true,
       "dock": false,
@@ -1467,6 +1477,16 @@
         "kind": "image",
         "media": "./story-assets/album-11.jpg",
         "folder": "相机胶卷"
+      }
+    ],
+    "netease": [
+      {
+        "id": "netease-song-2134502607",
+        "title": "我的音乐",
+        "body": "网易云音乐 · 歌曲 2134502607",
+        "meta": {
+          "neteaseSongId": "2134502607"
+        }
       }
     ]
   },
