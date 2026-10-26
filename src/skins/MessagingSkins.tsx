@@ -11,8 +11,12 @@ import {
   Send,
   Smile,
   Users,
+  ChevronLeft,
+  Video,
+  UserRound,
 } from "lucide-react";
-import { useState } from "react";
+import { useState, useEffect, useRef } from "react";
+import "./story-messages.css";
 import type { Item } from "../schema";
 import {
   Add,
@@ -36,12 +40,17 @@ function Bubbles({
   items: Item[];
   className?: string;
 }) {
+  const end = useRef<HTMLDivElement>(null);
+  useEffect(() => {
+    end.current?.scrollIntoView({ block: "nearest" });
+  }, [items.length]);
   return (
     <div className={`catalog-bubbles ${className}`}>
       <time className="bubble-date">{items[0]?.time.slice(0, 10)}</time>
       {items.map((i) => (
         <div
           className={`catalog-message ${i.outgoing ? "outgoing" : ""}`}
+          data-message-id={i.id}
           key={i.id}
         >
           <button onClick={() => (p.creator ? p.onItem(i) : p.onRead(i.id))}>
@@ -57,6 +66,7 @@ function Bubbles({
           </button>
         </div>
       ))}
+      <div ref={end} />
     </div>
   );
 }
@@ -64,7 +74,18 @@ function Composer({ p }: { p: Props }) {
   return (
     <div className="catalog-composer">
       <Plus size={19} />
-      <NativeComposer creator={p.creator} onAdd={p.onAdd} />
+      {p.scriptedChat && !p.creator ? (
+        <button
+          className="native-compose-field scripted-compose"
+          aria-label="发送下一条消息"
+          disabled={!p.scriptedReply}
+          onClick={() => p.scriptedReply && p.onSend?.(p.scriptedReply.id)}
+        >
+          {p.scriptedReply ? "点击发送" : "iMessage 信息"}
+        </button>
+      ) : (
+        <NativeComposer creator={p.creator} onAdd={p.onAdd} />
+      )}
 
       <Smile size={20} />
       <Mic size={18} />
@@ -110,6 +131,8 @@ function ChatRows({
 export function MessagesSkin(p: Props) {
   const { q, setQ, items } = useContent(p, "信息");
   const [unread, setUnread] = useState(false);
+  if (items.some((i) => i.meta.appearance === "dark"))
+    return <StoryMessages p={p} items={items} />;
   return (
     <div className="catalog-skin native-messages">
       <Header
@@ -141,6 +164,48 @@ export function MessagesSkin(p: Props) {
           />
         </div>
       )}
+    </div>
+  );
+}
+function StoryMessages({ p, items }: { p: Props; items: Item[] }) {
+  const first = items.find((i) => i.meta.entryThread === "true") || items[0];
+  const thread = p.thread || first?.title || "信息";
+  const [reported, setReported] = useState(false);
+  return (
+    <div className="catalog-skin native-messages sms-story-dark">
+      <header className="sms-story-nav">
+        <button aria-label="返回" onClick={p.onBack}>
+          <ChevronLeft />
+          <span>信息</span>
+        </button>
+        <div>
+          <span className="sms-story-avatar">
+            <UserRound size={32} />
+          </span>
+          <strong>{thread}</strong>
+        </div>
+        <span className="sms-video-glyph" aria-hidden="true">
+          <Video />
+        </span>
+      </header>
+      <div className="sms-story-encryption">
+        iMessage 信息
+        <br />♙ 已加密
+      </div>
+      <Bubbles
+        p={p}
+        items={items.filter((i) => i.title === thread)}
+        className="sms-story-bubbles"
+      />
+      {first?.meta.unknownSender === "true" && (
+        <div className="sms-story-spam">
+          <p>若未预期会收到来自未知发件人的这则信息，其可能为垃圾信息。</p>
+          <button onClick={() => setReported(true)}>
+            {reported ? "已报告垃圾信息" : "报告垃圾信息"}
+          </button>
+        </div>
+      )}
+      <Composer p={p} />
     </div>
   );
 }

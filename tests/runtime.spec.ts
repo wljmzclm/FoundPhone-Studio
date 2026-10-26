@@ -171,11 +171,17 @@ test("production PWA cached story works after offline reload", async ({
     await context.setOffline(true);
     await page.reload();
     await page.getByRole("button", { name: "轻触解锁" }).click();
-    await open(page, "设置");
-    await expect(page.getByRole("switch", { name: "飞行模式" })).toBeVisible();
+    for (const n of "2711")
+      await page
+        .getByRole("button", { name: "密码键" + n, exact: true })
+        .click();
+    await open(page, "微博");
+    await expect(
+      page.getByRole("region", { name: "王橹杰的微博主页" }),
+    ).toBeVisible();
     await page
       .locator(".phone-screen")
-      .screenshot({ path: "outputs/v0.6/offline-settings.png" });
+      .screenshot({ path: "outputs/mu-phone/offline-weibo.png" });
   } finally {
     await context.close();
   }

@@ -1,6 +1,7 @@
 import { initialRuntime, type Work } from "../schema";
 import { dispatch, advance, choose, visible } from "../engine";
 import type { Story } from "./compiler";
+import { nextScriptedReply } from "../scriptedChat";
 export function testStory(story: Story, work: Work) {
   const errors: string[] = [];
   if (work.nodes.some((n) => n.type !== "comment") && !story.tests.length)
@@ -34,6 +35,14 @@ export function testStory(story: Story, work: Work) {
           continue;
         }
       }
+      if (
+        step.event === "sendMessage" &&
+        nextScriptedReply(Object.values(work.data).flat(), state)?.id !==
+          step.target
+      ) {
+        errors.push(at + ": 当前不可发送这条消息");
+        continue;
+      }
       if (step.choose) {
         if (!state.choices.some((c) => c.target === step.choose))
           errors.push(at + ": 选项不可达");
@@ -43,9 +52,14 @@ export function testStory(story: Story, work: Work) {
         state = advance(work, state, step.advanceMs);
       if (step.event) state = dispatch(work, state, step.event, step.target);
     }
-    if (!state.endings.includes(t.ending))
+    if (!t.ending && !t.expectNotifications.length && !t.expectUnlocked.length)
+      errors.push(t.name + ": 测试必须检查结局、通知或解锁内容");
+    if (t.ending && !state.endings.includes(t.ending))
       errors.push(t.name + ": 未到达结局 " + t.ending);
-    else reached.add(t.ending);
+    else if (t.ending) reached.add(t.ending);
+    for (const notice of t.expectNotifications)
+      if (!state.notifications.includes(notice))
+        errors.push(t.name + ": 未收到通知 " + notice);
     for (const id of t.expectUnlocked)
       if (!state.unlocked.includes(id)) errors.push(t.name + ": 未解锁 " + id);
   }

@@ -90,6 +90,17 @@ describe("import and schema safety", () => {
     expect(safeMedia("data:image/svg+xml;base64,PHN2Zz4=")).toBe("");
     expect(safeMedia("https://example.com/image.png")).toBe("");
     expect(safeMedia("data:image/png;base64,YQ==")).not.toBe("");
+    expect(safeMedia("./story-assets/mu-zhiyou-avatar.jpg")).toBe(
+      "./story-assets/mu-zhiyou-avatar.jpg",
+    );
+    for (const path of [
+      "./story-assets/../secret.jpg",
+      "./story-assets/%2e%2e/secret.jpg",
+      "./story-assets/picture.svg",
+      "//example.com/picture.jpg",
+      "./story-assets/photo.jpg?redirect=https://example.com",
+    ])
+      expect(safeMedia(path)).toBe("");
   });
   it("parses script and explains invalid lines", () => {
     const r = parseChat(

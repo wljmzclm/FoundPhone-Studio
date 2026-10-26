@@ -42,6 +42,31 @@
         "wallpaper": {
           "type": "string"
         },
+        "lockWallpaper": {
+          "type": "string"
+        },
+        "appAccess": {
+          "type": "object",
+          "properties": {
+            "duringStory": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            },
+            "afterEnding": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            }
+          },
+          "required": [
+            "duringStory",
+            "afterEnding"
+          ],
+          "additionalProperties": false
+        },
         "theme": {
           "type": "string",
           "enum": [
@@ -630,7 +655,15 @@
             }
           },
           "ending": {
+            "default": "",
             "type": "string"
+          },
+          "expectNotifications": {
+            "default": [],
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
           },
           "expectUnlocked": {
             "default": [],
@@ -644,6 +677,7 @@
           "name",
           "steps",
           "ending",
+          "expectNotifications",
           "expectUnlocked"
         ],
         "additionalProperties": false

@@ -90,7 +90,8 @@ export const storySchema = z
               password: z.string().optional(),
             }),
           ),
-          ending: z.string(),
+          ending: z.string().default(""),
+          expectNotifications: z.array(z.string()).default([]),
           expectUnlocked: z.array(z.string()).default([]),
         }),
       )
@@ -132,6 +133,14 @@ export function compileStory(raw: unknown): { story: Story; work: Work } {
     if (!registry.some((r) => r.id === (typeof a === "string" ? a : a.id)))
       fail(`installedApps.${i}`, "未注册的 App");
   });
+  if (s.phone.appAccess) {
+    for (const [phase, apps] of Object.entries(s.phone.appAccess)) {
+      for (const app of apps) {
+        if (!installed.has(app))
+          fail(`phone.appAccess.${phase}`, `权限 App ${app} 未安装`);
+      }
+    }
+  }
   const data: Work["data"] = {};
   const add = (
     app: string,
@@ -147,7 +156,7 @@ export function compileStory(raw: unknown): { story: Story; work: Work } {
     });
     for (const k of ["media", "avatar"] as const)
       if (item[k] && !safeMedia(item[k]))
-        fail(p + "." + k, "仅允许受支持的内嵌媒体，不允许脚本或远程资源");
+        fail(p + "." + k, "仅允许受支持的内嵌媒体或 story-assets 图片，不允许脚本或远程资源");
     if (item.richText) {
       let doc;
       try {
@@ -241,6 +250,19 @@ export function compileStory(raw: unknown): { story: Story; work: Work } {
     });
     if (n.event === "read" && n.target && !itemIds.has(n.target))
       fail(`events.${i}.target`, "不存在的内容");
+    if (
+      n.event === "sendMessage" &&
+      n.target &&
+      !Object.values(data)
+        .flat()
+        .some(
+          (item) =>
+            item.id === n.target &&
+            item.outgoing &&
+            item.meta.sendOnTap === "true",
+        )
+    )
+      fail(`events.${i}.target`, "不存在的可发送消息");
     if (n.event === "openApp" && n.target && !installed.has(n.target))
       fail(`events.${i}.target`, "事件 App 未安装");
     n.actions.forEach((a, j) => {

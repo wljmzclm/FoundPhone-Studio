@@ -2,6 +2,7 @@ import { defineConfig } from "@playwright/test";
 export default defineConfig({
   testDir: "tests",
   testMatch: [
+    "story-access.spec.ts",
     "runtime.spec.ts",
     "release.spec.ts",
     "launcher.spec.ts",

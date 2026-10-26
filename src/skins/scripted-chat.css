@@ -1,0 +1,223 @@
+.phone-shell.ios18 .wechat-ui.scripted-wechat-dark {
+  background: #111;
+  color: #ddd;
+}
+.phone-shell.ios18 .wechat-ui.scripted-wechat-dark .wx-nav,
+.phone-shell.ios18 .wechat-ui.scripted-wechat-dark .skin-compose {
+  background: #1c1c1c;
+  color: #ddd;
+  border-color: #292929;
+}
+.phone-shell.ios18 .wechat-ui.scripted-wechat-dark .skin-scroll,
+.phone-shell.ios18 .wechat-ui.scripted-wechat-dark .skin-messages {
+  background: #111;
+  color: #ddd;
+}
+.phone-shell.ios18 .wechat-ui.scripted-wechat-dark .skin-bubble {
+  background: #292929;
+  color: #ddd;
+}
+.phone-shell.ios18 .wechat-ui.scripted-wechat-dark .outgoing .skin-bubble {
+  background: #1db461;
+  color: #07150b;
+}
+.phone-shell.ios18 .wechat-ui.scripted-wechat-dark .native-compose-field {
+  background: #2b2b2b;
+  color: #ddd;
+  border: 0;
+}
+.phone-shell.ios18 .wechat-ui.scripted-wechat-dark .scripted-compose {
+  font-size: 13px;
+  text-align: left;
+  padding-left: 12px;
+}
+.phone-shell.ios18 .wechat-ui.scripted-wechat-dark .scripted-compose:disabled {
+  color: #777;
+}
+.phone-shell.ios18 .wechat-ui.scripted-wechat-dark .wx-chat-row {
+  background: #171717;
+  color: #ddd;
+  border-color: #222;
+}
+.message-evidence {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background: #000;
+  color: #ddd;
+  text-align: left;
+  padding: 12px 10px;
+  width: 170px;
+  min-height: 295px;
+  gap: 9px;
+  font-size: 7px;
+  line-height: 1.35;
+  box-sizing: border-box;
+  border-radius: 4px;
+  white-space: normal;
+}
+.evidence-person {
+  background: linear-gradient(#6c6483, #323047);
+  border-radius: 50%;
+  font-size: 20px;
+  line-height: 1;
+  width: 30px;
+  height: 30px;
+  text-align: center;
+  color: white;
+  padding-top: 3px;
+  box-sizing: border-box;
+}
+.evidence-number {
+  background: #222;
+  border-radius: 10px;
+  padding: 3px 11px;
+  font-size: 8px;
+}
+.evidence-encryption {
+  color: #777;
+  text-align: center;
+  font-size: 7px;
+}
+.evidence-bubble {
+  display: block;
+  background: #27272b;
+  border-radius: 11px;
+  padding: 9px 8px;
+  align-self: flex-start;
+  width: 94%;
+  box-sizing: border-box;
+  white-space: normal;
+}
+.evidence-outgoing {
+  background: #168dff;
+  align-self: flex-end;
+}
+.evidence-spam {
+  display: block;
+  color: #777;
+  font-size: 6px;
+  text-align: center;
+  line-height: 1.6;
+}
+.evidence-spam > span {
+  color: #168aff;
+}
+.evidence-search {
+  display: block;
+  width: 100%;
+  background: #444;
+  padding: 4px 7px;
+  border-radius: 6px;
+  box-sizing: border-box;
+}
+.evidence-douyin {
+  width: 180px;
+  min-height: 310px;
+  gap: 8px;
+}
+.phone-shell.ios18
+  .wechat-ui.scripted-wechat-dark
+  .skin-bubble:has(.message-evidence) {
+  padding: 0;
+  background: none;
+}
+.phone-shell.ios18 .wechat-ui.scripted-wechat-dark .skin-message {
+  align-items: flex-start;
+}
+.phone-shell.ios18 .wechat-ui.scripted-wechat-dark .skin-messages {
+  scroll-behavior: smooth;
+}
+.chat-evidence-overlay {
+  position: absolute;
+  inset: 0;
+  z-index: 30;
+  background: #000;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 18px 12px;
+  overflow: auto;
+}
+.chat-evidence-overlay > .message-evidence {
+  width: 100%;
+  font-size: 13px;
+  min-height: 80%;
+  gap: 16px;
+}
+.chat-evidence-overlay .evidence-person {
+  width: 45px;
+  height: 45px;
+  font-size: 30px;
+}
+.chat-evidence-overlay .evidence-number,
+.chat-evidence-overlay .evidence-encryption {
+  font-size: 12px;
+}
+.chat-evidence-overlay .evidence-spam {
+  font-size: 10px;
+}
+.chat-evidence-overlay > button {
+  color: #fff;
+  margin-bottom: 12px;
+  align-self: flex-start;
+  padding: 8px;
+}
+
+.phone-shell.ios18 .phone-screen:has(.scripted-wechat-dark) > .status-bar,
+.phone-shell.ios18 .phone-screen:has(.sms-story-dark) > .status-bar,
+.phone-shell.ios18 .phone-screen:has(.douyin-story) > .status-bar {
+  background: #111;
+  color: white;
+}
+.phone-shell.ios18 .phone-screen:has(.scripted-wechat-dark) > .home-indicator,
+.phone-shell.ios18 .phone-screen:has(.sms-story-dark) > .home-indicator,
+.phone-shell.ios18 .phone-screen:has(.douyin-story) > .home-indicator {
+  background: transparent;
+}
+
+.phone-shell.ios18
+  .phone-screen:has(.scripted-wechat-dark)
+  > .home-indicator:after,
+.phone-shell.ios18 .phone-screen:has(.sms-story-dark) > .home-indicator:after,
+.phone-shell.ios18 .phone-screen:has(.douyin-story) > .home-indicator:after {
+  background: white;
+}
+.phone-shell.ios18 .phone-screen:has(.scripted-wechat-dark),
+.phone-shell.ios18 .phone-screen:has(.sms-story-dark),
+.phone-shell.ios18 .phone-screen:has(.douyin-story) {
+  background: #111;
+}
+.phone-shell.ios18 .wechat-ui.wechat-history,
+.phone-shell.ios18 .wechat-ui.wechat-history .wx-nav,
+.phone-shell.ios18 .wechat-ui.wechat-history .skin-messages {
+  background: #ededed;
+  color: #111;
+}
+.phone-shell.ios18 .wechat-ui.wechat-history .skin-message {
+  align-items: center;
+  gap: 9px;
+}
+.phone-shell.ios18 .wechat-ui.wechat-history .skin-bubble {
+  max-width: 245px;
+}
+.phone-shell.ios18 .wechat-ui.wechat-history .history-date {
+  color: #a0a0a0;
+  text-align: center;
+  margin: 10px 0 8px;
+  font-size: 13px;
+}
+.phone-shell.ios18 .wechat-ui.wechat-history .history-send-failed {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex: none;
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  background: #f5352e;
+  color: white;
+  font-size: 19px;
+  font-weight: 700;
+  line-height: 1;
+}

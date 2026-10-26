@@ -1,4 +1,5 @@
 import { useSkinState } from "../skinState";
+import { WeiboProfile } from "./WeiboProfile";
 import {
   ArrowDown,
   ArrowUp,
@@ -89,6 +90,11 @@ function WeiboActions({ p, item }: { p: Props; item: Item }) {
   );
 }
 export function WeiboSkin(p: Props) {
+  const profile = p.items.find((i) => i.meta.view === "profile");
+  if (profile) return <WeiboProfile p={p} profile={profile} />;
+  return <WeiboFeed p={p} />;
+}
+function WeiboFeed({ p }: { p: Props }) {
   const { tab, setTab, q, setQ, items } = useContent(p, "关注");
   const [feed, setFeed] = useState("全部");
   const list = feed === "全部" ? items : items.filter((i) => i.folder === feed);

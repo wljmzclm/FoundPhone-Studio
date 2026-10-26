@@ -21,6 +21,7 @@ import {
 import { useSkinState } from "../skinState";
 import { RichText } from "../RichText";
 import { Avatar, Media, meta } from "./shared";
+import { StoryGallery } from "./StoryGallery";
 import type { Item, UiValue } from "../schema";
 import "./social-details.css";
 export const socialDetailApps = new Set(["twitter", "weibo"]);
@@ -125,7 +126,11 @@ export function SocialDetail(p: {
       </header>
       <div className="post-detail-scroll">
         <div className="post-detail-author">
-          <Avatar name={item.sender} src={item.avatar} />
+          <Avatar
+            name={item.sender}
+            src={item.avatar}
+            crop={item.meta.avatarCrop}
+          />
           <div>
             <strong>{item.sender || "用户"}</strong>
             <small>
@@ -152,7 +157,12 @@ export function SocialDetail(p: {
         </div>
         <div className="post-detail-body">
           <RichText value={item.richText} fallback={item.body} />
-          {item.media && <Media item={item} />}
+          {item.media &&
+            (weibo ? (
+              <StoryGallery item={item} interactive />
+            ) : (
+              <Media item={item} />
+            ))}
         </div>
         {weibo ? (
           <div className="weibo-share-options">
@@ -184,9 +194,13 @@ export function SocialDetail(p: {
               >
                 {name}{" "}
                 {name === "评论"
-                  ? count(comments.length)
+                  ? meta(item, "commentCount", count(comments.length))
                   : name === "赞"
-                    ? count(item.likes + (liked ? 1 : 0))
+                    ? weibo && item.likes >= 10000
+                      ? ((item.likes + (liked ? 1 : 0)) / 10000)
+                          .toFixed(1)
+                          .replace(/\.0$/, "") + "万"
+                      : count(item.likes + (liked ? 1 : 0))
                     : meta(item, "reposts", "0")}
               </button>
             ))}

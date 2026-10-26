@@ -1,0 +1,152 @@
+.douyin-story {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  background: #000;
+  color: white;
+  position: relative;
+}
+.douyin-story > header {
+  display: flex;
+  align-items: center;
+  gap: 13px;
+  padding: 11px 12px;
+  background: #080808;
+}
+.douyin-story > header > span {
+  display: flex;
+  align-items: center;
+  flex: 1;
+  gap: 6px;
+  background: #505050;
+  border-radius: 10px;
+  padding: 9px;
+  font-size: 14px;
+  color: #ddd;
+}
+.douyin-story > header b {
+  font-weight: 400;
+  margin-left: auto;
+  border-left: 1px solid #888;
+  padding-left: 8px;
+}
+.douyin-story-scroll {
+  position: relative;
+  overflow: auto;
+  flex: 1;
+  padding: 12px 12px 0;
+}
+.douyin-story-scroll > .message-evidence {
+  width: 100%;
+  font-size: 11px;
+  padding: 0 5px 0 2px;
+  min-height: 0;
+  gap: 12px;
+}
+.douyin-story-scroll .evidence-number {
+  font-size: 13px;
+  padding: 8px 20px;
+}
+.douyin-story-scroll .evidence-person {
+  font-size: 31px;
+  width: 46px;
+  height: 46px;
+}
+.douyin-story-scroll .evidence-encryption {
+  font-size: 10px;
+}
+.douyin-story-scroll .evidence-bubble {
+  max-width: 83%;
+  border-radius: 17px;
+  padding: 12px;
+  line-height: 1.5;
+}
+.douyin-story-scroll .evidence-outgoing {
+  margin-right: 0;
+  align-self: flex-end;
+  max-width: 80%;
+  margin-bottom: 3px;
+}
+.douyin-story-scroll > .message-evidence > .evidence-search {
+  display: none;
+}
+.douyin-story-scroll > aside {
+  position: absolute;
+  right: 7px;
+  top: 320px;
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+.douyin-story-scroll > aside button {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 5px;
+  font-size: 10px;
+}
+.douyin-story-scroll > aside svg {
+  width: 25px;
+  height: 25px;
+}
+.douyin-recommendations {
+  display: inline-block;
+  background: #222;
+  padding: 5px 8px;
+  font-size: 10px;
+  margin: 4px 0 8px;
+  border-radius: 3px;
+}
+.douyin-story-caption > span {
+  display: block;
+  text-align: center;
+  font-size: 10px;
+  color: #ccc;
+}
+.douyin-story-caption p {
+  font-size: 12px;
+  line-height: 1.65;
+  margin: 12px 0;
+}
+.douyin-story-related {
+  padding: 10px 0;
+  border-top: 1px solid #202020;
+  border-bottom: 1px solid #202020;
+  font-size: 11px;
+  color: #ddd;
+}
+.douyin-story footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 8px 0 22px;
+  font-size: 14px;
+}
+.douyin-story footer small {
+  display: block;
+  font-weight: 400;
+  font-size: 10px;
+  color: #777;
+  margin-top: 5px;
+}
+.douyin-story footer button {
+  background: #ff2552;
+  border-radius: 8px;
+  padding: 12px 22px;
+  font-weight: 600;
+}
+.douyin-story-panel {
+  position: absolute;
+  inset: 45% 0 0;
+  background: #202020;
+  border-radius: 14px 14px 0 0;
+  padding: 20px;
+  z-index: 5;
+}
+.douyin-story-panel > button {
+  float: right;
+}
+.douyin-story-panel p {
+  color: #aaa;
+  font-size: 13px;
+}

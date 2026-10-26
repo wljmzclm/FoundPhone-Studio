@@ -304,7 +304,11 @@ export function CameraSkin(p: Props) {
 }
 export function SafariSkin(p: Props) {
   const [q, setQ] = useState(""),
-    [tab, setTab] = useState("书签");
+    [tab, setTab] = useState(
+      p.items.some((i) => i.meta.searchHistory === "true")
+        ? "历史记录"
+        : "书签",
+    );
   const items = p.items
     .filter((i) =>
       (i.title + i.body + meta(i, "url"))
@@ -321,7 +325,9 @@ export function SafariSkin(p: Props) {
       <Header p={p} />
       <div className="catalog-scroll">
         <h1>{tab}</h1>
-        <div className="safari-favorites">
+        <div
+          className={`safari-favorites ${tab === "历史记录" ? "safari-search-history" : ""}`}
+        >
           {items.map((i) => (
             <button key={i.id} onClick={() => p.onItem(i)}>
               <span>

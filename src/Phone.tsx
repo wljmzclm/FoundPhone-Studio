@@ -64,6 +64,8 @@ import {
 } from "./schema";
 import { dispatch, choose, visible, advance } from "./engine";
 import { db } from "./persistence";
+import { canOpenApp } from "./appAccess";
+import { nextScriptedReply } from "./scriptedChat";
 export function AppIcon({
   id,
   name,
@@ -266,7 +268,7 @@ function PhoneRuntime({
       if (!recent.includes(id) && id !== app) appSnapshots.current.delete(id);
   };
   const open = (id: string) => {
-    if (!work.apps.some((a) => a.id === id && a.installed)) return;
+    if (!canOpenApp(work, runtimeRef.current, id)) return;
     setApp(id);
     setKeyboard(false);
     setRecent((v) => [id, ...v.filter((a) => a !== id)].slice(0, 8));
@@ -275,7 +277,10 @@ function PhoneRuntime({
     onOpen?.(id);
     event("openApp", id);
   };
-  const installedApps = work.apps.filter((a) => a.installed);
+  const installedApps = work.apps.filter((a) => canOpenApp(work, s, a.id));
+  const playableWork = work.phone.appAccess
+    ? { ...work, apps: installedApps }
+    : work;
   const apps = installedApps.filter((a) => a.visible);
   const unlock = (pin = "") => {
     if (!work.phone.passcode || pin === work.phone.passcode) {
@@ -288,8 +293,8 @@ function PhoneRuntime({
     }
   };
   useEffect(() => {
-    if (app && !work.apps.some((a) => a.id === app && a.installed)) setApp("");
-  }, [app, work.apps]);
+    if (app && !canOpenApp(work, s, app)) setApp("");
+  }, [app, work, s]);
   const displayTime = creator ? work.phone.time : s.time || work.phone.time;
   const plugin = getApp(app);
   useEffect(() => {
@@ -319,6 +324,16 @@ function PhoneRuntime({
       <KeyboardContext.Provider value={setKeyboard}>
         <div
           className={`phone-screen wallpaper-${work.phone.wallpaper} ${locked ? "is-locked" : ""} ${app ? "in-app" : ""} ${keyboard ? "keyboard-open" : ""}`}
+          style={
+            locked && work.phone.lockWallpaper
+              ? {
+                  backgroundImage: `url("${safeMedia(work.phone.lockWallpaper)}")`,
+                  backgroundSize: "contain",
+                  backgroundPosition: "center",
+                  backgroundRepeat: "no-repeat",
+                }
+              : undefined
+          }
           data-app={app}
           onDragStart={(e) => e.preventDefault()}
           onPointerDown={(e) => {
@@ -384,8 +399,12 @@ function PhoneRuntime({
             }
           }}
         >
-          <div className="wallpaper-orb orb-one" />
-          <div className="wallpaper-orb orb-two" />
+          {!(locked && work.phone.lockWallpaper) && (
+            <>
+              <div className="wallpaper-orb orb-one" />
+              <div className="wallpaper-orb orb-two" />
+            </>
+          )}
           <div className="status-bar">
             <button
               onClick={() =>
@@ -418,8 +437,11 @@ function PhoneRuntime({
               <DeviceLock
                 work={
                   s.date
-                    ? { ...work, phone: { ...work.phone, date: s.date } }
-                    : work
+                    ? {
+                        ...playableWork,
+                        phone: { ...work.phone, date: s.date },
+                      }
+                    : playableWork
                 }
                 time={displayTime}
                 notices={s.notifications}
@@ -453,6 +475,7 @@ function PhoneRuntime({
                   creator={creator}
                   state={s}
                   onRead={(id) => event("read", id)}
+                  onSend={(id) => event("sendMessage", id)}
                   onEdit={(item) => onEdit?.(app, item)}
                   onAdd={() => onAdd?.(app)}
                   onBack={() => setApp("")}
@@ -484,8 +507,12 @@ function PhoneRuntime({
                 }
                 storeOpen={app === "appstore"}
                 closeStore={() => setApp("")}
-                work={work}
-                layout={deviceLayout.layout}
+                work={playableWork}
+                layout={
+                  work.phone.appAccess
+                    ? { ...deviceLayout.layout, apps: installedApps }
+                    : deviceLayout.layout
+                }
                 change={deviceLayout.change}
                 importLayout={deviceLayout.importLayout}
                 error={deviceLayout.error}
@@ -555,11 +582,10 @@ function PhoneRuntime({
                     <SystemNotifications
                       notices={s.notifications}
                       apps={work.apps}
-                      onOpen={() => {
+                      onOpen={(appId) => {
                         setPanel("");
                         if (locked) beginUnlock();
-                        else if (installedApps.some((a) => a.id === "messages"))
-                          open("messages");
+                        else open(appId);
                       }}
                       onDismiss={dismissNotice}
                     />
@@ -592,22 +618,44 @@ function PhoneRuntime({
               ))}
             </div>
           )}
-          {!creator && s.endings.length > 0 && !locked && (
-            <div className="story-overlay ending">
-              <span className="eyebrow">ENDING · {s.endings.length}</span>
-              <h2>故事在这里停泊。</h2>
-              <p>{s.endings[s.endings.length - 1]}</p>
-              <button
-                onClick={() => {
-                  update(dispatch(work, initialRuntime(work), "start"));
-                  setApp("");
-                  setLocked(true);
-                }}
-              >
-                重新开始
-              </button>
-            </div>
-          )}
+          {!creator &&
+            s.endings.length > 0 &&
+            !locked &&
+            s.ui?.phone?.dismissedEndings !== s.endings.length && (
+              <div className="story-overlay ending">
+                <span className="eyebrow">ENDING · {s.endings.length}</span>
+                <h2>故事在这里停泊。</h2>
+                <p>{s.endings[s.endings.length - 1]}</p>
+                {work.phone.appAccess && (
+                  <button
+                    onClick={() => {
+                      update({
+                        ...s,
+                        ui: {
+                          ...s.ui,
+                          phone: {
+                            ...s.ui?.phone,
+                            dismissedEndings: s.endings.length,
+                          },
+                        },
+                      });
+                      setApp("");
+                    }}
+                  >
+                    继续探索手机
+                  </button>
+                )}
+                <button
+                  onClick={() => {
+                    update(dispatch(work, initialRuntime(work), "start"));
+                    setApp("");
+                    setLocked(true);
+                  }}
+                >
+                  重新开始
+                </button>
+              </div>
+            )}
           {!creator && s.incomingCall && (
             <div className="incoming-call-screen">
               <small>
@@ -683,7 +731,7 @@ function PhoneRuntime({
               className="device-banner"
               onClick={() => {
                 setBanner("");
-                setPanel("notification");
+                open(notificationContent(banner, work.apps).appId);
               }}
             >
               <AppIcon
@@ -861,6 +909,7 @@ function AppContent({
   creator,
   state,
   onRead,
+  onSend,
   onEdit,
   onAdd,
   onBack,
@@ -874,6 +923,7 @@ function AppContent({
   creator: boolean;
   state: Runtime;
   onRead: (id: string) => void;
+  onSend: (id: string) => void;
   onEdit: (item: Item) => void;
   onAdd: () => void;
   onBack: () => void;
@@ -993,6 +1043,9 @@ function AppContent({
               onUi={creator ? undefined : onUi}
               name={name}
               items={shown}
+              scriptedReply={nextScriptedReply(items, state)}
+              scriptedChat={items.some((i) => i.meta.sendOnTap === "true")}
+              onSend={onSend}
               creator={creator}
               onRead={onRead}
               onItem={read}

@@ -14,10 +14,16 @@
 |events|节点id/label/type/event/target、conditions、actions、next、delayMs；参见原 WORK_FORMAT|
 |tests|name、steps、ending、expectUnlocked；所有ending节点至少一个通过的实际引擎路径|
 
+`phone.lockWallpaper` 可设置内嵌或作品内 PNG/JPEG/WebP 锁屏图片；不设置时沿用主题壁纸。`phone.appAccess` 可配置 `duringStory`（剧情中可用 App ID）与 `afterEnding`（到达结局后额外开放的 App ID）；两组中的 App 都应包含在 `installedApps`。未配置权限的旧故事保持原有自由安装与探索行为。
+
+点击发送的预设消息使用 `hidden: true`、`outgoing: true`（聊天中可通过 `senderId: "owner"` 设置），并在 meta 中设置 `sendOnTap: "true"`、`sendPhase`（匹配变量 storyPhase）、可选的 `sendAfter`（前置消息 ID）。只有前置消息已解锁、阶段匹配时输入框才允许发送；点击发出 `sendMessage` 事件，target 为该消息 ID。事件节点须显式 unlock 该消息，并通过 delay 节点依次解锁自动回复。后续发送以最后一条自动回复为前置；读消息不会代替点击发送。剧情测试支持 `event: "sendMessage"`，并检查当前是否可发送，防止跳过对话顺序。
+
+尚未写完的剧情片段可在 tests 中省略 ending，使用 `expectNotifications` 检查实际通知或 `expectUnlocked` 检查解锁内容。每个测试必须有至少一项结果断言；这不会取代已有结局的通关测试。通知格式如 `微博：某位博主发布了新的微博`，点击通知会打开匹配名称的 App。
+
 各ID全局唯一且稳定；不要使用随机UUID。默认值由编译器补齐，未知字段拒绝，不会执行脚本。时间线使用 time 事件、delay节点及 date/time动作；来电使用call动作，接听callAnswered。条件使用变量以及 read:/visited:/unlocked:/completed:/clue:/ui: 等原引擎作用域。unlock动作解锁隐藏内容；password是内容密码，测试read前必须提供正确password。玩家选择用choice节点的next或choice动作关联目标节点。商店/账单/社交/通话/日历使用对应 App 的content与meta字段，详见APP_DEVELOPMENT.md。
 
 测试step支持event/target、password、advanceMs、choose。测试是指定路径的可达性证据，不是对任意用户自定义条件的数学穷举证明。未知密码、隐藏内容、悬空引用、无测试结局会失败。
 
-媒体仅支持safeMedia允许的内嵌data URL格式。禁止HTML/JS脚本；富文本为安全结构化JSON。作品脚本是公开静态数据，谜题密码不属于安全保密机制。
+媒体支持 safeMedia 允许的内嵌 data URL，或 `./story-assets/文件名.jpg` 形式的作品内图片。作品图片放在 public/story-assets，文件名仅使用英文字母、数字、短横线或下划线，扩展名为 png/jpg/jpeg/webp/gif；不允许路径穿越、查询参数、远程地址或 SVG。禁止HTML/JS脚本；富文本为安全结构化JSON。作品脚本是公开静态数据，谜题密码不属于安全保密机制。
 
 默认空白模板：stories/blank/story.json。引擎回归样例位于tests/fixtures/story-example，不作为内置作品。自然语言原稿：tests/fixtures/story-example/STORY.md。只改故事数据就能改变手机内容。

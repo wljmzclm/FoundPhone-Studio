@@ -1,6 +1,8 @@
 import { NativeComposer } from "./DeviceSystem";
 import { useSkinState } from "./skinState";
-import { useState } from "react";
+import { Fragment, useState, useEffect, useRef } from "react";
+import { MessageEvidence } from "./skins/MessageEvidence";
+import "./skins/scripted-chat.css";
 import {
   ChevronLeft,
   Plus,
@@ -40,6 +42,9 @@ export type SkinProps = {
   virtualTime?: string;
   name: string;
   items: Item[];
+  scriptedReply?: Item;
+  scriptedChat?: boolean;
+  onSend?: (id: string) => void;
   creator: boolean;
   onRead: (id: string) => void;
   onItem: (i: Item) => void;
@@ -59,7 +64,7 @@ function Avatar({
 }) {
   return (
     <span className={`skin-avatar ${round ? "round" : ""}`}>
-      {safeMedia(src)?.startsWith("data:image/") ? (
+      {safeMedia(src) && /^(data:image\/|\.\/story-assets\/)/.test(src) ? (
         <img src={safeMedia(src)} alt="" />
       ) : (
         name.slice(0, 1)
@@ -68,6 +73,8 @@ function Avatar({
   );
 }
 function ItemMedia({ item }: { item: Item }) {
+  if (item.meta.attachment && !item.media)
+    return <MessageEvidence item={item} />;
   const src = safeMedia(item.media);
   return src ? (
     item.kind === "audio" ? (
@@ -89,46 +96,91 @@ function MessageList({
   onItem,
   onRead,
   whatsapp = false,
+  history = false,
 }: {
   items: Item[];
   creator: boolean;
   onItem: (i: Item) => void;
   onRead: (id: string) => void;
   whatsapp?: boolean;
+  history?: boolean;
 }) {
+  const end = useRef<HTMLDivElement>(null);
+  const scroll = useRef<HTMLDivElement>(null);
+  const [attachment, setAttachment] = useState<Item | null>(null);
+  useEffect(() => {
+    if (history) scroll.current?.scrollTo({ top: 0 });
+    else end.current?.scrollIntoView({ block: "nearest" });
+  }, [items.length, history]);
   return (
-    <div className={`skin-messages ${whatsapp ? "wa-wallpaper" : ""}`}>
-      <div className="skin-date">{items[0]?.time.slice(0, 10)}</div>
-      {items.map((i) => (
-        <div
-          key={i.id}
-          className={`skin-message ${i.outgoing ? "outgoing" : ""}`}
-        >
-          {!whatsapp && !i.outgoing && (
-            <Avatar name={i.sender} src={i.avatar} />
-          )}
-          <button
-            className="skin-bubble"
-            onClick={() => (creator ? onItem(i) : onRead(i.id))}
-          >
-            {["image", "audio", "video"].includes(i.kind) ? (
-              <ItemMedia item={i} />
-            ) : i.kind === "transfer" ? (
-              <div className="skin-transfer">
-                ¥ {i.body}
-                <small>转账记录 · 虚构</small>
-              </div>
-            ) : (
-              i.body
+    <div
+      ref={scroll}
+      className={`skin-messages ${whatsapp ? "wa-wallpaper" : ""}`}
+    >
+      {!history && (
+        <div className="skin-date">{items[0]?.time.slice(0, 10)}</div>
+      )}
+      {items
+        .filter((i) => i.meta.conversationOnly !== "true")
+        .map((i) => (
+          <Fragment key={i.id}>
+            {history && i.meta.dateLabel && (
+              <div className="skin-date history-date">{i.meta.dateLabel}</div>
             )}
-            <small className={whatsapp ? undefined : "wx-message-time"}>
-              {i.time.slice(-5)}{" "}
-              {whatsapp && i.outgoing && <CheckCheck size={11} />}
-            </small>
-          </button>
-          {!whatsapp && i.outgoing && <Avatar name={i.sender} src={i.avatar} />}
+            <div
+              className={`skin-message ${i.outgoing ? "outgoing" : ""}`}
+              data-message-id={i.id}
+            >
+              {!whatsapp && !i.outgoing && (
+                <Avatar name={i.sender} src={i.avatar} />
+              )}
+              {history && i.meta.deliveryStatus === "failed" && (
+                <span
+                  className="history-send-failed"
+                  role="img"
+                  aria-label="发送失败"
+                >
+                  !
+                </span>
+              )}
+              <button
+                className="skin-bubble"
+                onClick={() => {
+                  if (creator) onItem(i);
+                  else {
+                    onRead(i.id);
+                    if (i.meta.attachment) setAttachment(i);
+                  }
+                }}
+              >
+                {["image", "audio", "video"].includes(i.kind) ? (
+                  <ItemMedia item={i} />
+                ) : i.kind === "transfer" ? (
+                  <div className="skin-transfer">
+                    ¥ {i.body}
+                    <small>转账记录 · 虚构</small>
+                  </div>
+                ) : (
+                  i.body
+                )}
+                <small className={whatsapp ? undefined : "wx-message-time"}>
+                  {i.time.slice(-5)}{" "}
+                  {whatsapp && i.outgoing && <CheckCheck size={11} />}
+                </small>
+              </button>
+              {!whatsapp && i.outgoing && (
+                <Avatar name={i.sender} src={i.avatar} />
+              )}
+            </div>
+          </Fragment>
+        ))}
+      <div ref={end} />
+      {attachment && (
+        <div className="chat-evidence-overlay">
+          <button onClick={() => setAttachment(null)}>关闭图片</button>
+          <MessageEvidence item={attachment} />
         </div>
-      ))}
+      )}
     </div>
   );
 }
@@ -136,15 +188,32 @@ function Compose({
   creator,
   onAdd,
   wa = false,
+  scripted,
+  reply,
+  onSend,
 }: {
   creator: boolean;
   onAdd: () => void;
   wa?: boolean;
+  scripted?: boolean;
+  reply?: Item;
+  onSend?: (id: string) => void;
 }) {
   return (
     <div className={`skin-compose ${wa ? "wa-compose" : ""}`}>
       {wa ? <Plus size={20} /> : <Mic size={20} />}
-      <NativeComposer creator={creator} onAdd={onAdd} />
+      {scripted && !creator ? (
+        <button
+          className="native-compose-field scripted-compose"
+          aria-label="发送下一条消息"
+          disabled={!reply}
+          onClick={() => reply && onSend?.(reply.id)}
+        >
+          {reply ? "点击发送" : "等待对方回复"}
+        </button>
+      ) : (
+        <NativeComposer creator={creator} onAdd={onAdd} />
+      )}
 
       <Smile size={21} />
       {wa ? <Mic size={20} /> : <Plus size={22} />}
@@ -176,9 +245,12 @@ export function WeChatSkin(p: SkinProps) {
   const posts = p.items.filter(
     (i) => i.folder === "朋友圈" || i.kind === "post",
   );
+  const history = p.items.some(
+    (i) => i.title === p.thread && i.meta.historyOnly === "true",
+  );
   return (
     <div
-      className="wechat-ui independent-skin"
+      className={`wechat-ui independent-skin ${history ? "wechat-history" : p.scriptedChat ? "scripted-wechat-dark" : ""}`}
       data-tab={tab}
       data-thread={!!p.thread}
       data-moments={moments}
@@ -278,12 +350,25 @@ export function WeChatSkin(p: SkinProps) {
       ) : p.thread ? (
         <>
           <MessageList
+            history={history}
             items={p.items.filter((i) => i.title === p.thread)}
             creator={p.creator}
             onItem={p.onItem}
             onRead={p.onRead}
           />
-          <Compose creator={p.creator} onAdd={p.onAdd} />
+          {!history && (
+            <Compose
+              creator={p.creator}
+              onAdd={p.onAdd}
+              scripted={p.scriptedChat}
+              reply={
+                p.scriptedReply?.title === p.thread
+                  ? p.scriptedReply
+                  : undefined
+              }
+              onSend={p.onSend}
+            />
+          )}
         </>
       ) : moments ? (
         <div className="wx-moments">
@@ -338,7 +423,16 @@ export function WeChatSkin(p: SkinProps) {
                 )
                 .map((t) => {
                   const list = p.items.filter((i) => i.title === t),
-                    last = list.at(-1)!;
+                    last = list.at(-1)!,
+                    avatar =
+                      list.find((i) => !i.outgoing && safeMedia(i.avatar))
+                        ?.avatar || last.avatar,
+                    unread = list.filter(
+                      (i) =>
+                        !i.outgoing &&
+                        i.meta.conversationOnly !== "true" &&
+                        !i.read,
+                    );
                   return (
                     <button
                       className="wx-chat-row"
@@ -350,13 +444,10 @@ export function WeChatSkin(p: SkinProps) {
                       }}
                     >
                       <span className="wx-chat-avatar">
-                        <Avatar name={t} src={last.avatar} />
-                        {!readThreads.includes(t) &&
-                          list.some((i) => !i.read) && (
-                            <b className="wx-unread">
-                              {list.filter((i) => !i.read).length}
-                            </b>
-                          )}
+                        <Avatar name={t} src={avatar} />
+                        {!readThreads.includes(t) && unread.length > 0 && (
+                          <b className="wx-unread">{unread.length}</b>
+                        )}
                       </span>
                       <div>
                         <strong>{t}</strong>

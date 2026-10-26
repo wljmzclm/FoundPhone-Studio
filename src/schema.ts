@@ -101,6 +101,22 @@ export const workSchema = z.object({
       .optional(),
     passcode: z.string().max(12),
     wallpaper: z.string(),
+    lockWallpaper: z
+      .string()
+      .refine(
+        (v) =>
+          !v ||
+          (Boolean(safeMedia(v)) &&
+            /^(data:image\/|\.\/story-assets\/)/.test(v)),
+        "锁屏壁纸必须是内嵌图片或作品内图片",
+      )
+      .optional(),
+    appAccess: z
+      .object({
+        duringStory: z.array(z.string()),
+        afterEnding: z.array(z.string()),
+      })
+      .optional(),
     theme: z.enum(["light", "dark"]),
     time: z.string(),
     battery: z.number().min(0).max(100),
@@ -196,6 +212,12 @@ export function validateWork(input: unknown): Work {
   return workSchema.parse(input);
 }
 export function safeMedia(value: string) {
+  if (
+    /^\.\/story-assets\/[A-Za-z0-9][A-Za-z0-9_-]*\.(png|jpe?g|webp|gif)$/.test(
+      value,
+    )
+  )
+    return value;
   return /^data:(image\/(png|jpeg|webp|gif)|audio\/(mpeg|mp3|wav|ogg|webm|mp4)|video\/(mp4|webm));base64,[a-zA-Z0-9+/=\s]+$/.test(
     value,
   )

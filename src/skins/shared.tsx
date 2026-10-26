@@ -88,14 +88,37 @@ export function Avatar({
   name,
   round = true,
   src = "",
+  crop = "",
 }: {
   name: string;
   round?: boolean;
   src?: string;
+  crop?: string;
 }) {
+  const [x, y, size, width, height] = crop.split(",").map(Number);
+  const clipped =
+    safeMedia(src) &&
+    [x, y, size, width, height].every(Number.isFinite) &&
+    size > 0 &&
+    width > size &&
+    height > size;
   return (
-    <span className={`catalog-avatar ${round ? "round" : ""}`}>
-      {safeMedia(src)?.startsWith("data:image/") ? (
+    <span
+      className={`catalog-avatar ${round ? "round" : ""}`}
+      role={clipped ? "img" : undefined}
+      aria-label={clipped ? name + "头像" : undefined}
+      style={
+        clipped
+          ? {
+              backgroundImage: `url("${safeMedia(src)}")`,
+              backgroundSize: `${(width / size) * 100}% auto`,
+              backgroundPosition: `${(x / (width - size)) * 100}% ${(y / (height - size)) * 100}%`,
+            }
+          : undefined
+      }
+    >
+      {clipped ? null : safeMedia(src) &&
+        /^(data:image\/|\.\/story-assets\/)/.test(src) ? (
         <img src={safeMedia(src)} alt="" />
       ) : (
         name.slice(0, 1) || "人"

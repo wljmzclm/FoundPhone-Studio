@@ -1,0 +1,149 @@
+.phone-shell.ios18 .native-messages.sms-story-dark {
+  background: #000;
+  color: #f5f5f7;
+}
+.sms-story-nav {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  padding: 13px 16px 10px;
+  gap: 10px;
+}
+.sms-story-nav > button {
+  display: flex;
+  align-items: center;
+  padding: 9px;
+  border-radius: 28px;
+  background: #202022;
+  font-size: 13px;
+}
+.sms-story-nav > div {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  gap: 9px;
+  font-size: 12px;
+}
+.sms-story-avatar {
+  display: grid;
+  place-items: center;
+  background: linear-gradient(#514d68, #353145);
+  border-radius: 50%;
+  width: 51px;
+  height: 51px;
+}
+.sms-story-nav strong {
+  border-radius: 18px;
+  padding: 5px 13px;
+  background: #222;
+  font-weight: 500;
+}
+.sms-video-glyph {
+  padding: 10px;
+  border-radius: 50%;
+  background: #202022;
+}
+.sms-story-encryption {
+  text-align: center;
+  color: #777;
+  font-size: 10px;
+  line-height: 1.4;
+  margin: 10px 0 0;
+}
+.phone-shell.ios18 .native-messages.sms-story-dark .sms-story-bubbles {
+  flex: 0 1 auto;
+  overflow: auto;
+  padding: 10px 18px 0;
+  min-height: 0;
+}
+.phone-shell.ios18 .native-messages.sms-story-dark .bubble-date {
+  color: #777;
+  font-size: 10px;
+  margin: 6px auto 16px;
+}
+.phone-shell.ios18 .native-messages.sms-story-dark .catalog-message {
+  margin: 0;
+}
+.phone-shell.ios18 .native-messages.sms-story-dark .catalog-message > button {
+  background: #26262b;
+  color: white;
+  border-radius: 23px;
+  max-width: 94%;
+  font-size: 14px;
+  line-height: 1.4;
+  text-align: left;
+  padding: 13px 14px;
+}
+.phone-shell.ios18 .native-messages.sms-story-dark .catalog-message small {
+  display: none;
+}
+.sms-story-spam {
+  color: #777;
+  text-align: center;
+  font-size: 10px;
+  padding: 12px 24px;
+  line-height: 1.6;
+}
+.sms-story-spam p {
+  margin: 0;
+}
+.sms-story-spam button {
+  color: #168aff;
+  border-radius: 16px;
+  background: #252529;
+  padding: 5px 12px;
+  margin-top: 8px;
+  font-size: 11px;
+}
+.phone-shell.ios18 .native-messages.sms-story-dark > .catalog-composer {
+  margin-top: auto;
+  background: #000;
+  color: #ccc;
+  border: 0;
+}
+.phone-shell.ios18 .native-messages.sms-story-dark .native-compose-field {
+  background: #202022;
+  border-color: #333;
+}
+.phone-shell.ios18 .native-messages.sms-story-dark .native-compose-field:after {
+  content: "iMessage 信息";
+  color: #777;
+  font-size: 13px;
+}
+.phone-shell.ios18 .native-messages.sms-story-dark .sms-story-bubbles {
+  flex: 1 1 auto;
+}
+.phone-shell.ios18 .native-messages.sms-story-dark .catalog-message {
+  margin-bottom: 10px;
+}
+.phone-shell.ios18
+  .native-messages.sms-story-dark
+  .catalog-message.outgoing
+  > button {
+  background: #168dff;
+  border-radius: 23px;
+  color: white;
+}
+.phone-shell.ios18
+  .native-messages.sms-story-dark
+  .native-compose-field.scripted-compose:after {
+  content: none;
+}
+.phone-shell.ios18 .native-messages.sms-story-dark .scripted-compose {
+  color: #888;
+  text-align: left;
+  padding-left: 10px;
+  font-size: 13px;
+}
+.phone-shell.ios18
+  .native-messages.sms-story-dark
+  .scripted-compose:not(:disabled) {
+  color: #ddd;
+}
+
+.phone-shell.ios18 .native-messages.sms-story-dark .catalog-bubbles {
+  background: #000;
+}
+.phone-shell.ios18 .native-messages.sms-story-dark {
+  padding: 0;
+}

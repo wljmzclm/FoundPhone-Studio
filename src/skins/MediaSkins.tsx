@@ -1,5 +1,6 @@
 import { AudioPlayer, useTrack } from "../audio";
 import { useSkinState } from "../skinState";
+import { DouyinStory } from "./DouyinStory";
 import {
   Bookmark,
   Check,
@@ -400,6 +401,11 @@ function VerticalVideo({ p, item }: { p: Props; item: Item }) {
   );
 }
 export function DouyinSkin(p: Props) {
+  const story = p.items.find((i) => i.meta.view === "sms-story");
+  if (story) return <DouyinStory p={p} item={story} />;
+  return <DouyinFeed p={p} />;
+}
+function DouyinFeed({ p }: { p: Props }) {
   const { tab, setTab, items } = useContent(p, "推荐");
   const list = tab === "推荐" ? items : items.filter((i) => i.folder === tab);
   return (
@@ -542,4 +548,3 @@ export function NetflixSkin(p: Props) {
     </div>
   );
 }
-

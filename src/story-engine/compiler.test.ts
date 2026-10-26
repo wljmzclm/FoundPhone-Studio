@@ -71,3 +71,48 @@ it("blank default has no story and needs no ending test", () => {
   expect(work.mode).toBe("explore");
   expect(testStory(story, work)).toEqual([]);
 });
+
+it("checks an opening notification without inventing a story ending", async () => {
+  const { dispatch } = await import("../engine");
+  const { initialRuntime } = await import("../schema");
+  const { story, work } = compileStory({
+    scriptVersion: 1,
+    id: "notification-segment",
+    title: "开场片段",
+    phone: { owner: "穆祉丞", passcode: "2711" },
+    installedApps: ["weibo"],
+    events: [
+      {
+        id: "notice",
+        label: "新微博通知",
+        event: "password",
+        target: "2711",
+        once: true,
+        actions: [
+          {
+            type: "notification",
+            key: "",
+            value: "微博：TF家族-王橹杰LJW发送了新的微博",
+          },
+        ],
+      },
+    ],
+    tests: [
+      {
+        name: "开场通知",
+        steps: [{ event: "password", target: "2711" }],
+        expectNotifications: ["微博：TF家族-王橹杰LJW发送了新的微博"],
+      },
+    ],
+  });
+  expect(testStory(story, work)).toEqual([]);
+  const failed = dispatch(work, initialRuntime(work), "password", "0000");
+  expect(failed.notifications).toEqual([]);
+  const opened = dispatch(work, failed, "password", "2711");
+  expect(dispatch(work, opened, "password", "2711").notifications).toHaveLength(
+    1,
+  );
+  expect(opened.endings).toEqual([]);
+  story.tests[0].expectNotifications = ["不存在的通知"];
+  expect(testStory(story, work).join()).toContain("未收到通知");
+});
