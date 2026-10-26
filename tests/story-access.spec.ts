@@ -38,7 +38,15 @@ test("Mu phone: wallpaper, four-digit passcode and four allowed story apps", asy
     await expect(page.locator(".app-screen:not([inert])")).toBeVisible();
     await page.getByRole("button", { name: "返回桌面", exact: true }).click();
   }
-  for (const name of ["备忘录", "相册", "浏览器", "App Store", "设置", "相机"])
+  for (const name of [
+    "备忘录",
+    "相册",
+    "浏览器",
+    "哔哩哔哩",
+    "App Store",
+    "设置",
+    "相机",
+  ])
     await expect(
       page.getByRole("button", { name: "打开" + name, exact: true }),
     ).toHaveCount(0);
@@ -51,7 +59,7 @@ test("Mu phone: wallpaper, four-digit passcode and four allowed story apps", asy
     page.getByRole("button", { name: "打开相册", exact: true }),
   ).toHaveCount(0);
 });
-test("only a completed ending opens two extras; continuation and save survive reload", async ({
+test("only a completed ending opens exploration apps; continuation and save survive reload", async ({
   page,
 }) => {
   // Synthetic completion verifies the gate without inventing the author's main plot.
@@ -74,14 +82,36 @@ test("only a completed ending opens two extras; continuation and save survive re
   await page.getByRole("button", { name: "打开抖音", exact: true }).click();
   await page.getByRole("button", { name: "继续探索手机", exact: true }).click();
   await expect(page.locator(".story-overlay.ending")).toHaveCount(0);
+  await page.route("https://player.bilibili.com/**", (route) =>
+    route.fulfill({
+      contentType: "text/html; charset=utf-8",
+      body: "<button>播放视频</button>",
+    }),
+  );
+  await page.getByRole("button", { name: "打开哔哩哔哩", exact: true }).click();
+  await expect(
+    page.locator('iframe[title="哔哩哔哩官方视频播放器"]'),
+  ).toHaveAttribute(
+    "src",
+    "https://player.bilibili.com/player.html?bvid=BV1h1kcBfEuJ&page=1&autoplay=0",
+  );
+  await expect(
+    page
+      .frameLocator('iframe[title="哔哩哔哩官方视频播放器"]')
+      .getByRole("button", { name: "播放视频" }),
+  ).toBeVisible();
+  await expect(
+    page.getByRole("link", { name: "在哔哩哔哩打开 ↗" }),
+  ).toHaveAttribute("href", "https://www.bilibili.com/video/BV1h1kcBfEuJ/");
+  await page.getByRole("button", { name: "返回桌面", exact: true }).click();
   await page.getByRole("button", { name: "打开相册", exact: true }).click();
   await expect(page.locator(".app-screen:not([inert])")).toBeVisible();
   await page.getByRole("button", { name: "返回桌面", exact: true }).click();
-  for (const name of ["相册", "浏览器"])
+  for (const name of ["相册", "浏览器", "哔哩哔哩"])
     await expect(
       page.getByRole("button", { name: "打开" + name, exact: true }),
     ).toHaveCount(1);
-  for (const name of ["设置", "电话", "文件", "哔哩哔哩", "网易云", "备忘录"])
+  for (const name of ["设置", "电话", "文件", "备忘录"])
     await expect(
       page.getByRole("button", { name: "打开" + name, exact: true }),
     ).toHaveCount(0);
@@ -284,11 +314,11 @@ test("scripted Mu conversation: player taps sends, friend replies, Douyin return
     "主剧情已结束",
   );
   await page.getByRole("button", { name: "继续探索手机", exact: true }).click();
-  for (const name of ["相册", "浏览器"])
+  for (const name of ["相册", "浏览器", "哔哩哔哩"])
     await expect(
       page.getByRole("button", { name: "打开" + name, exact: true }),
     ).toHaveCount(1);
-  for (const name of ["设置", "电话", "文件", "哔哩哔哩", "网易云", "备忘录"])
+  for (const name of ["设置", "电话", "文件", "备忘录"])
     await expect(
       page.getByRole("button", { name: "打开" + name, exact: true }),
     ).toHaveCount(0);

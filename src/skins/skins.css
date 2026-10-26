@@ -4130,6 +4130,31 @@
 .catalog-slot[hidden] {
   display: none;
 }
+.bili-online-video {
+  padding: 22px 16px;
+}
+.bili-online-video h2 {
+  font-size: 20px;
+  margin-bottom: 22px;
+}
+.bili-online-video iframe {
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  border: 0;
+  background: #000;
+  border-radius: 12px;
+}
+.bili-online-video p,
+.bili-online-video small {
+  font-size: 13px;
+  color: #aaa;
+  line-height: 1.7;
+}
+.bili-online-video a {
+  display: block;
+  margin-top: 20px;
+  color: #fb7299;
+}
 .persistent-netease {
   position: absolute;
   inset: 54px 0 32px;

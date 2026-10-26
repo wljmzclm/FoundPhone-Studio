@@ -302,6 +302,37 @@ export function YouTubeSkin(p: Props) {
   );
 }
 export function BilibiliSkin(p: Props) {
+  const video = p.items.find((i) =>
+    /^BV[0-9A-Za-z]{10}$/.test(i.meta.bilibiliBvid || ""),
+  );
+  if (video)
+    return (
+      <div className="catalog-skin bilibili-ui">
+        <Header p={p} />
+        <div className="catalog-scroll bili-online-video">
+          <h2>{video.title}</h2>
+          <iframe
+            title="哔哩哔哩官方视频播放器"
+            src={`https://player.bilibili.com/player.html?bvid=${video.meta.bilibiliBvid}&page=1&autoplay=0`}
+            allow="fullscreen; autoplay; encrypted-media; picture-in-picture"
+            allowFullScreen
+            referrerPolicy="strict-origin-when-cross-origin"
+          />
+          <p>点击播放器观看视频</p>
+          <small>若视频无法加载，可前往哔哩哔哩观看。</small>
+          <a
+            href={`https://www.bilibili.com/video/${video.meta.bilibiliBvid}/`}
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            在哔哩哔哩打开 ↗
+          </a>
+        </div>
+      </div>
+    );
+  return <BilibiliFeed p={p} />;
+}
+function BilibiliFeed({ p }: { p: Props }) {
   const { tab, setTab, q, setQ, items } = useContent(p, "首页");
   const [category, setCategory] = useState("推荐");
   const list =

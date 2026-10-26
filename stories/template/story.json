@@ -3,7 +3,7 @@
   "id": "mu-zhicheng-phone",
   "title": "穆祉丞的手机",
   "description": "以穆祉丞的视角探索手机，从王橹杰的新微博通知开始。后续主剧情待补充。",
-  "revision": 18,
+  "revision": 19,
   "phone": {
     "owner": "穆祉丞",
     "date": "2026-10-25",
@@ -23,7 +23,8 @@
       ],
       "afterEnding": [
         "photos",
-        "safari"
+        "safari",
+        "bilibili"
       ]
     }
   },
@@ -85,6 +86,15 @@
     {
       "id": "netease",
       "name": "网易云音乐",
+      "installed": true,
+      "visible": true,
+      "dock": false,
+      "folder": "",
+      "icon": ""
+    },
+    {
+      "id": "bilibili",
+      "name": "哔哩哔哩",
       "installed": true,
       "visible": true,
       "dock": false,
@@ -1486,6 +1496,16 @@
         "body": "网易云音乐 · 歌曲 2134502607",
         "meta": {
           "neteaseSongId": "2134502607"
+        }
+      }
+    ],
+    "bilibili": [
+      {
+        "id": "bilibili-bv1h1kcbfeuj",
+        "title": "收藏的视频",
+        "body": "BV1h1kcBfEuJ",
+        "meta": {
+          "bilibiliBvid": "BV1h1kcBfEuJ"
         }
       }
     ]
