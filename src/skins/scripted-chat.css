@@ -306,3 +306,26 @@
   > .home-indicator:after {
   background: #111;
 }
+.chat-evidence-overlay > img {
+  width: 100%;
+  height: auto;
+  max-height: none;
+  object-fit: contain;
+}
+.phone-shell.ios18
+  .wechat-ui
+  .skin-message[data-attachment="sms"]
+  .skin-bubble {
+  padding: 0;
+  background: transparent;
+}
+.phone-shell.ios18
+  .wechat-ui
+  .skin-message[data-attachment="sms"]
+  .skin-bubble
+  img {
+  display: block;
+  max-height: 310px;
+  width: auto;
+  object-fit: contain;
+}

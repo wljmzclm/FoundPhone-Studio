@@ -84,7 +84,11 @@ function ItemMedia({ item }: { item: Item }) {
     ) : item.kind === "video" ? (
       <video controls playsInline src={src} />
     ) : (
-      <img loading="lazy" alt={item.title} src={src} />
+      <img
+        loading="lazy"
+        alt={item.meta.attachment ? item.body : item.title}
+        src={src}
+      />
     )
   ) : (
     <div className="skin-photo">
@@ -132,6 +136,7 @@ function MessageList({
             <div
               className={`skin-message ${i.outgoing ? "outgoing" : ""}`}
               data-message-id={i.id}
+              data-attachment={i.meta.attachment}
             >
               {!whatsapp && !i.outgoing && (
                 <Avatar name={i.sender} src={i.avatar} />
@@ -180,7 +185,11 @@ function MessageList({
       {attachment && (
         <div className="chat-evidence-overlay">
           <button onClick={() => setAttachment(null)}>关闭图片</button>
-          <MessageEvidence item={attachment} />
+          {safeMedia(attachment.media) ? (
+            <img src={safeMedia(attachment.media)} alt={attachment.body} />
+          ) : (
+            <MessageEvidence item={attachment} />
+          )}
         </div>
       )}
     </div>

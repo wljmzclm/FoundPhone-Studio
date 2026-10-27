@@ -1119,3 +1119,45 @@ test("chapter one Messages and WeChat use readable daytime chat backgrounds", as
     .locator(".phone-screen")
     .screenshot({ path: "outputs/mu-phone/daytime-wechat.png" });
 });
+
+test("first WeChat screenshot send shows and opens the daytime SMS picture", async ({
+  page,
+}) => {
+  await page.goto("/");
+  await unlock(page);
+  await page
+    .locator(".device-banner")
+    .filter({ hasText: "TF家族-王橹杰LJW发送了新的微博" })
+    .click();
+  await page
+    .locator(".device-banner")
+    .filter({ hasText: "短信" })
+    .waitFor({ timeout: 8000 });
+  await page.locator(".device-banner").filter({ hasText: "短信" }).click();
+  await page
+    .locator(".device-banner")
+    .filter({ hasText: "有信息需发送" })
+    .click();
+  await page.locator(".wx-chat-row").filter({ hasText: "穆之友" }).click();
+  await expect(page.locator('[data-message-id="mu-sms-shot"]')).toHaveCount(0);
+  await page
+    .getByRole("button", { name: "发送下一条消息", exact: true })
+    .click();
+  const picture = page.locator('[data-message-id="mu-sms-shot"] .skin-bubble img');
+  await expect(picture).toHaveAttribute(
+    "src",
+    "./story-assets/mu-shared-sms-day.png",
+  );
+  await expect
+    .poll(() => picture.evaluate((el: HTMLImageElement) => el.naturalHeight))
+    .toBeGreaterThan(1000);
+  await picture.click();
+  await expect(page.locator(".chat-evidence-overlay > img")).toHaveAttribute(
+    "src",
+    "./story-assets/mu-shared-sms-day.png",
+  );
+  await page.getByRole("button", { name: "关闭图片", exact: true }).click();
+  await expect(
+    page.getByRole("button", { name: "？谁发的这么抽象", exact: true }),
+  ).toBeVisible({ timeout: 6000 });
+});

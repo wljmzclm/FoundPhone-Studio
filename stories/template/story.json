@@ -3,7 +3,7 @@
   "id": "mu-zhicheng-phone",
   "title": "命中注定我爱你",
   "description": "以穆祉丞的视角探索手机，从王橹杰的新微博通知开始。后续主剧情待补充。",
-  "revision": 35,
+  "revision": 36,
   "phone": {
     "owner": "穆祉丞",
     "date": "2026-10-25",
@@ -198,7 +198,8 @@
             "attachment": "sms",
             "originalSms": "【蜜雪冰城】尊敬的客户，您分期购买的 [冰鲜柠檬水] 本月应付 0.33 元（1/12期），现已逾期，请您尽快将足额款项及滞纳金存入指定的扣款账户，否则将计入个人征信系统，对您造成不良影响。"
           },
-          "avatar": "./story-assets/mu-zhicheng-avatar.jpg"
+          "avatar": "./story-assets/mu-zhicheng-avatar.jpg",
+          "media": "./story-assets/mu-shared-sms-day.png"
         },
         {
           "id": "friend-who",
