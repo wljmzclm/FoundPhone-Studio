@@ -190,19 +190,58 @@ export function ContactsSkin(p: Props) {
   );
 }
 export function PhotosSkin(p: Props) {
-  const { tab, setTab, q, setQ, items } = useContent(p, "图库");
+  const dated = p.items.some((i) => /^\d{4}$/.test(i.meta.photoYear || ""));
+  const { tab, setTab, q, setQ, items } = useContent(
+    p,
+    dated ? "时间" : "图库",
+  );
   const [album, setAlbum] = useState("");
+  const [year, setYear] = useState("");
+  const years = [
+    ...new Set(
+      p.items
+        .map((i) => i.meta.photoYear)
+        .filter((y) => /^\d{4}$/.test(y || "")),
+    ),
+  ].sort();
   const list =
     tab === "收藏"
       ? items.filter((i) => i.favorite)
       : album
         ? items.filter((i) => (i.folder || "未分类") === album)
         : items;
+  const mosaic = (photos: Item[]) => (
+    <div className="photo-mosaic">
+      {photos.map((i) => (
+        <button
+          aria-label={`查看${i.title}`}
+          key={i.id}
+          onClick={() => p.onItem(i)}
+        >
+          <Media item={i} />
+          {i.favorite && <Heart size={12} fill="white" />}
+        </button>
+      ))}
+    </div>
+  );
   return (
     <div className="catalog-skin native-photos">
       <Header p={p} />
       <div className="catalog-scroll">
         <h1>{album || tab}</h1>
+        {tab === "时间" && (
+          <nav className="photo-year-nav" aria-label="按年份查看照片">
+            {["", ...years].map((y) => (
+              <button
+                key={y}
+                aria-pressed={year === y}
+                onClick={() => setYear(y)}
+              >
+                {y ? `${y}年` : "全部"}
+              </button>
+            ))}
+          </nav>
+        )}
         {tab === "相簿" && !album ? (
           <div className="album-grid">
             {groupItems(items, "未分类").map((g) => (
@@ -220,31 +259,52 @@ export function PhotosSkin(p: Props) {
         ) : (
           <>
             <SearchBox value={q} set={setQ} />
-            <div className="photo-mosaic">
-              {list.map((i) => (
-                <button
-                  aria-label={`查看${i.title}`}
-                  key={i.id}
-                  onClick={() => p.onItem(i)}
-                >
-                  <Media item={i} />
-                  {i.favorite && <Heart size={12} fill="white" />}
-                </button>
-              ))}
-            </div>
-            <p className="media-count">{list.length} 个项目</p>
+            {tab === "时间"
+              ? years
+                  .filter((y) => !year || y === year)
+                  .map((y) => {
+                    const photos = list.filter((i) => i.meta.photoYear === y);
+                    return (
+                      photos.length > 0 && (
+                        <section
+                          className="photo-year-section"
+                          data-photo-year={y}
+                          key={y}
+                        >
+                          <header>
+                            <h2>{y}年</h2>
+                            <span>{photos.length} 张照片</span>
+                          </header>
+                          {mosaic(photos)}
+                        </section>
+                      )
+                    );
+                  })
+              : mosaic(list)}
+            <p className="media-count">
+              {tab === "时间" && year
+                ? list.filter((i) => i.meta.photoYear === year).length
+                : list.length}{" "}
+              个项目
+            </p>
           </>
         )}
         <Empty items={list} />
       </div>
       <Tabs
-        tabs={["图库", "相簿", "收藏"]}
+        tabs={
+          dated ? ["时间", "图库", "相簿", "收藏"] : ["图库", "相簿", "收藏"]
+        }
         value={tab}
         set={(t) => {
           setTab(t);
           setAlbum("");
         }}
-        icons={[<Image />, <Folder />, <Heart />]}
+        icons={
+          dated
+            ? [<Clock />, <Image />, <Folder />, <Heart />]
+            : [<Image />, <Folder />, <Heart />]
+        }
       />
     </div>
   );

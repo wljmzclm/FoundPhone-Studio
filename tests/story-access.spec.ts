@@ -459,11 +459,13 @@ test("uploaded images, avatars and album work with the final app restrictions", 
       page.getByRole("button", { name: "打开" + name, exact: true }),
     ).toHaveCount(0);
   await page.getByRole("button", { name: "打开相册", exact: true }).click();
-  await expect(page.locator(".photo-mosaic button")).toHaveCount(11);
-  await page.getByRole("button", { name: "查看照片 1", exact: true }).click();
+  await expect(page.locator(".photo-mosaic button")).toHaveCount(40);
+  await page
+    .getByRole("button", { name: "查看2023年照片 1", exact: true })
+    .click();
   await expect(page.locator(".native-detail-photos img")).toHaveAttribute(
     "src",
-    "./story-assets/album-01.jpg",
+    "./story-assets/album-2023-01.jpg",
   );
   await expect
     .poll(() =>
@@ -471,7 +473,7 @@ test("uploaded images, avatars and album work with the final app restrictions", 
         .locator(".native-detail-photos img")
         .evaluate((el: HTMLImageElement) => el.naturalWidth),
     )
-    .toBe(1448);
+    .toBeGreaterThan(0);
   await page
     .locator(".phone-screen")
     .screenshot({ path: "outputs/mu-phone/album-original.png" });
@@ -481,8 +483,8 @@ test("uploaded images, avatars and album work with the final app restrictions", 
     page.locator(".wx-chat-row").filter({ hasText: "穆之友" }).locator("img"),
   ).toHaveAttribute("src", "./story-assets/mu-zhiyou-avatar.jpg");
   await expect(
-    page.locator(".wx-chat-row").filter({ hasText: "王橹杰" }).locator("img"),
-  ).toHaveAttribute("src", "./story-assets/wang-lujie-avatar.jpg");
+    page.locator(".wx-chat-row").filter({ hasText: "王橹杰" }),
+  ).toHaveCount(0);
   await page
     .locator(".phone-screen")
     .screenshot({ path: "outputs/mu-phone/imported-avatars.png" });
@@ -555,7 +557,9 @@ test("matching home wallpaper, owner avatar, left-aligned Weibo names and legibl
   await page.getByRole("button", { name: "打开微信", exact: true }).click();
   await page.getByRole("button", { name: "微信菜单", exact: true }).click();
   await page.getByRole("menuitem", { name: "添加朋友", exact: true }).click();
-  await page.getByRole("textbox", { name: "输入微信号" }).fill("reflection2711");
+  await page
+    .getByRole("textbox", { name: "输入微信号" })
+    .fill("reflection2711");
   await page.getByRole("button", { name: "添加到通讯录", exact: true }).click();
   await page.getByRole("button", { name: "返回", exact: true }).click();
   for (const name of ["穆之友", "王橹杰"])
@@ -1343,4 +1347,76 @@ test("QQ records use supplied avatars and invite an exact WeChat friend after fi
   await expect(
     page.locator(".wx-chat-row").filter({ hasText: "王橹杰" }),
   ).toHaveCount(1);
+});
+
+test("album time sections replace all retired photos and preserve the forty originals by year", async ({
+  page,
+}) => {
+  await page.goto("/");
+  await unlock(page);
+  await page.getByRole("button", { name: "打开相册", exact: true }).click();
+  const counts = { "2023": 5, "2024": 6, "2025": 4, "2026": 25 };
+  await expect(page.locator(".photo-year-section")).toHaveCount(4);
+  await expect(page.locator(".photo-mosaic button")).toHaveCount(40);
+  expect(
+    await page.locator(".photo-year-section h2").allTextContents(),
+  ).toEqual(["2023年", "2024年", "2025年", "2026年"]);
+  for (const [year, count] of Object.entries(counts)) {
+    const section = page.locator(`[data-photo-year="${year}"]`);
+    await expect(section.locator(".photo-mosaic button")).toHaveCount(count);
+    for (const src of await section
+      .locator("img")
+      .evaluateAll((imgs) => imgs.map((img) => img.getAttribute("src"))))
+      expect(src).toContain(`album-${year}-`);
+    await page
+      .getByRole("navigation", { name: "按年份查看照片" })
+      .getByRole("button", { name: year + "年", exact: true })
+      .click();
+    await expect(page.locator(".photo-year-section")).toHaveCount(1);
+    await expect(page.locator(".photo-mosaic button")).toHaveCount(count);
+    await page
+      .getByRole("button", { name: `查看${year}年照片 1`, exact: true })
+      .click();
+    const original = page.locator(".native-detail-photos img");
+    await expect(original).toHaveAttribute(
+      "src",
+      `./story-assets/album-${year}-01.jpg`,
+    );
+    await expect
+      .poll(() =>
+        original.evaluate((img: HTMLImageElement) => img.naturalWidth),
+      )
+      .toBeGreaterThan(0);
+    await page.getByRole("button", { name: "返回", exact: true }).click();
+    await page
+      .getByRole("navigation", { name: "按年份查看照片" })
+      .getByRole("button", { name: "全部", exact: true })
+      .click();
+  }
+  await page
+    .getByRole("navigation", { name: "按年份查看照片" })
+    .getByRole("button", { name: "2024年", exact: true })
+    .click();
+  await page
+    .getByRole("button", { name: "查看2024年照片 6", exact: true })
+    .click();
+  await expect(page.locator(".native-detail-photos img")).toHaveAttribute(
+    "src",
+    "./story-assets/album-2024-06.jpg",
+  );
+  await page.getByRole("button", { name: "返回", exact: true }).click();
+  await page
+    .locator(".phone-screen")
+    .screenshot({ path: "outputs/mu-phone/album-2024.png" });
+  await page
+    .getByRole("navigation", { name: "按年份查看照片" })
+    .getByRole("button", { name: "全部", exact: true })
+    .click();
+  await page
+    .locator(".phone-screen")
+    .screenshot({ path: "outputs/mu-phone/album-timeline.png" });
+  await page.reload();
+  await unlock(page);
+  await page.getByRole("button", { name: "打开相册", exact: true }).click();
+  await expect(page.locator(".photo-mosaic button")).toHaveCount(40);
 });

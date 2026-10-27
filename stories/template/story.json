@@ -3,7 +3,7 @@
   "id": "mu-zhicheng-phone",
   "title": "命中注定我爱你",
   "description": "以穆祉丞的视角探索手机，从王橹杰的新微博通知开始。后续主剧情待补充。",
-  "revision": 40,
+  "revision": 41,
   "phone": {
     "owner": "穆祉丞",
     "date": "2026-10-25",
@@ -1623,92 +1623,484 @@
     ],
     "photos": [
       {
-        "id": "album-photo-01",
-        "title": "照片 1",
+        "id": "album-2023-01",
+        "title": "2023年照片 1",
         "body": "",
         "kind": "image",
-        "media": "./story-assets/album-01.jpg",
-        "folder": "相机胶卷"
+        "media": "./story-assets/album-2023-01.jpg",
+        "folder": "2023年",
+        "meta": {
+          "photoYear": "2023"
+        },
+        "time": "2023年"
       },
       {
-        "id": "album-photo-02",
-        "title": "照片 2",
+        "id": "album-2023-02",
+        "title": "2023年照片 2",
         "body": "",
         "kind": "image",
-        "media": "./story-assets/album-02.jpg",
-        "folder": "相机胶卷"
+        "media": "./story-assets/album-2023-02.jpg",
+        "folder": "2023年",
+        "meta": {
+          "photoYear": "2023"
+        },
+        "time": "2023年"
       },
       {
-        "id": "album-photo-03",
-        "title": "照片 3",
+        "id": "album-2023-03",
+        "title": "2023年照片 3",
         "body": "",
         "kind": "image",
-        "media": "./story-assets/album-03.jpg",
-        "folder": "相机胶卷"
+        "media": "./story-assets/album-2023-03.jpg",
+        "folder": "2023年",
+        "meta": {
+          "photoYear": "2023"
+        },
+        "time": "2023年"
       },
       {
-        "id": "album-photo-04",
-        "title": "照片 4",
+        "id": "album-2023-04",
+        "title": "2023年照片 4",
         "body": "",
         "kind": "image",
-        "media": "./story-assets/album-04.jpg",
-        "folder": "相机胶卷"
+        "media": "./story-assets/album-2023-04.jpg",
+        "folder": "2023年",
+        "meta": {
+          "photoYear": "2023"
+        },
+        "time": "2023年"
       },
       {
-        "id": "album-photo-05",
-        "title": "照片 5",
+        "id": "album-2023-05",
+        "title": "2023年照片 5",
         "body": "",
         "kind": "image",
-        "media": "./story-assets/album-05.jpg",
-        "folder": "相机胶卷"
+        "media": "./story-assets/album-2023-05.jpg",
+        "folder": "2023年",
+        "meta": {
+          "photoYear": "2023"
+        },
+        "time": "2023年"
       },
       {
-        "id": "album-photo-06",
-        "title": "照片 6",
+        "id": "album-2024-01",
+        "title": "2024年照片 1",
         "body": "",
         "kind": "image",
-        "media": "./story-assets/album-06.jpg",
-        "folder": "相机胶卷"
+        "media": "./story-assets/album-2024-01.jpg",
+        "folder": "2024年",
+        "meta": {
+          "photoYear": "2024"
+        },
+        "time": "2024年"
       },
       {
-        "id": "album-photo-07",
-        "title": "照片 7",
+        "id": "album-2024-02",
+        "title": "2024年照片 2",
         "body": "",
         "kind": "image",
-        "media": "./story-assets/album-07.jpg",
-        "folder": "相机胶卷"
+        "media": "./story-assets/album-2024-02.jpg",
+        "folder": "2024年",
+        "meta": {
+          "photoYear": "2024"
+        },
+        "time": "2024年"
       },
       {
-        "id": "album-photo-08",
-        "title": "照片 8",
+        "id": "album-2024-03",
+        "title": "2024年照片 3",
         "body": "",
         "kind": "image",
-        "media": "./story-assets/album-08.jpg",
-        "folder": "相机胶卷"
+        "media": "./story-assets/album-2024-03.jpg",
+        "folder": "2024年",
+        "meta": {
+          "photoYear": "2024"
+        },
+        "time": "2024年"
       },
       {
-        "id": "album-photo-09",
-        "title": "照片 9",
+        "id": "album-2024-04",
+        "title": "2024年照片 4",
         "body": "",
         "kind": "image",
-        "media": "./story-assets/album-09.jpg",
-        "folder": "相机胶卷"
+        "media": "./story-assets/album-2024-04.jpg",
+        "folder": "2024年",
+        "meta": {
+          "photoYear": "2024"
+        },
+        "time": "2024年"
       },
       {
-        "id": "album-photo-10",
-        "title": "照片 10",
+        "id": "album-2024-05",
+        "title": "2024年照片 5",
         "body": "",
         "kind": "image",
-        "media": "./story-assets/album-10.jpg",
-        "folder": "相机胶卷"
+        "media": "./story-assets/album-2024-05.jpg",
+        "folder": "2024年",
+        "meta": {
+          "photoYear": "2024"
+        },
+        "time": "2024年"
       },
       {
-        "id": "album-photo-11",
-        "title": "照片 11",
+        "id": "album-2024-06",
+        "title": "2024年照片 6",
         "body": "",
         "kind": "image",
-        "media": "./story-assets/album-11.jpg",
-        "folder": "相机胶卷"
+        "media": "./story-assets/album-2024-06.jpg",
+        "folder": "2024年",
+        "meta": {
+          "photoYear": "2024"
+        },
+        "time": "2024年"
+      },
+      {
+        "id": "album-2025-01",
+        "title": "2025年照片 1",
+        "body": "",
+        "kind": "image",
+        "media": "./story-assets/album-2025-01.jpg",
+        "folder": "2025年",
+        "meta": {
+          "photoYear": "2025"
+        },
+        "time": "2025年"
+      },
+      {
+        "id": "album-2025-02",
+        "title": "2025年照片 2",
+        "body": "",
+        "kind": "image",
+        "media": "./story-assets/album-2025-02.jpg",
+        "folder": "2025年",
+        "meta": {
+          "photoYear": "2025"
+        },
+        "time": "2025年"
+      },
+      {
+        "id": "album-2025-03",
+        "title": "2025年照片 3",
+        "body": "",
+        "kind": "image",
+        "media": "./story-assets/album-2025-03.jpg",
+        "folder": "2025年",
+        "meta": {
+          "photoYear": "2025"
+        },
+        "time": "2025年"
+      },
+      {
+        "id": "album-2025-04",
+        "title": "2025年照片 4",
+        "body": "",
+        "kind": "image",
+        "media": "./story-assets/album-2025-04.jpg",
+        "folder": "2025年",
+        "meta": {
+          "photoYear": "2025"
+        },
+        "time": "2025年"
+      },
+      {
+        "id": "album-2026-01",
+        "title": "2026年照片 1",
+        "body": "",
+        "kind": "image",
+        "media": "./story-assets/album-2026-01.jpg",
+        "folder": "2026年",
+        "meta": {
+          "photoYear": "2026"
+        },
+        "time": "2026年"
+      },
+      {
+        "id": "album-2026-02",
+        "title": "2026年照片 2",
+        "body": "",
+        "kind": "image",
+        "media": "./story-assets/album-2026-02.jpg",
+        "folder": "2026年",
+        "meta": {
+          "photoYear": "2026"
+        },
+        "time": "2026年"
+      },
+      {
+        "id": "album-2026-03",
+        "title": "2026年照片 3",
+        "body": "",
+        "kind": "image",
+        "media": "./story-assets/album-2026-03.jpg",
+        "folder": "2026年",
+        "meta": {
+          "photoYear": "2026"
+        },
+        "time": "2026年"
+      },
+      {
+        "id": "album-2026-04",
+        "title": "2026年照片 4",
+        "body": "",
+        "kind": "image",
+        "media": "./story-assets/album-2026-04.jpg",
+        "folder": "2026年",
+        "meta": {
+          "photoYear": "2026"
+        },
+        "time": "2026年"
+      },
+      {
+        "id": "album-2026-05",
+        "title": "2026年照片 5",
+        "body": "",
+        "kind": "image",
+        "media": "./story-assets/album-2026-05.jpg",
+        "folder": "2026年",
+        "meta": {
+          "photoYear": "2026"
+        },
+        "time": "2026年"
+      },
+      {
+        "id": "album-2026-06",
+        "title": "2026年照片 6",
+        "body": "",
+        "kind": "image",
+        "media": "./story-assets/album-2026-06.jpg",
+        "folder": "2026年",
+        "meta": {
+          "photoYear": "2026"
+        },
+        "time": "2026年"
+      },
+      {
+        "id": "album-2026-07",
+        "title": "2026年照片 7",
+        "body": "",
+        "kind": "image",
+        "media": "./story-assets/album-2026-07.jpg",
+        "folder": "2026年",
+        "meta": {
+          "photoYear": "2026"
+        },
+        "time": "2026年"
+      },
+      {
+        "id": "album-2026-08",
+        "title": "2026年照片 8",
+        "body": "",
+        "kind": "image",
+        "media": "./story-assets/album-2026-08.jpg",
+        "folder": "2026年",
+        "meta": {
+          "photoYear": "2026"
+        },
+        "time": "2026年"
+      },
+      {
+        "id": "album-2026-09",
+        "title": "2026年照片 9",
+        "body": "",
+        "kind": "image",
+        "media": "./story-assets/album-2026-09.jpg",
+        "folder": "2026年",
+        "meta": {
+          "photoYear": "2026"
+        },
+        "time": "2026年"
+      },
+      {
+        "id": "album-2026-10",
+        "title": "2026年照片 10",
+        "body": "",
+        "kind": "image",
+        "media": "./story-assets/album-2026-10.jpg",
+        "folder": "2026年",
+        "meta": {
+          "photoYear": "2026"
+        },
+        "time": "2026年"
+      },
+      {
+        "id": "album-2026-11",
+        "title": "2026年照片 11",
+        "body": "",
+        "kind": "image",
+        "media": "./story-assets/album-2026-11.jpg",
+        "folder": "2026年",
+        "meta": {
+          "photoYear": "2026"
+        },
+        "time": "2026年"
+      },
+      {
+        "id": "album-2026-12",
+        "title": "2026年照片 12",
+        "body": "",
+        "kind": "image",
+        "media": "./story-assets/album-2026-12.jpg",
+        "folder": "2026年",
+        "meta": {
+          "photoYear": "2026"
+        },
+        "time": "2026年"
+      },
+      {
+        "id": "album-2026-13",
+        "title": "2026年照片 13",
+        "body": "",
+        "kind": "image",
+        "media": "./story-assets/album-2026-13.jpg",
+        "folder": "2026年",
+        "meta": {
+          "photoYear": "2026"
+        },
+        "time": "2026年"
+      },
+      {
+        "id": "album-2026-14",
+        "title": "2026年照片 14",
+        "body": "",
+        "kind": "image",
+        "media": "./story-assets/album-2026-14.jpg",
+        "folder": "2026年",
+        "meta": {
+          "photoYear": "2026"
+        },
+        "time": "2026年"
+      },
+      {
+        "id": "album-2026-15",
+        "title": "2026年照片 15",
+        "body": "",
+        "kind": "image",
+        "media": "./story-assets/album-2026-15.jpg",
+        "folder": "2026年",
+        "meta": {
+          "photoYear": "2026"
+        },
+        "time": "2026年"
+      },
+      {
+        "id": "album-2026-16",
+        "title": "2026年照片 16",
+        "body": "",
+        "kind": "image",
+        "media": "./story-assets/album-2026-16.jpg",
+        "folder": "2026年",
+        "meta": {
+          "photoYear": "2026"
+        },
+        "time": "2026年"
+      },
+      {
+        "id": "album-2026-17",
+        "title": "2026年照片 17",
+        "body": "",
+        "kind": "image",
+        "media": "./story-assets/album-2026-17.jpg",
+        "folder": "2026年",
+        "meta": {
+          "photoYear": "2026"
+        },
+        "time": "2026年"
+      },
+      {
+        "id": "album-2026-18",
+        "title": "2026年照片 18",
+        "body": "",
+        "kind": "image",
+        "media": "./story-assets/album-2026-18.jpg",
+        "folder": "2026年",
+        "meta": {
+          "photoYear": "2026"
+        },
+        "time": "2026年"
+      },
+      {
+        "id": "album-2026-19",
+        "title": "2026年照片 19",
+        "body": "",
+        "kind": "image",
+        "media": "./story-assets/album-2026-19.jpg",
+        "folder": "2026年",
+        "meta": {
+          "photoYear": "2026"
+        },
+        "time": "2026年"
+      },
+      {
+        "id": "album-2026-20",
+        "title": "2026年照片 20",
+        "body": "",
+        "kind": "image",
+        "media": "./story-assets/album-2026-20.jpg",
+        "folder": "2026年",
+        "meta": {
+          "photoYear": "2026"
+        },
+        "time": "2026年"
+      },
+      {
+        "id": "album-2026-21",
+        "title": "2026年照片 21",
+        "body": "",
+        "kind": "image",
+        "media": "./story-assets/album-2026-21.jpg",
+        "folder": "2026年",
+        "meta": {
+          "photoYear": "2026"
+        },
+        "time": "2026年"
+      },
+      {
+        "id": "album-2026-22",
+        "title": "2026年照片 22",
+        "body": "",
+        "kind": "image",
+        "media": "./story-assets/album-2026-22.jpg",
+        "folder": "2026年",
+        "meta": {
+          "photoYear": "2026"
+        },
+        "time": "2026年"
+      },
+      {
+        "id": "album-2026-23",
+        "title": "2026年照片 23",
+        "body": "",
+        "kind": "image",
+        "media": "./story-assets/album-2026-23.jpg",
+        "folder": "2026年",
+        "meta": {
+          "photoYear": "2026"
+        },
+        "time": "2026年"
+      },
+      {
+        "id": "album-2026-24",
+        "title": "2026年照片 24",
+        "body": "",
+        "kind": "image",
+        "media": "./story-assets/album-2026-24.jpg",
+        "folder": "2026年",
+        "meta": {
+          "photoYear": "2026"
+        },
+        "time": "2026年"
+      },
+      {
+        "id": "album-2026-25",
+        "title": "2026年照片 25",
+        "body": "",
+        "kind": "image",
+        "media": "./story-assets/album-2026-25.jpg",
+        "folder": "2026年",
+        "meta": {
+          "photoYear": "2026"
+        },
+        "time": "2026年"
       }
     ],
     "netease": [
