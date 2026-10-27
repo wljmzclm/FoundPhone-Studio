@@ -549,7 +549,15 @@ test("matching home wallpaper, owner avatar, left-aligned Weibo names and legibl
   await page
     .locator(".phone-screen")
     .screenshot({ path: "outputs/mu-phone/matching-home-wallpaper.png" });
+  await page.getByRole("button", { name: "打开QQ", exact: true }).click();
+  await page.waitForTimeout(5500);
+  await page.getByRole("button", { name: "返回桌面", exact: true }).click();
   await page.getByRole("button", { name: "打开微信", exact: true }).click();
+  await page.getByRole("button", { name: "微信菜单", exact: true }).click();
+  await page.getByRole("menuitem", { name: "添加朋友", exact: true }).click();
+  await page.getByRole("textbox", { name: "输入微信号" }).fill("reflection2711");
+  await page.getByRole("button", { name: "添加到通讯录", exact: true }).click();
+  await page.getByRole("button", { name: "返回", exact: true }).click();
   for (const name of ["穆之友", "王橹杰"])
     await expect(
       page.locator(".wx-chat-row").filter({ hasText: name }).locator("strong"),
