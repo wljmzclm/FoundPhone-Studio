@@ -835,7 +835,13 @@ test("phone replaces dock Douyin in saved layouts and plays the unavailable-numb
     previewLayoutRevision: 0,
     apps: work.apps
       .filter((a) => a.id !== "phone")
-      .map((a) => (a.id === "douyin" ? { ...a, dock: true } : a)),
+      .map((a) =>
+        a.id === "douyin"
+          ? { ...a, dock: true }
+          : ["taobao", "weather"].includes(a.id)
+            ? { ...a, installed: false, visible: false }
+            : a,
+      ),
     widgets: [],
     order: [],
     cleared: [],
@@ -849,6 +855,10 @@ test("phone replaces dock Douyin in saved layouts and plays the unavailable-numb
   await page.goto("/");
   await unlock(page);
   const dock = page.locator(".interactive-home .dock");
+  for (const name of ["淘宝", "天气"])
+    await expect(
+      page.getByRole("button", { name: "打开" + name, exact: true }),
+    ).toBeVisible();
   await expect(
     dock.getByRole("button", { name: "打开抖音", exact: true }),
   ).toHaveCount(0);

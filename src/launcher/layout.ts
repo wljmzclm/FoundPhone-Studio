@@ -183,7 +183,17 @@ export function useDeviceLayout(authored: Work, creator = false) {
     if (creator) return base;
     const known = new Map(base.apps.map((a) => [a.id, a]));
     const apps = [
-      ...layout.apps.filter((a) => known.has(a.id)),
+      ...layout.apps
+        .filter((a) => known.has(a.id))
+        .map((a) =>
+          base.phone.appAccess
+            ? {
+                ...a,
+                installed: known.get(a.id)!.installed,
+                visible: known.get(a.id)!.visible,
+              }
+            : a,
+        ),
       ...base.apps.filter((a) => !layout.apps.some((b) => b.id === a.id)),
     ];
     return {
