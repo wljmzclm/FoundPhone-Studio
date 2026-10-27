@@ -13,10 +13,25 @@ export function ChapterEntry({
   if (
     !chapter ||
     !state.endings.length ||
-    state.ui?.phone?.dismissedEndings !== state.endings.length ||
-    !chapter.requiredApps.every((id) => state.visited.includes(id))
+    state.ui?.phone?.dismissedEndings !== state.endings.length
   )
     return null;
+  const explored = chapter.requiredApps.filter((id) =>
+    state.visited.includes(id),
+  ).length;
+  if (explored < chapter.requiredApps.length)
+    return (
+      <button
+        className="chapter-entry-button"
+        disabled
+        aria-label={`进入${chapter.nextTitle}`}
+      >
+        进入{chapter.nextTitle}
+        <small>
+          探索完所有软件后开启 · {explored}/{chapter.requiredApps.length}
+        </small>
+      </button>
+    );
   const ui = state.ui?.phone;
   if (ui?.chapterPreviewOpen === true)
     return (

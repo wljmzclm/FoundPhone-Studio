@@ -28,7 +28,7 @@
 
 默认空白模板：stories/blank/story.json。引擎回归样例位于tests/fixtures/story-example，不作为内置作品。自然语言原稿：tests/fixtures/story-example/STORY.md。只改故事数据就能改变手机内容。
 
-`phone.chapterTransition` 可选配置 `currentTitle`、`nextTitle` 与 `requiredApps`。主线结局已关闭、所有指定 App 均已访问后，回到桌面显示章节选择；暂缓选择后保留桌面入口。下一章尚未配置剧情时仅显示章节预告，不清空第一章存档。选择状态保存在手机 UI 存档中。
+`phone.chapterTransition` 可选配置 `currentTitle`、`nextTitle` 与 `requiredApps`。主线结局已关闭后，桌面显示章节入口（尚未访问全部指定 App 时禁用，并显示探索进度）；所有指定 App 均已访问后，回到桌面显示章节选择；暂缓选择后保留桌面入口。下一章尚未配置剧情时仅显示章节预告，不清空第一章存档。选择状态保存在手机 UI 存档中。
 
 `phone.introduction` 可选配置开场说明页：`title`、`guide`、`note`、`tagline` 与 `chapters`（每项 `title`，可选 `subtitle`）。每次打开链接首先显示说明页，点击第一章进入原有手机和存档，后续章节暂标待开启。未配置的作品沿用直接打开手机的行为。
 

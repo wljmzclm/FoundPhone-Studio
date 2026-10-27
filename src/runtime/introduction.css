@@ -58,6 +58,7 @@
   font-weight: 600;
 }
 .introduction-guide p {
+  white-space: pre-line;
   margin: 14px 0 0;
   font-size: 15px;
   line-height: 1.95;

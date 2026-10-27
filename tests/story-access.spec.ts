@@ -860,7 +860,22 @@ test("chapter choice waits for ending and all twelve apps, and can be deferred",
   await expect(page.getByRole("dialog", { name: "章节选择" })).toHaveCount(0);
   await page.getByRole("button", { name: "打开抖音", exact: true }).click();
   await page.getByRole("button", { name: "继续探索手机", exact: true }).click();
+  await expect(
+    page.getByRole("button", {
+      name: "进入第二章（时光倒流重返16岁）",
+      exact: true,
+    }),
+  ).toBeVisible();
+  await expect(
+    page.getByRole("button", {
+      name: "进入第二章（时光倒流重返16岁）",
+      exact: true,
+    }),
+  ).toBeDisabled();
   await expect(page.getByRole("dialog", { name: "章节选择" })).toHaveCount(0);
+  await page
+    .locator(".phone-screen")
+    .screenshot({ path: "outputs/mu-phone/chapter-two-entry-locked.png" });
   for (const name of [
     "微信",
     "短信",
@@ -887,6 +902,9 @@ test("chapter choice waits for ending and all twelve apps, and can be deferred",
   await page.getByRole("button", { name: "返回桌面", exact: true }).click();
   await expect(page.getByRole("dialog", { name: "章节选择" })).toBeVisible();
   await page
+    .locator(".phone-screen")
+    .screenshot({ path: "outputs/mu-phone/chapter-two-choice.png" });
+  await page
     .getByRole("button", { name: "继续探索第一章", exact: true })
     .click();
   await expect(page.getByRole("dialog", { name: "章节选择" })).toHaveCount(0);
@@ -894,16 +912,30 @@ test("chapter choice waits for ending and all twelve apps, and can be deferred",
   await unlock(page);
   await expect(page.getByRole("dialog", { name: "章节选择" })).toHaveCount(0);
   await page
-    .getByRole("button", { name: "章节 · 进入第二章", exact: true })
+    .getByRole("button", {
+      name: "章节 · 进入第二章（时光倒流重返16岁）",
+      exact: true,
+    })
     .click();
-  await page.getByRole("button", { name: "进入第二章", exact: true }).click();
+  await page
+    .getByRole("button", {
+      name: "进入第二章（时光倒流重返16岁）",
+      exact: true,
+    })
+    .click();
   await expect(
-    page.getByRole("dialog", { name: "第二章", exact: true }),
+    page.getByRole("dialog", {
+      name: "第二章（时光倒流重返16岁）",
+      exact: true,
+    }),
   ).toContainText("敬请期待");
   await page.reload();
   await unlock(page);
   await expect(
-    page.getByRole("dialog", { name: "第二章", exact: true }),
+    page.getByRole("dialog", {
+      name: "第二章（时光倒流重返16岁）",
+      exact: true,
+    }),
   ).toBeVisible();
   await page.getByRole("button", { name: "返回第一章", exact: true }).click();
   await page.getByRole("button", { name: "打开微博", exact: true }).click();
@@ -995,7 +1027,7 @@ test("phone replaces dock Douyin in saved layouts and plays the unavailable-numb
   ).toHaveCount(0);
 });
 
-test("blue-pink introduction presents six chapters before the passcode", async ({
+test("blue-pink introduction presents five chapters before the passcode", async ({
   page,
 }) => {
   await page.goto("/");
@@ -1018,9 +1050,21 @@ test("blue-pink introduction presents six chapters before the passcode", async (
     "点进来默认橹穆99",
   );
   const chapters = page.locator(".introduction-chapter-grid button");
-  await expect(chapters).toHaveCount(6);
+  await expect(chapters).toHaveCount(5);
+  await expect(chapters.nth(1)).toContainText("第二章");
+  await expect(chapters.nth(1)).toContainText("十六岁的愿望关于你");
+  await expect(chapters.nth(1)).toContainText("王橹杰的手机");
+  await expect(page.locator(".story-introduction")).not.toContainText(
+    "只有我不知道的事",
+  );
+  await expect(page.locator(".introduction-guide")).toContainText(
+    "人物设定：明星橹 × 素人穆",
+  );
+  await expect(page.locator(".introduction-guide")).toContainText(
+    "橹2026年18岁，穆21岁（困丞）",
+  );
   await expect(chapters.first()).toBeEnabled();
-  for (let i = 1; i < 6; i++) await expect(chapters.nth(i)).toBeDisabled();
+  for (let i = 1; i < 5; i++) await expect(chapters.nth(i)).toBeDisabled();
   await page.screenshot({
     path: "outputs/mu-phone/introduction-desktop.png",
     fullPage: true,
