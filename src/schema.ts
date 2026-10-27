@@ -126,6 +126,23 @@ export const workSchema = z.object({
         requiredApps: z.array(z.string()).min(1),
       })
       .optional(),
+    introduction: z
+      .object({
+        title: z.string().min(1).max(100),
+        guide: z.string().max(2000),
+        note: z.string().max(2000),
+        tagline: z.string().max(100),
+        chapters: z
+          .array(
+            z.object({
+              title: z.string().min(1).max(100),
+              subtitle: z.string().max(100).default(""),
+            }),
+          )
+          .min(1)
+          .max(20),
+      })
+      .optional(),
     theme: z.enum(["light", "dark"]),
     time: z.string(),
     battery: z.number().min(0).max(100),

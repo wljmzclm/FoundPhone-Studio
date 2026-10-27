@@ -95,6 +95,61 @@
           ],
           "additionalProperties": false
         },
+        "introduction": {
+          "type": "object",
+          "properties": {
+            "title": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 100
+            },
+            "guide": {
+              "type": "string",
+              "maxLength": 2000
+            },
+            "note": {
+              "type": "string",
+              "maxLength": 2000
+            },
+            "tagline": {
+              "type": "string",
+              "maxLength": 100
+            },
+            "chapters": {
+              "minItems": 1,
+              "maxItems": 20,
+              "type": "array",
+              "items": {
+                "type": "object",
+                "properties": {
+                  "title": {
+                    "type": "string",
+                    "minLength": 1,
+                    "maxLength": 100
+                  },
+                  "subtitle": {
+                    "default": "",
+                    "type": "string",
+                    "maxLength": 100
+                  }
+                },
+                "required": [
+                  "title",
+                  "subtitle"
+                ],
+                "additionalProperties": false
+              }
+            }
+          },
+          "required": [
+            "title",
+            "guide",
+            "note",
+            "tagline",
+            "chapters"
+          ],
+          "additionalProperties": false
+        },
         "theme": {
           "type": "string",
           "enum": [

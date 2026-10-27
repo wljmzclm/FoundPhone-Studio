@@ -3,6 +3,15 @@ import { readFileSync } from "node:fs";
 import { compileStory } from "../src/story-engine/compiler";
 const raw = JSON.parse(readFileSync("stories/template/story.json", "utf8"));
 async function unlock(page: Page, pin = "2711") {
+  await page
+    .locator(".story-introduction, .lock-screen")
+    .first()
+    .waitFor({ state: "visible" });
+  const start = page.getByRole("button", {
+    name: "进入第一章：短信爱",
+    exact: true,
+  });
+  if (await start.isVisible()) await start.click();
   await page.getByRole("button", { name: "轻触解锁" }).click();
   for (const digit of pin)
     await page
@@ -13,6 +22,9 @@ test("Mu phone: wallpaper, four-digit passcode and four allowed story apps", asy
   page,
 }) => {
   await page.goto("/");
+  await page
+    .getByRole("button", { name: "进入第一章：短信爱", exact: true })
+    .click();
   await expect(page.locator(".lock-screen")).toBeVisible();
   expect(
     await page
@@ -915,4 +927,64 @@ test("phone replaces dock Douyin in saved layouts and plays the unavailable-numb
   await expect(
     dock.getByRole("button", { name: "打开抖音", exact: true }),
   ).toHaveCount(0);
+});
+
+test("blue-pink introduction presents six chapters before the passcode", async ({
+  page,
+}) => {
+  await page.goto("/");
+  await expect(
+    page.getByRole("heading", {
+      level: 1,
+      name: "命中注定我爱你",
+      exact: true,
+    }),
+  ).toBeVisible();
+  await expect(page).toHaveTitle("命中注定我爱你");
+  await expect(page.locator(".lock-screen")).toHaveCount(0);
+  await expect(page.locator(".introduction-guide")).toContainText(
+    "需根据弹窗进行剧情，剧情结束后可继续探索手机，了解更多橹穆的故事。",
+  );
+  await expect(page.locator(".introduction-note")).toContainText(
+    "大家进入新的章节需先点进网易云播放音乐",
+  );
+  await expect(page.locator(".introduction-tagline")).toContainText(
+    "点进来默认橹穆99",
+  );
+  const chapters = page.locator(".introduction-chapter-grid button");
+  await expect(chapters).toHaveCount(6);
+  await expect(chapters.first()).toBeEnabled();
+  for (let i = 1; i < 6; i++) await expect(chapters.nth(i)).toBeDisabled();
+  await page.screenshot({
+    path: "outputs/mu-phone/introduction-desktop.png",
+    fullPage: true,
+  });
+  await page.setViewportSize({ width: 390, height: 844 });
+  await expect
+    .poll(() =>
+      page.evaluate(
+        () =>
+          document.querySelector(".story-runtime")!.scrollWidth <=
+          window.innerWidth,
+      ),
+    )
+    .toBe(true);
+  await page.screenshot({
+    path: "outputs/mu-phone/introduction-mobile.png",
+    fullPage: true,
+  });
+  await chapters.first().click();
+  await expect(page.locator(".lock-screen")).toBeVisible();
+  await unlock(page);
+  await expect(
+    page.getByRole("button", { name: "打开电话", exact: true }),
+  ).toBeVisible();
+  await page
+    .getByRole("button", { name: "返回说明与章节", exact: true })
+    .click();
+  await expect(
+    page.getByRole("heading", { name: "命中注定我爱你", exact: true }),
+  ).toBeVisible();
+  await page.reload();
+  await expect(page.locator(".story-introduction")).toBeVisible();
 });

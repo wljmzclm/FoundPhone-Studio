@@ -1,9 +1,9 @@
 {
   "scriptVersion": 1,
   "id": "mu-zhicheng-phone",
-  "title": "穆祉丞的手机",
+  "title": "命中注定我爱你",
   "description": "以穆祉丞的视角探索手机，从王橹杰的新微博通知开始。后续主剧情待补充。",
-  "revision": 28,
+  "revision": 29,
   "phone": {
     "owner": "穆祉丞",
     "date": "2026-10-25",
@@ -41,6 +41,34 @@
         "safari",
         "bilibili",
         "phone"
+      ]
+    },
+    "introduction": {
+      "title": "命中注定我爱你",
+      "guide": "需根据弹窗进行剧情，剧情结束后可继续探索手机，了解更多橹穆的故事。",
+      "note": "网易云的音乐是我推荐的bgm，大家进入新的章节需先点进网易云播放音乐，下一章的触发需探索完所有的软件。",
+      "tagline": "点进来默认橹穆99",
+      "chapters": [
+        {
+          "title": "短信爱",
+          "subtitle": "穆祉丞的手机"
+        },
+        {
+          "title": "只有我不知道的事",
+          "subtitle": "王橹杰的手机"
+        },
+        {
+          "title": "十七岁的愿望关于你"
+        },
+        {
+          "title": "南山塔的诅咒"
+        },
+        {
+          "title": "命中注定爱上你"
+        },
+        {
+          "title": "番外（暂定）"
+        }
       ]
     }
   },

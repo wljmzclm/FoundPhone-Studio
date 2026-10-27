@@ -1,0 +1,226 @@
+.story-runtime.introduction-open {
+  display: block;
+  overflow: auto;
+  background: #e5e9fa;
+}
+.story-introduction {
+  min-height: 100%;
+  color: #3a3b59;
+  background:
+    radial-gradient(ellipse at 5% 5%, #c9e8ff 0, transparent 55%),
+    radial-gradient(ellipse at 95% 35%, #ffd6e7 0, transparent 60%),
+    linear-gradient(150deg, #e3efff, #fce6ef);
+  padding: 64px 24px 32px;
+  box-sizing: border-box;
+}
+.introduction-inner {
+  max-width: 920px;
+  margin: auto;
+}
+.introduction-hero {
+  text-align: center;
+  margin-bottom: 40px;
+}
+.introduction-kicker {
+  font-size: 13px;
+  letter-spacing: 0.2em;
+  color: #747b9c;
+}
+.introduction-hero h1 {
+  font-family: "Songti SC", "Noto Serif SC", serif;
+  font-size: clamp(32px, 5.2vw, 56px);
+  line-height: 1.5;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  margin: 18px 0;
+  color: #414567;
+}
+.introduction-tagline {
+  display: inline-block;
+  padding: 8px 18px;
+  border-radius: 24px;
+  border: 1px solid #fff;
+  background: #ffffff77;
+  color: #9f6183;
+  font-size: 13px;
+}
+.introduction-guide {
+  padding: 28px 32px;
+  border: 1px solid #ffffffcc;
+  border-radius: 24px;
+  background: #ffffff75;
+  box-shadow: 0 16px 45px #687ca00d;
+}
+.introduction-guide h2,
+.introduction-section-heading h2 {
+  margin: 0;
+  font-size: 19px;
+  font-weight: 600;
+}
+.introduction-guide p {
+  margin: 14px 0 0;
+  font-size: 15px;
+  line-height: 1.95;
+}
+.introduction-note {
+  display: flex;
+  align-items: baseline;
+  gap: 14px;
+  margin-top: 20px;
+  padding-top: 18px;
+  border-top: 1px solid #b9bfdb55;
+}
+.introduction-note strong {
+  color: #b26d90;
+  font-size: 13px;
+}
+.introduction-note p {
+  margin: 0;
+  color: #74758e;
+  font-size: 13px;
+}
+.introduction-chapters {
+  margin-top: 32px;
+}
+.introduction-section-heading {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 18px;
+}
+.introduction-section-heading > span {
+  font-size: 12px;
+  color: #8b819b;
+}
+.introduction-chapter-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 16px;
+}
+.introduction-chapter-grid button {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  text-align: left;
+  min-height: 206px;
+  padding: 23px;
+  border: 1px solid #ffffffcc;
+  border-radius: 20px;
+  color: #4a4b69;
+  background: #ffffff65;
+  font: inherit;
+  transition:
+    transform 0.2s,
+    box-shadow 0.2s;
+}
+.introduction-chapter-grid .available {
+  background: linear-gradient(130deg, #d8edffdd, #ffe5f1dd);
+  border-color: #fff;
+  cursor: pointer;
+  box-shadow: 0 10px 28px #7485b51a;
+}
+.introduction-chapter-grid .available:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 14px 30px #7485b533;
+}
+.introduction-chapter-grid button:focus-visible {
+  outline: 3px solid #8f9ed6;
+  outline-offset: 3px;
+}
+.introduction-chapter-grid button:disabled {
+  opacity: 1;
+  cursor: default;
+}
+.introduction-chapter-number {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 24px;
+  color: #94a1c5;
+  font-family: Georgia, serif;
+  margin-bottom: 20px;
+}
+.introduction-chapter-number small {
+  font: 12px sans-serif;
+  color: #9188a2;
+}
+.introduction-chapter-grid strong {
+  font-size: 17px;
+  line-height: 1.6;
+}
+.introduction-chapter-subtitle {
+  font-size: 12px;
+  color: #8a8097;
+  margin-top: 5px;
+}
+.introduction-chapter-status {
+  font-size: 12px;
+  margin-top: auto;
+  padding-top: 22px;
+  color: #aa7094;
+}
+.introduction-chapter-grid .upcoming .introduction-chapter-status {
+  color: #9e99ac;
+}
+.story-introduction footer {
+  text-align: center;
+  color: #938da5;
+  font-size: 12px;
+  padding-top: 34px;
+  line-height: 1.7;
+}
+.player-introduction-back {
+  position: fixed;
+  top: 12px;
+  right: 14px;
+  z-index: 1;
+  padding: 8px 12px;
+  border: 1px solid #ffffff40;
+  border-radius: 18px;
+  background: #ffffffdc;
+  color: #585774;
+  font-size: 12px;
+}
+@media (max-width: 650px) {
+  .story-introduction {
+    padding: 38px 18px 26px;
+  }
+  .introduction-hero {
+    margin-bottom: 28px;
+  }
+  .introduction-kicker {
+    font-size: 11px;
+  }
+  .introduction-guide {
+    padding: 22px;
+  }
+  .introduction-guide p {
+    font-size: 14px;
+  }
+  .introduction-note p {
+    font-size: 12px;
+  }
+  .introduction-chapter-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 12px;
+  }
+  .introduction-chapter-grid button {
+    padding: 18px;
+    min-height: 200px;
+  }
+  .introduction-chapter-grid strong {
+    font-size: 15px;
+  }
+  .player-introduction-back {
+    top: auto;
+    bottom: 8px;
+    right: 8px;
+    opacity: 0.8;
+    font-size: 10px;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .introduction-chapter-grid button {
+    transition: none;
+  }
+}
