@@ -3,7 +3,7 @@
   "id": "mu-zhicheng-phone",
   "title": "命中注定我爱你",
   "description": "以穆祉丞的视角探索手机，从王橹杰的新微博通知开始。后续主剧情待补充。",
-  "revision": 37,
+  "revision": 38,
   "phone": {
     "owner": "穆祉丞",
     "date": "2026-10-25",
@@ -23,7 +23,8 @@
         "phone",
         "photos",
         "taobao",
-        "weather"
+        "weather",
+        "calendar"
       ],
       "afterEnding": []
     },
@@ -39,7 +40,8 @@
         "photos",
         "phone",
         "taobao",
-        "weather"
+        "weather",
+        "calendar"
       ]
     },
     "introduction": {
@@ -148,6 +150,15 @@
     {
       "id": "weather",
       "name": "天气",
+      "installed": true,
+      "visible": true,
+      "dock": false,
+      "folder": "",
+      "icon": ""
+    },
+    {
+      "id": "calendar",
+      "name": "日历",
       "installed": true,
       "visible": true,
       "dock": false,
@@ -1680,6 +1691,33 @@
           "humidity": "58%",
           "hourly": "[{\"time\":\"现在\",\"temperature\":\"32\"},{\"time\":\"12时\",\"temperature\":\"33\"},{\"time\":\"13时\",\"temperature\":\"34\"},{\"time\":\"14时\",\"temperature\":\"34\"},{\"time\":\"15时\",\"temperature\":\"33\"},{\"time\":\"16时\",\"temperature\":\"32\"}]",
           "daily": "[{\"label\":\"今天\",\"low\":\"24\",\"high\":\"34\"}]"
+        }
+      }
+    ],
+    "calendar": [
+      {
+        "id": "wang-birthday",
+        "title": "王橹杰生日",
+        "sender": "日历",
+        "time": "2023-01-08",
+        "body": "自2023年起，每年1月8日：王橹杰生日。",
+        "kind": "event",
+        "meta": {
+          "repeat": "yearly",
+          "allDay": "true",
+          "anniversary": "true"
+        }
+      },
+      {
+        "id": "wang-public-day",
+        "title": "王橹杰公开日",
+        "sender": "日历",
+        "time": "2025-10-06",
+        "body": "2025年10月6日：王橹杰公开日。",
+        "kind": "event",
+        "meta": {
+          "allDay": "true",
+          "anniversary": "true"
         }
       }
     ]

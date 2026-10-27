@@ -1,5 +1,6 @@
 export { WeatherSkin, HealthSkin } from "./CalibratedSystemApps";
 import { AudioPlayer, useTrack } from "../audio";
+import { calendarOccursOn } from "../calendar";
 import { UnavailablePhone } from "./UnavailablePhone";
 import { useSkinState } from "../skinState";
 import {
@@ -421,13 +422,22 @@ export function NotesSkin(p: Props) {
   );
 }
 export function CalendarSkin(p: Props) {
-  const [month, setMonth] = useState(8),
-    [year, setYear] = useState(2026),
-    [day, setDay] = useState(1);
+  const initial = /^\d{4}-\d{2}-\d{2}$/.test(p.virtualDate || "")
+    ? p.virtualDate!
+    : "2026-09-01";
+  const [month, setMonth] = useState(Number(initial.slice(5, 7)) - 1),
+    [year, setYear] = useState(Number(initial.slice(0, 4))),
+    [day, setDay] = useState(Number(initial.slice(8, 10)));
   const prefix = `${year}-${String(month + 1).padStart(2, "0")}`;
-  const list = p.items.filter((i) =>
-    i.time.startsWith(`${prefix}-${String(day).padStart(2, "0")}`),
-  );
+  const selectedDate = `${prefix}-${String(day).padStart(2, "0")}`;
+  const list = p.items.filter((i) => calendarOccursOn(i, selectedDate));
+  const jump = (value: string) => {
+    const date = new Date(value + "T00:00:00Z");
+    if (!Number.isFinite(date.getTime())) return;
+    setYear(date.getUTCFullYear());
+    setMonth(date.getUTCMonth());
+    setDay(date.getUTCDate());
+  };
   const move = (d: number) => {
     const date = new Date(Date.UTC(year, month + d, 1));
     setYear(date.getUTCFullYear());
@@ -451,6 +461,38 @@ export function CalendarSkin(p: Props) {
             <ChevronRight />
           </button>
         </div>
+        <label className="calendar-date-jump">
+          跳转日期
+          <input
+            type="date"
+            aria-label="跳转日期"
+            value={selectedDate}
+            onChange={(e) => jump(e.target.value)}
+          />
+        </label>
+        {p.items.some((i) => i.meta.anniversary === "true") && (
+          <div className="calendar-anniversary-shortcuts">
+            {p.items
+              .filter((i) => i.meta.anniversary === "true")
+              .map((item) => (
+                <button
+                  key={item.id}
+                  onClick={() =>
+                    jump(
+                      item.meta.repeat === "yearly"
+                        ? `${Math.max(year, Number(item.time.slice(0, 4)))}-${item.time.slice(5, 10)}`
+                        : item.time.slice(0, 10),
+                    )
+                  }
+                >
+                  <strong>{item.title}</strong>
+                  <small>
+                    {`${item.meta.repeat === "yearly" ? "每年" : item.time.slice(0, 4) + "年"}${Number(item.time.slice(5, 7))}月${Number(item.time.slice(8, 10))}日${item.meta.repeat === "yearly" ? " · " + item.time.slice(0, 4) + "年起" : ""}`}
+                  </small>
+                </button>
+              ))}
+          </div>
+        )}
         <div className="calendar-grid">
           {["日", "一", "二", "三", "四", "五", "六"].map((t) => (
             <small key={t}>{t}</small>
@@ -462,11 +504,13 @@ export function CalendarSkin(p: Props) {
             <button
               className={day === i + 1 ? "selected" : ""}
               key={i}
+              aria-label={`${prefix}-${String(i + 1).padStart(2, "0")}`}
               onClick={() => setDay(i + 1)}
             >
               {i + 1}
               {p.items.some((x) =>
-                x.time.startsWith(
+                calendarOccursOn(
+                  x,
                   `${prefix}-${String(i + 1).padStart(2, "0")}`,
                 ),
               ) && <i />}
@@ -482,7 +526,7 @@ export function CalendarSkin(p: Props) {
             key={i.id}
             onClick={() => p.onItem(i)}
           >
-            <time>{i.time.slice(-5)}</time>
+            <time>{i.meta.allDay === "true" ? "全天" : i.time.slice(-5)}</time>
             <div>
               <strong>{i.title}</strong>
               <p>{meta(i, "location", i.body)}</p>

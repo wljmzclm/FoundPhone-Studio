@@ -42,6 +42,7 @@ export type SkinProps = {
   owner?: string;
   ownerAvatar?: string;
   virtualTime?: string;
+  virtualDate?: string;
   name: string;
   items: Item[];
   scriptedReply?: Item;

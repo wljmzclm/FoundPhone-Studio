@@ -1077,6 +1077,7 @@ function AppContent({
               owner={work.phone.owner}
               ownerAvatar={items.find((i) => i.outgoing && i.avatar)?.avatar}
               virtualTime={state.time}
+              virtualDate={state.date || work.phone.date}
               ui={state.ui?.[app.id]}
               onUi={creator ? undefined : onUi}
               name={name}

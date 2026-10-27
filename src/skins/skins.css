@@ -4258,3 +4258,44 @@
   height: auto;
   max-height: none;
 }
+
+.calendar-date-jump {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 8px 16px;
+  font-size: 13px;
+  color: #777;
+}
+.calendar-date-jump input {
+  max-width: 180px;
+  padding: 6px 9px;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  background: #fff;
+  color: #222;
+}
+.calendar-anniversary-shortcuts {
+  display: flex;
+  gap: 8px;
+  padding: 8px 12px 12px;
+}
+.calendar-anniversary-shortcuts button {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  gap: 5px;
+  text-align: left;
+  border: 0;
+  border-radius: 10px;
+  padding: 12px;
+  color: #333;
+  background: #fff0f3;
+}
+.calendar-anniversary-shortcuts strong {
+  font-size: 13px;
+}
+.calendar-anniversary-shortcuts small {
+  font-size: 10px;
+  color: #a77380;
+}

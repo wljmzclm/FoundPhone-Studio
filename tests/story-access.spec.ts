@@ -770,7 +770,7 @@ test("MUahahaha has one dated post during and after the main story", async ({
   await expect(page.locator(".weibo-post")).toHaveCount(1);
 });
 
-test("chapter choice waits for ending and all nine apps, and can be deferred", async ({
+test("chapter choice waits for ending and all ten apps, and can be deferred", async ({
   page,
 }) => {
   const { work } = compileStory({
@@ -808,6 +808,7 @@ test("chapter choice waits for ending and all nine apps, and can be deferred", a
     "电话",
     "淘宝",
     "天气",
+    "日历",
   ]) {
     await page
       .getByRole("button", { name: "打开" + name, exact: true })
@@ -1006,6 +1007,7 @@ test("Taobao purchase records and every installed app are available before main 
     "相册",
     "淘宝",
     "天气",
+    "日历",
   ])
     await expect(
       page.getByRole("button", { name: "打开" + name, exact: true }),
@@ -1172,4 +1174,40 @@ test("first WeChat screenshot send shows and opens the daytime SMS picture", asy
   await expect(
     page.getByRole("button", { name: "？谁发的这么抽象", exact: true }),
   ).toBeVisible({ timeout: 6000 });
+});
+
+test("calendar repeats Wang birthdays from 2023 and marks only the 2025 public day", async ({
+  page,
+}) => {
+  await page.goto("/");
+  await unlock(page);
+  await page.getByRole("button", { name: "打开日历", exact: true }).click();
+  const input = page.locator('input[aria-label="跳转日期"]');
+  await input.fill("2022-01-08");
+  await expect(page.locator(".calendar-event")).toHaveCount(0);
+  await expect(
+    page.getByRole("button", { name: "2022-01-08", exact: true }).locator("i"),
+  ).toHaveCount(0);
+  for (const year of [2023, 2026, 2035]) {
+    await input.fill(`${year}-01-08`);
+    await expect(page.locator(".calendar-event")).toHaveCount(1);
+    await expect(page.locator(".calendar-event")).toContainText("王橹杰生日");
+    await expect(
+      page
+        .getByRole("button", { name: `${year}-01-08`, exact: true })
+        .locator("i"),
+    ).toHaveCount(1);
+  }
+  await input.fill("2025-10-06");
+  await expect(page.locator(".calendar-event")).toHaveCount(1);
+  await expect(page.locator(".calendar-event")).toContainText("王橹杰公开日");
+  await page
+    .locator(".phone-screen")
+    .screenshot({ path: "outputs/mu-phone/calendar-public-day.png" });
+  await input.fill("2026-10-06");
+  await expect(page.locator(".calendar-event")).toHaveCount(0);
+  await page
+    .getByRole("button", { name: "王橹杰生日 每年1月8日 · 2023年起" })
+    .click();
+  await expect(page.locator(".calendar-event")).toContainText("王橹杰生日");
 });
