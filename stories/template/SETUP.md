@@ -88,3 +88,9 @@ MUahahaha 主页背景替换为作者新提供的原始方形照片 muahahaha-co
 - 照片仅指定年份，time 使用“2023年”等，不编造具体拍摄日期。meta.photoYear 控制新增“时间”页面，默认显示全部年份，可按年筛选；图库、年份相簿、原图查看保留。无年份数据的其他作品继续使用原相册界面。
 - 每张图均以 ZIP 内原始字节保存，系统元数据和非图片条目不导入。导入 SHA-256 核对表在 /tmp/album-manifest.json（执行工作记录，不属于网站内容）。
 - 下载 ZIP 仍含完整离线单文件 HTML，全部照片/视频均内嵌。为避免单个文件超过 GitHub 100 MiB 限制，仓库根 foundphone-preview.html 的新相册通过原图 raw URL 在线加载；根 foundphone-preview.zip 内的同名 HTML 为完整内嵌版本。维护打包脚本 /tmp/package-foundphone-final.py 已同时生成这两个版本，不要再用完整内嵌 HTML 覆盖根在线 HTML。
+
+### 第一章提醒事项（2026-10-28）
+- 新增 reminders，解锁后即可打开，并计入章节探索（现共 12 个应用）。
+- 清单标题“重要‼”；依次为：演唱会就是今天！、灯牌、应援棒、电池、相机、支架、换洗衣服、洗漱用品、充电器。
+- 按作者截图，第一项未完成，其余八项已完成；白底、蓝色圆形完成标记、已完成项灰字。
+- 复用 RemindersSkin：meta.listTitle/listEmphasis 控制单清单界面，meta.completed 初始化状态。玩家点击圆圈后状态保存在 reminders.checked，刷新仍保留；其他作品无此元数据继续使用原提醒事项界面。

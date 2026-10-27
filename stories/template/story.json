@@ -3,7 +3,7 @@
   "id": "mu-zhicheng-phone",
   "title": "命中注定我爱你",
   "description": "以穆祉丞的视角探索手机，从王橹杰的新微博通知开始。后续主剧情待补充。",
-  "revision": 41,
+  "revision": 42,
   "phone": {
     "owner": "穆祉丞",
     "date": "2026-10-25",
@@ -25,7 +25,8 @@
         "taobao",
         "weather",
         "calendar",
-        "qq"
+        "qq",
+        "reminders"
       ],
       "afterEnding": []
     },
@@ -43,7 +44,8 @@
         "taobao",
         "weather",
         "calendar",
-        "qq"
+        "qq",
+        "reminders"
       ]
     },
     "introduction": {
@@ -170,6 +172,15 @@
     {
       "id": "qq",
       "name": "QQ",
+      "installed": true,
+      "visible": true,
+      "dock": false,
+      "folder": "",
+      "icon": ""
+    },
+    {
+      "id": "reminders",
+      "name": "提醒事项",
       "installed": true,
       "visible": true,
       "dock": false,
@@ -2248,6 +2259,116 @@
         "meta": {
           "allDay": "true",
           "anniversary": "true"
+        }
+      }
+    ],
+    "reminders": [
+      {
+        "id": "concert-reminder-01",
+        "title": "演唱会就是今天！",
+        "body": "",
+        "kind": "note",
+        "folder": "重要‼",
+        "meta": {
+          "listTitle": "重要",
+          "listEmphasis": "‼",
+          "completed": "false"
+        }
+      },
+      {
+        "id": "concert-reminder-02",
+        "title": "灯牌",
+        "body": "",
+        "kind": "note",
+        "folder": "重要‼",
+        "meta": {
+          "listTitle": "重要",
+          "listEmphasis": "‼",
+          "completed": "true"
+        }
+      },
+      {
+        "id": "concert-reminder-03",
+        "title": "应援棒",
+        "body": "",
+        "kind": "note",
+        "folder": "重要‼",
+        "meta": {
+          "listTitle": "重要",
+          "listEmphasis": "‼",
+          "completed": "true"
+        }
+      },
+      {
+        "id": "concert-reminder-04",
+        "title": "电池",
+        "body": "",
+        "kind": "note",
+        "folder": "重要‼",
+        "meta": {
+          "listTitle": "重要",
+          "listEmphasis": "‼",
+          "completed": "true"
+        }
+      },
+      {
+        "id": "concert-reminder-05",
+        "title": "相机",
+        "body": "",
+        "kind": "note",
+        "folder": "重要‼",
+        "meta": {
+          "listTitle": "重要",
+          "listEmphasis": "‼",
+          "completed": "true"
+        }
+      },
+      {
+        "id": "concert-reminder-06",
+        "title": "支架",
+        "body": "",
+        "kind": "note",
+        "folder": "重要‼",
+        "meta": {
+          "listTitle": "重要",
+          "listEmphasis": "‼",
+          "completed": "true"
+        }
+      },
+      {
+        "id": "concert-reminder-07",
+        "title": "换洗衣服",
+        "body": "",
+        "kind": "note",
+        "folder": "重要‼",
+        "meta": {
+          "listTitle": "重要",
+          "listEmphasis": "‼",
+          "completed": "true"
+        }
+      },
+      {
+        "id": "concert-reminder-08",
+        "title": "洗漱用品",
+        "body": "",
+        "kind": "note",
+        "folder": "重要‼",
+        "meta": {
+          "listTitle": "重要",
+          "listEmphasis": "‼",
+          "completed": "true"
+        }
+      },
+      {
+        "id": "concert-reminder-09",
+        "title": "充电器",
+        "body": "",
+        "kind": "note",
+        "folder": "重要‼",
+        "meta": {
+          "listTitle": "重要",
+          "listEmphasis": "‼",
+          "completed": "true"
         }
       }
     ]

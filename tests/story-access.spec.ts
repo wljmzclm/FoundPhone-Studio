@@ -831,7 +831,7 @@ test("MUahahaha has one dated post during and after the main story", async ({
   await expect(page.locator(".weibo-post")).toHaveCount(1);
 });
 
-test("chapter choice waits for ending and all eleven apps, and can be deferred", async ({
+test("chapter choice waits for ending and all twelve apps, and can be deferred", async ({
   page,
 }) => {
   const { work } = compileStory({
@@ -871,6 +871,7 @@ test("chapter choice waits for ending and all eleven apps, and can be deferred",
     "天气",
     "日历",
     "QQ",
+    "提醒事项",
   ]) {
     await page
       .getByRole("button", { name: "打开" + name, exact: true })
@@ -1419,4 +1420,48 @@ test("album time sections replace all retired photos and preserve the forty orig
   await unlock(page);
   await page.getByRole("button", { name: "打开相册", exact: true }).click();
   await expect(page.locator(".photo-mosaic button")).toHaveCount(40);
+});
+
+test("concert reminders match the supplied completed states and persist player changes", async ({
+  page,
+}) => {
+  await page.goto("/");
+  await unlock(page);
+  await page.getByRole("button", { name: "打开提醒事项", exact: true }).click();
+  await expect(page.locator(".native-reminders h1")).toHaveText("重要‼");
+  await expect(page.getByRole("checkbox")).toHaveCount(9);
+  await expect(page.getByRole("checkbox", { checked: true })).toHaveCount(8);
+  await expect(
+    page.getByRole("checkbox", { name: "演唱会就是今天！", exact: true }),
+  ).not.toBeChecked();
+  for (const title of [
+    "灯牌",
+    "应援棒",
+    "电池",
+    "相机",
+    "支架",
+    "换洗衣服",
+    "洗漱用品",
+    "充电器",
+  ]) {
+    await expect(
+      page.getByRole("checkbox", { name: title, exact: true }),
+    ).toBeChecked();
+  }
+  await page
+    .locator(".phone-screen")
+    .screenshot({ path: "outputs/mu-phone/concert-reminders.png" });
+  await page
+    .getByRole("checkbox", { name: "演唱会就是今天！", exact: true })
+    .click();
+  await page.getByRole("checkbox", { name: "灯牌", exact: true }).click();
+  await page.reload();
+  await unlock(page);
+  await page.getByRole("button", { name: "打开提醒事项", exact: true }).click();
+  await expect(
+    page.getByRole("checkbox", { name: "演唱会就是今天！", exact: true }),
+  ).toBeChecked();
+  await expect(
+    page.getByRole("checkbox", { name: "灯牌", exact: true }),
+  ).not.toBeChecked();
 });

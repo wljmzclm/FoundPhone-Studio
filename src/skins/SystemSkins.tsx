@@ -727,32 +727,59 @@ export function ClockSkin(p: Props) {
 }
 export function RemindersSkin(p: Props) {
   const { tab, setTab, q, setQ, items } = useContent(p, "全部");
-  const [checked, setChecked] = useSkinState<string[]>(p, "checked", []);
-  const list =
-    tab === "已完成"
+  const authoredList = p.items.find((i) => i.meta.listTitle)?.meta;
+  const [checked, setChecked] = useSkinState<string[]>(
+    p,
+    "checked",
+    p.items.filter((i) => i.meta.completed === "true").map((i) => i.id),
+  );
+  const list = authoredList
+    ? items
+    : tab === "已完成"
       ? items.filter((i) => checked.includes(i.id))
       : items.filter((i) => !checked.includes(i.id));
   return (
-    <div className="catalog-skin native-reminders">
+    <div
+      className={`catalog-skin native-reminders ${authoredList ? "reminders-authored-list" : ""}`}
+    >
       <Header p={p} />
       <div className="catalog-scroll">
-        <SearchBox value={q} set={setQ} />
-        <div className="reminder-categories">
-          {["全部", "已完成"].map((t) => (
-            <button key={t} onClick={() => setTab(t)}>
-              <Calendar size={22} />
-              <strong>
-                {t === "全部" ? items.length - checked.length : checked.length}
-              </strong>
-              <span>{t}</span>
-            </button>
-          ))}
-        </div>
-        <h1>{tab}</h1>
+        {!authoredList && (
+          <>
+            <SearchBox value={q} set={setQ} />
+            <div className="reminder-categories">
+              {["全部", "已完成"].map((t) => (
+                <button key={t} onClick={() => setTab(t)}>
+                  <Calendar size={22} />
+                  <strong>
+                    {t === "全部"
+                      ? items.length - checked.length
+                      : checked.length}
+                  </strong>
+                  <span>{t}</span>
+                </button>
+              ))}
+            </div>
+          </>
+        )}
+        <h1>
+          {authoredList ? (
+            <>
+              {authoredList.listTitle}
+              <b>{authoredList.listEmphasis}</b>
+            </>
+          ) : (
+            tab
+          )}
+        </h1>
         {list.map((i) => (
-          <div className="reminder-row" key={i.id}>
+          <div
+            className="reminder-row"
+            data-completed={checked.includes(i.id)}
+            key={i.id}
+          >
             <button
-              aria-label={`完成${i.title}`}
+              aria-label={authoredList ? i.title : `完成${i.title}`}
               role="checkbox"
               aria-checked={checked.includes(i.id)}
               onClick={() =>
@@ -763,13 +790,19 @@ export function RemindersSkin(p: Props) {
                 )
               }
             >
-              <CheckCircle size={21} />
+              {authoredList ? (
+                <span className="reminder-check" />
+              ) : (
+                <CheckCircle size={21} />
+              )}
             </button>
             <button onClick={() => p.onItem(i)}>
               <strong>{i.title}</strong>
-              <small>
-                {i.time} · {i.folder}
-              </small>
+              {!authoredList && (
+                <small>
+                  {i.time} · {i.folder}
+                </small>
+              )}
             </button>
           </div>
         ))}
