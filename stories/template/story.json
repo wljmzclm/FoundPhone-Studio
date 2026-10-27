@@ -3,7 +3,7 @@
   "id": "mu-zhicheng-phone",
   "title": "穆祉丞的手机",
   "description": "以穆祉丞的视角探索手机，从王橹杰的新微博通知开始。后续主剧情待补充。",
-  "revision": 21,
+  "revision": 22,
   "phone": {
     "owner": "穆祉丞",
     "date": "2026-10-25",
@@ -704,6 +704,25 @@
         },
         "media": "./story-assets/weibo-post-0320.jpg",
         "avatar": "./story-assets/weibo-profile.jpg"
+      },
+      {
+        "id": "weibo-muahahaha-profile",
+        "title": "MUahahaha",
+        "sender": "MUahahaha",
+        "body": "",
+        "meta": {
+          "view": "profile",
+          "simpleProfile": "true"
+        }
+      },
+      {
+        "id": "weibo-muahahaha-20241219",
+        "title": "因为觉得有点der",
+        "sender": "MUahahaha",
+        "body": "因为觉得有点der，所以隔了半个月才发出去一张",
+        "time": "2024-12-19",
+        "media": "./story-assets/muahahaha-20241219.jpg",
+        "kind": "image"
       }
     ],
     "messages": [

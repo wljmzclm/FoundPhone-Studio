@@ -1,5 +1,5 @@
 import { useSkinState } from "../skinState";
-import { WeiboProfile } from "./WeiboProfile";
+import { WeiboAccounts } from "./WeiboProfile";
 import {
   ArrowDown,
   ArrowUp,
@@ -91,7 +91,7 @@ function WeiboActions({ p, item }: { p: Props; item: Item }) {
 }
 export function WeiboSkin(p: Props) {
   const profile = p.items.find((i) => i.meta.view === "profile");
-  if (profile) return <WeiboProfile p={p} profile={profile} />;
+  if (profile) return <WeiboAccounts p={p} />;
   return <WeiboFeed p={p} />;
 }
 function WeiboFeed({ p }: { p: Props }) {

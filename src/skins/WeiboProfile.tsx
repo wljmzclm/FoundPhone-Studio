@@ -18,6 +18,62 @@ import { StoryGallery } from "./StoryGallery";
 import "./weibo-profile.css";
 const wan = (n: number) =>
   n >= 10000 ? (n / 10000).toFixed(1).replace(/\.0$/, "") + "万" : String(n);
+export function WeiboAccounts({ p }: { p: Props }) {
+  const profiles = p.items.filter((i) => i.meta.view === "profile");
+  const [selected, setSelected] = useState(profiles[0]?.id || "");
+  const profile = profiles.find((i) => i.id === selected) || profiles[0];
+  if (!profile) return null;
+  return (
+    <div className="weibo-accounts">
+      <nav aria-label="微博账号" className="weibo-account-switcher">
+        {profiles.map((item) => (
+          <button
+            key={item.id}
+            aria-pressed={profile.id === item.id}
+            onClick={() => setSelected(item.id)}
+          >
+            {item.sender}
+          </button>
+        ))}
+      </nav>
+      {profile.meta.simpleProfile === "true" ? (
+        <div className="catalog-skin weibo-ui weibo-author-page">
+          <header className="app-nav">
+            <button aria-label="返回" onClick={p.onBack}>
+              <ChevronLeft />
+            </button>
+            <strong>{profile.sender}</strong>
+            <span />
+          </header>
+          <div className="catalog-scroll">
+            <section className="weibo-simple-profile">
+              <Avatar name={profile.sender} />
+              <h2>{profile.sender}</h2>
+              <p>
+                微博{" "}
+                {
+                  p.items.filter(
+                    (i) =>
+                      i.sender === profile.sender && i.meta.view !== "profile",
+                  ).length
+                }
+              </p>
+            </section>
+            {p.items
+              .filter(
+                (i) => i.sender === profile.sender && i.meta.view !== "profile",
+              )
+              .map((item) => (
+                <ProfilePost key={item.id} p={p} item={item} />
+              ))}
+          </div>
+        </div>
+      ) : (
+        <WeiboProfile key={profile.id} p={p} profile={profile} />
+      )}
+    </div>
+  );
+}
 function ProfilePost({ p, item }: { p: Props; item: Item }) {
   const [liked, setLiked] = useSkinState<boolean>(p, "liked-" + item.id, false);
   return (

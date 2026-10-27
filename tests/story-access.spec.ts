@@ -648,3 +648,69 @@ test("post-story Douyin links appear in supplied order and preserve story graphi
   await page.getByRole("button", { name: "打开抖音", exact: true }).click();
   await expect(cards).toHaveCount(2);
 });
+
+test("MUahahaha has one dated post during and after the main story", async ({
+  page,
+}) => {
+  await page.goto("/");
+  await unlock(page);
+  await page.getByRole("button", { name: "打开微博", exact: true }).click();
+  await page
+    .getByRole("navigation", { name: "微博账号" })
+    .getByRole("button", { name: "MUahahaha", exact: true })
+    .click();
+  await expect(page.locator(".weibo-post")).toHaveCount(1);
+  await expect(page.locator(".weibo-post .social-body")).toHaveText(
+    "因为觉得有点der，所以隔了半个月才发出去一张",
+  );
+  await expect(page.locator(".weibo-post .social-author small")).toContainText(
+    "2024-12-19",
+  );
+  const photo = page.locator(".weibo-post .story-gallery img");
+  await expect(photo).toHaveAttribute(
+    "src",
+    "./story-assets/muahahaha-20241219.jpg",
+  );
+  await expect
+    .poll(() => photo.evaluate((el: HTMLImageElement) => el.naturalWidth))
+    .toBe(3600);
+  await page
+    .getByRole("button", { name: "查看微博：因为觉得有点der", exact: true })
+    .click();
+  await page.getByRole("button", { name: "查看微博原图", exact: true }).click();
+  await expect(
+    page.getByRole("dialog", { name: "微博原图" }).locator("img"),
+  ).toHaveAttribute("src", "./story-assets/muahahaha-20241219.jpg");
+  await page.getByRole("button", { name: "关闭原图", exact: true }).click();
+  await page
+    .locator(".weibo-post-detail")
+    .getByRole("button", { name: "返回帖子列表", exact: true })
+    .click();
+  await page
+    .locator(".phone-screen")
+    .screenshot({ path: "outputs/mu-phone/muahahaha-weibo.png" });
+
+  await page
+    .getByRole("navigation", { name: "微博账号" })
+    .getByRole("button", { name: "TF家族-王橹杰LJW", exact: true })
+    .click();
+  await expect(page.locator(".weibo-post")).toHaveCount(5);
+  const ending = raw.events.find(
+    (node: { id: string }) => node.id === "messages-complete-to-explore",
+  );
+  const { work } = compileStory({
+    ...raw,
+    id: "mu-weibo-explore",
+    events: [{ ...ending, type: "start", conditions: [] }],
+  });
+  await page.route("**/work.json", (route) => route.fulfill({ json: work }));
+  await page.reload();
+  await unlock(page);
+  await page.getByRole("button", { name: "继续探索手机", exact: true }).click();
+  await page.getByRole("button", { name: "打开微博", exact: true }).click();
+  await page
+    .getByRole("navigation", { name: "微博账号" })
+    .getByRole("button", { name: "MUahahaha", exact: true })
+    .click();
+  await expect(page.locator(".weibo-post")).toHaveCount(1);
+});

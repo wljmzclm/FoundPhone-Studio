@@ -209,3 +209,45 @@
   justify-content: flex-start;
   text-align: left;
 }
+.weibo-accounts {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  min-height: 0;
+}
+.weibo-accounts > .catalog-skin {
+  flex: 1;
+  min-height: 0;
+}
+.weibo-account-switcher {
+  display: flex;
+  flex-shrink: 0;
+  gap: 8px;
+  padding: 8px 12px;
+  overflow-x: auto;
+  background: #fff;
+}
+.weibo-account-switcher button {
+  border: 1px solid #ddd;
+  border-radius: 18px;
+  background: #fff;
+  color: #555;
+  padding: 8px 12px;
+  white-space: nowrap;
+  font-size: 12px;
+}
+.weibo-account-switcher button[aria-pressed="true"] {
+  color: #ea6b20;
+  border-color: #ea6b20;
+  background: #fff5ec;
+}
+.weibo-simple-profile {
+  padding: 24px 18px;
+  background: #fff;
+}
+.weibo-simple-profile h2 {
+  font-size: 24px;
+}
+.weibo-simple-profile p {
+  color: #777;
+}
