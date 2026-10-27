@@ -35,6 +35,11 @@ export function StoryGallery({
       className={
         "story-gallery " + (urls.length > 1 ? "story-gallery-grid" : "")
       }
+      style={
+        urls.length > 2
+          ? { gridTemplateColumns: "repeat(3, minmax(0, 1fr))" }
+          : undefined
+      }
     >
       {urls.map((url, index) => (
         <span

@@ -137,6 +137,28 @@ test("unlock notification opens Wang Lujie profile with five ordered posts", asy
   );
   await expect(page.locator(".weibo-author-stats")).toContainText("365.5万");
   await expect(page.locator(".weibo-author-stats")).toContainText("14.3亿");
+  await expect(
+    page.getByRole("button", { name: "通知中心", exact: true }),
+  ).toHaveText("11:27");
+  for (const [date, count] of [
+    ["0709", 5],
+    ["0601", 7],
+    ["0320", 6],
+  ] as const) {
+    const images = page.locator(
+      `[data-post-id="wang-lujie-weibo-${date}"] .story-gallery img`,
+    );
+    await expect(images).toHaveCount(count);
+    await expect(images.first()).toHaveAttribute(
+      "src",
+      `./story-assets/weibo-${date}-original-01.jpg`,
+    );
+    await expect(images.last()).toHaveAttribute(
+      "src",
+      `./story-assets/weibo-${date}-original-${String(count).padStart(2, "0")}.jpg`,
+    );
+  }
+
   await expect(page.locator(".weibo-post")).toHaveCount(5);
   expect(
     await page
@@ -457,7 +479,7 @@ test("uploaded images, avatars, album and ordered browser history work with the 
     /story-assets\/weibo-profile\.jpg/,
   );
   await expect(page.locator(".weibo-post")).toHaveCount(5);
-  await expect(page.locator(".weibo-post .story-gallery img")).toHaveCount(7);
+  await expect(page.locator(".weibo-post .story-gallery img")).toHaveCount(22);
   await page.locator(".weibo-post").first().locator(".social-body").click();
   await page.getByRole("button", { name: "查看微博原图", exact: true }).click();
   const viewer = page.getByRole("dialog", { name: "微博原图" });

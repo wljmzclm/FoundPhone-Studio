@@ -3,11 +3,11 @@
   "id": "mu-zhicheng-phone",
   "title": "穆祉丞的手机",
   "description": "以穆祉丞的视角探索手机，从王橹杰的新微博通知开始。后续主剧情待补充。",
-  "revision": 26,
+  "revision": 27,
   "phone": {
     "owner": "穆祉丞",
     "date": "2026-10-25",
-    "time": "09:41",
+    "time": "11:27",
     "battery": 94,
     "network": "5G",
     "passcode": "2711",
@@ -640,14 +640,11 @@
           "reposts": "100万+",
           "commentCount": "27.4万",
           "likesLabel": "239万",
-          "galleryCount": "6",
-          "mediaCropTop": "686",
-          "mediaCropHeight": "799",
-          "mediaSourceWidth": "1280",
-          "mediaSourceHeight": "2781",
-          "avatarCrop": "38,502,220,1279,1556"
+          "galleryCount": "5",
+          "avatarCrop": "38,502,220,1279,1556",
+          "gallery": "[\"./story-assets/weibo-0709-original-01.jpg\",\"./story-assets/weibo-0709-original-02.jpg\",\"./story-assets/weibo-0709-original-03.jpg\",\"./story-assets/weibo-0709-original-04.jpg\",\"./story-assets/weibo-0709-original-05.jpg\"]"
         },
-        "media": "./story-assets/weibo-post-0709.jpg",
+        "media": "./story-assets/weibo-0709-original-01.jpg",
         "avatar": "./story-assets/weibo-profile.jpg"
       },
       {
@@ -685,14 +682,11 @@
           "reposts": "100万+",
           "commentCount": "17万",
           "likesLabel": "291万",
-          "galleryCount": "9",
-          "mediaCropTop": "671",
-          "mediaCropHeight": "1202",
-          "mediaSourceWidth": "1280",
-          "mediaSourceHeight": "2781",
-          "avatarCrop": "38,502,220,1279,1556"
+          "galleryCount": "7",
+          "avatarCrop": "38,502,220,1279,1556",
+          "gallery": "[\"./story-assets/weibo-0601-original-01.jpg\",\"./story-assets/weibo-0601-original-02.jpg\",\"./story-assets/weibo-0601-original-03.jpg\",\"./story-assets/weibo-0601-original-04.jpg\",\"./story-assets/weibo-0601-original-05.jpg\",\"./story-assets/weibo-0601-original-06.jpg\",\"./story-assets/weibo-0601-original-07.jpg\"]"
         },
-        "media": "./story-assets/weibo-post-0601.jpg",
+        "media": "./story-assets/weibo-0601-original-01.jpg",
         "avatar": "./story-assets/weibo-profile.jpg"
       },
       {
@@ -709,14 +703,11 @@
           "reposts": "100万+",
           "commentCount": "34.7万",
           "likesLabel": "440万",
-          "galleryCount": "9",
-          "mediaCropTop": "815",
-          "mediaCropHeight": "1205",
-          "mediaSourceWidth": "1280",
-          "mediaSourceHeight": "2781",
-          "avatarCrop": "38,502,220,1279,1556"
+          "galleryCount": "6",
+          "avatarCrop": "38,502,220,1279,1556",
+          "gallery": "[\"./story-assets/weibo-0320-original-01.jpg\",\"./story-assets/weibo-0320-original-02.jpg\",\"./story-assets/weibo-0320-original-03.jpg\",\"./story-assets/weibo-0320-original-04.jpg\",\"./story-assets/weibo-0320-original-05.jpg\",\"./story-assets/weibo-0320-original-06.jpg\"]"
         },
-        "media": "./story-assets/weibo-post-0320.jpg",
+        "media": "./story-assets/weibo-0320-original-01.jpg",
         "avatar": "./story-assets/weibo-profile.jpg"
       },
       {
