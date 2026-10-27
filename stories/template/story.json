@@ -3,7 +3,7 @@
   "id": "mu-zhicheng-phone",
   "title": "命中注定我爱你",
   "description": "以穆祉丞的视角探索手机，从王橹杰的新微博通知开始。后续主剧情待补充。",
-  "revision": 29,
+  "revision": 30,
   "phone": {
     "owner": "穆祉丞",
     "date": "2026-10-25",
@@ -20,13 +20,10 @@
         "weibo",
         "douyin",
         "netease",
-        "phone"
+        "phone",
+        "photos"
       ],
-      "afterEnding": [
-        "photos",
-        "safari",
-        "bilibili"
-      ]
+      "afterEnding": []
     },
     "chapterTransition": {
       "currentTitle": "第一章",
@@ -38,8 +35,6 @@
         "douyin",
         "netease",
         "photos",
-        "safari",
-        "bilibili",
         "phone"
       ]
     },
@@ -119,26 +114,8 @@
       "icon": ""
     },
     {
-      "id": "safari",
-      "name": "浏览器",
-      "installed": true,
-      "visible": true,
-      "dock": false,
-      "folder": "",
-      "icon": ""
-    },
-    {
       "id": "netease",
       "name": "网易云音乐",
-      "installed": true,
-      "visible": true,
-      "dock": false,
-      "folder": "",
-      "icon": ""
-    },
-    {
-      "id": "bilibili",
-      "name": "哔哩哔哩",
       "installed": true,
       "visible": true,
       "dock": false,
@@ -1458,48 +1435,6 @@
         "media": "./story-assets/douyin-hello-mask.mp4"
       }
     ],
-    "safari": [
-      {
-        "id": "search-history-1",
-        "title": "蓝粉色应援",
-        "body": "",
-        "folder": "历史记录",
-        "meta": {
-          "searchHistory": "true",
-          "query": "蓝粉色应援"
-        }
-      },
-      {
-        "id": "search-history-2",
-        "title": "王橹杰",
-        "body": "",
-        "folder": "历史记录",
-        "meta": {
-          "searchHistory": "true",
-          "query": "王橹杰"
-        }
-      },
-      {
-        "id": "search-history-3",
-        "title": "王橹杰舞台",
-        "body": "",
-        "folder": "历史记录",
-        "meta": {
-          "searchHistory": "true",
-          "query": "王橹杰舞台"
-        }
-      },
-      {
-        "id": "search-history-4",
-        "title": "青岛的机票",
-        "body": "",
-        "folder": "历史记录",
-        "meta": {
-          "searchHistory": "true",
-          "query": "青岛的机票"
-        }
-      }
-    ],
     "photos": [
       {
         "id": "album-photo-01",
@@ -1597,16 +1532,6 @@
         "body": "网易云音乐 · 歌曲 2134502607",
         "meta": {
           "neteaseSongId": "2134502607"
-        }
-      }
-    ],
-    "bilibili": [
-      {
-        "id": "bilibili-bv1h1kcbfeuj",
-        "title": "收藏的视频",
-        "body": "BV1h1kcBfEuJ",
-        "meta": {
-          "bilibiliBvid": "BV1h1kcBfEuJ"
         }
       }
     ],

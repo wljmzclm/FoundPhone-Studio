@@ -43,7 +43,7 @@ test("Mu phone: wallpaper, four-digit passcode and four allowed story apps", asy
   await page.getByRole("button", { name: "取消", exact: true }).click();
   await unlock(page);
   await expect(page.locator(".lock-screen")).toHaveCount(0);
-  for (const name of ["微信", "短信", "微博", "抖音"]) {
+  for (const name of ["微信", "短信", "微博", "抖音", "相册"]) {
     await page
       .getByRole("button", { name: "打开" + name, exact: true })
       .click();
@@ -52,7 +52,6 @@ test("Mu phone: wallpaper, four-digit passcode and four allowed story apps", asy
   }
   for (const name of [
     "备忘录",
-    "相册",
     "浏览器",
     "哔哩哔哩",
     "App Store",
@@ -69,9 +68,9 @@ test("Mu phone: wallpaper, four-digit passcode and four allowed story apps", asy
   await unlock(page);
   await expect(
     page.getByRole("button", { name: "打开相册", exact: true }),
-  ).toHaveCount(0);
+  ).toHaveCount(1);
 });
-test("only a completed ending opens exploration apps; continuation and save survive reload", async ({
+test("album stays available after ending while deleted apps remain absent", async ({
   page,
 }) => {
   // Synthetic completion verifies the gate without inventing the author's main plot.
@@ -94,36 +93,14 @@ test("only a completed ending opens exploration apps; continuation and save surv
   await page.getByRole("button", { name: "打开抖音", exact: true }).click();
   await page.getByRole("button", { name: "继续探索手机", exact: true }).click();
   await expect(page.locator(".story-overlay.ending")).toHaveCount(0);
-  await page.route("https://player.bilibili.com/**", (route) =>
-    route.fulfill({
-      contentType: "text/html; charset=utf-8",
-      body: "<button>播放视频</button>",
-    }),
-  );
-  await page.getByRole("button", { name: "打开哔哩哔哩", exact: true }).click();
-  await expect(
-    page.locator('iframe[title="哔哩哔哩官方视频播放器"]'),
-  ).toHaveAttribute(
-    "src",
-    "https://player.bilibili.com/player.html?bvid=BV1h1kcBfEuJ&page=1&autoplay=0",
-  );
-  await expect(
-    page
-      .frameLocator('iframe[title="哔哩哔哩官方视频播放器"]')
-      .getByRole("button", { name: "播放视频" }),
-  ).toBeVisible();
-  await expect(
-    page.getByRole("link", { name: "在哔哩哔哩打开 ↗" }),
-  ).toHaveAttribute("href", "https://www.bilibili.com/video/BV1h1kcBfEuJ/");
-  await page.getByRole("button", { name: "返回桌面", exact: true }).click();
   await page.getByRole("button", { name: "打开相册", exact: true }).click();
   await expect(page.locator(".app-screen:not([inert])")).toBeVisible();
   await page.getByRole("button", { name: "返回桌面", exact: true }).click();
-  for (const name of ["相册", "浏览器", "哔哩哔哩"])
+  for (const name of ["相册"])
     await expect(
       page.getByRole("button", { name: "打开" + name, exact: true }),
     ).toHaveCount(1);
-  for (const name of ["设置", "文件", "备忘录"])
+  for (const name of ["设置", "文件", "备忘录", "浏览器", "哔哩哔哩"])
     await expect(
       page.getByRole("button", { name: "打开" + name, exact: true }),
     ).toHaveCount(0);
@@ -348,11 +325,11 @@ test("scripted Mu conversation: player taps sends, friend replies, Douyin return
     "主剧情已结束",
   );
   await page.getByRole("button", { name: "继续探索手机", exact: true }).click();
-  for (const name of ["相册", "浏览器", "哔哩哔哩"])
+  for (const name of ["相册"])
     await expect(
       page.getByRole("button", { name: "打开" + name, exact: true }),
     ).toHaveCount(1);
-  for (const name of ["设置", "文件", "备忘录"])
+  for (const name of ["设置", "文件", "备忘录", "浏览器", "哔哩哔哩"])
     await expect(
       page.getByRole("button", { name: "打开" + name, exact: true }),
     ).toHaveCount(0);
@@ -431,7 +408,7 @@ test("post-story Wang history is immediately readable, dated, failed and require
   ).toBeVisible();
 });
 
-test("uploaded images, avatars, album and ordered browser history work with the final app restrictions", async ({
+test("uploaded images, avatars and album work with the final app restrictions", async ({
   page,
 }) => {
   const ending = raw.events.find(
@@ -450,12 +427,6 @@ test("uploaded images, avatars, album and ordered browser history work with the 
     await expect(
       page.getByRole("button", { name: "打开" + name, exact: true }),
     ).toHaveCount(0);
-  await page.getByRole("button", { name: "打开浏览器", exact: true }).click();
-  await expect(page.locator(".native-safari h1")).toHaveText("历史记录");
-  expect(
-    await page.locator(".safari-search-history strong").allTextContents(),
-  ).toEqual(["蓝粉色应援", "王橹杰", "王橹杰舞台", "青岛的机票"]);
-  await page.getByRole("button", { name: "返回桌面", exact: true }).click();
   await page.getByRole("button", { name: "打开相册", exact: true }).click();
   await expect(page.locator(".photo-mosaic button")).toHaveCount(11);
   await page.getByRole("button", { name: "查看照片 1", exact: true }).click();
@@ -778,7 +749,7 @@ test("MUahahaha has one dated post during and after the main story", async ({
   await expect(page.locator(".weibo-post")).toHaveCount(1);
 });
 
-test("chapter choice waits for ending and all nine apps, and can be deferred", async ({
+test("chapter choice waits for ending and all seven apps, and can be deferred", async ({
   page,
 }) => {
   const { work } = compileStory({
@@ -808,15 +779,7 @@ test("chapter choice waits for ending and all nine apps, and can be deferred", a
   await page.getByRole("button", { name: "打开抖音", exact: true }).click();
   await page.getByRole("button", { name: "继续探索手机", exact: true }).click();
   await expect(page.getByRole("dialog", { name: "章节选择" })).toHaveCount(0);
-  for (const name of [
-    "微信",
-    "短信",
-    "微博",
-    "网易云音乐",
-    "电话",
-    "相册",
-    "浏览器",
-  ]) {
+  for (const name of ["微信", "短信", "微博", "网易云音乐", "电话"]) {
     await page
       .getByRole("button", { name: "打开" + name, exact: true })
       .click();
@@ -826,7 +789,7 @@ test("chapter choice waits for ending and all nine apps, and can be deferred", a
       .click();
     await expect(page.getByRole("dialog", { name: "章节选择" })).toHaveCount(0);
   }
-  await page.getByRole("button", { name: "打开哔哩哔哩", exact: true }).click();
+  await page.getByRole("button", { name: "打开相册", exact: true }).click();
   await expect(page.getByRole("dialog", { name: "章节选择" })).toHaveCount(0);
   await page.getByRole("button", { name: "返回桌面", exact: true }).click();
   await expect(page.getByRole("dialog", { name: "章节选择" })).toBeVisible();
