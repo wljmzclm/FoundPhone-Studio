@@ -147,3 +147,94 @@
 .phone-shell.ios18 .native-messages.sms-story-dark {
   padding: 0;
 }
+
+.phone-shell.ios18
+  .native-messages.sms-story-dark[data-chat-appearance="light"],
+.phone-shell.ios18
+  .native-messages.sms-story-dark[data-chat-appearance="light"]
+  .catalog-bubbles,
+.phone-shell.ios18
+  .native-messages.sms-story-dark[data-chat-appearance="light"]
+  > .catalog-composer {
+  background: #fff;
+  color: #111;
+}
+.phone-shell.ios18
+  .native-messages.sms-story-dark[data-chat-appearance="light"]
+  .sms-story-nav
+  > button,
+.phone-shell.ios18
+  .native-messages.sms-story-dark[data-chat-appearance="light"]
+  .sms-story-nav
+  strong,
+.phone-shell.ios18
+  .native-messages.sms-story-dark[data-chat-appearance="light"]
+  .sms-video-glyph {
+  background: #f0f0f3;
+  color: #111;
+}
+.phone-shell.ios18
+  .native-messages.sms-story-dark[data-chat-appearance="light"]
+  .catalog-message:not(.outgoing)
+  > button {
+  background: #e9e9eb;
+  color: #111;
+}
+.phone-shell.ios18
+  .native-messages.sms-story-dark[data-chat-appearance="light"]
+  .native-compose-field {
+  background: #f2f2f7;
+  border-color: #ddd;
+  color: #333;
+}
+.phone-shell.ios18
+  .native-messages.sms-story-dark[data-chat-appearance="light"]
+  .scripted-compose:not(:disabled) {
+  color: #333;
+}
+.phone-shell.ios18
+  .native-messages.sms-story-dark[data-chat-appearance="light"]
+  .sms-story-spam
+  button {
+  background: #eee;
+}
+.phone-shell.ios18
+  .phone-screen:has(.sms-story-dark[data-chat-appearance="light"]),
+.phone-shell.ios18
+  .phone-screen:has(.sms-story-dark[data-chat-appearance="light"])
+  > .status-bar {
+  background: #fff;
+  color: #111;
+}
+.phone-shell.ios18
+  .phone-screen:has(.sms-story-dark[data-chat-appearance="light"])
+  > .home-indicator:after {
+  background: #111;
+}
+
+.phone-shell.ios18 .native-messages[data-chat-appearance="light"],
+.phone-shell.ios18
+  .native-messages[data-chat-appearance="light"]
+  .catalog-scroll,
+.phone-shell.ios18 .native-messages[data-chat-appearance="light"] .app-nav {
+  background: #fff;
+  color: #111;
+}
+.phone-shell.ios18
+  .phone-screen:has(.native-messages[data-chat-appearance="light"]),
+.phone-shell.ios18
+  .phone-screen:has(.native-messages[data-chat-appearance="light"])
+  > .status-bar {
+  background: #fff;
+  color: #111;
+}
+.phone-shell.ios18
+  .phone-screen:has(.native-messages[data-chat-appearance="light"])
+  > .home-indicator:after {
+  background: #111;
+}
+.phone-shell.ios18
+  .native-messages.sms-story-dark[data-chat-appearance="light"]
+  .sms-story-avatar {
+  color: #fff;
+}

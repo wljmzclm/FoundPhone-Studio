@@ -226,3 +226,83 @@
 .phone-shell.ios18 .wechat-ui.scripted-wechat-dark .wx-contact {
   color: #fff;
 }
+
+.phone-shell.ios18
+  .wechat-ui.scripted-wechat-dark[data-chat-appearance="light"],
+.phone-shell.ios18
+  .wechat-ui.scripted-wechat-dark[data-chat-appearance="light"]
+  .wx-nav,
+.phone-shell.ios18
+  .wechat-ui.scripted-wechat-dark[data-chat-appearance="light"]
+  .skin-scroll,
+.phone-shell.ios18
+  .wechat-ui.scripted-wechat-dark[data-chat-appearance="light"]
+  .skin-messages {
+  background: #ededed;
+  color: #111;
+  border-color: #dedede;
+}
+.phone-shell.ios18
+  .wechat-ui.scripted-wechat-dark[data-chat-appearance="light"]
+  .skin-compose {
+  background: #f7f7f7;
+  color: #111;
+  border-color: #ddd;
+}
+.phone-shell.ios18
+  .wechat-ui.scripted-wechat-dark[data-chat-appearance="light"]
+  .skin-bubble {
+  background: #fff;
+  color: #111;
+}
+.phone-shell.ios18
+  .wechat-ui.scripted-wechat-dark[data-chat-appearance="light"]
+  .outgoing
+  .skin-bubble {
+  background: #95ec69;
+  color: #111;
+}
+.phone-shell.ios18
+  .wechat-ui.scripted-wechat-dark[data-chat-appearance="light"]
+  .native-compose-field {
+  background: #fff;
+  color: #333;
+}
+.phone-shell.ios18
+  .wechat-ui.scripted-wechat-dark[data-chat-appearance="light"]
+  .scripted-compose:disabled {
+  color: #999;
+}
+.phone-shell.ios18
+  .wechat-ui.scripted-wechat-dark[data-chat-appearance="light"]
+  .wx-chat-row {
+  background: #fff;
+  color: #111;
+  border-color: #eee;
+}
+.phone-shell.ios18
+  .wechat-ui.scripted-wechat-dark[data-chat-appearance="light"]
+  .wx-chat-row
+  strong,
+.phone-shell.ios18
+  .wechat-ui.scripted-wechat-dark[data-chat-appearance="light"]
+  .wx-nav
+  strong,
+.phone-shell.ios18
+  .wechat-ui.scripted-wechat-dark[data-chat-appearance="light"]
+  .wx-contact {
+  color: #111;
+}
+.phone-shell.ios18
+  .phone-screen:has(.scripted-wechat-dark[data-chat-appearance="light"]),
+.phone-shell.ios18
+  .phone-screen:has(.scripted-wechat-dark[data-chat-appearance="light"])
+  > .status-bar {
+  background: #ededed;
+  color: #111;
+}
+.phone-shell.ios18
+  .phone-screen:has(.scripted-wechat-dark[data-chat-appearance="light"])
+  > .home-indicator:after {
+  background: #111;
+}

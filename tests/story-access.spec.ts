@@ -492,6 +492,9 @@ test("matching home wallpaper, owner avatar, left-aligned Weibo names and legibl
   });
   await page.route("**/work.json", (route) => route.fulfill({ json: work }));
   await page.goto("/");
+  await page
+    .getByRole("button", { name: "进入第一章：短信爱", exact: true })
+    .click();
   await page.getByRole("button", { name: "轻触解锁", exact: true }).waitFor();
   const background = await page
     .locator(".phone-screen")
@@ -510,7 +513,15 @@ test("matching home wallpaper, owner avatar, left-aligned Weibo names and legibl
   for (const name of ["穆之友", "王橹杰"])
     await expect(
       page.locator(".wx-chat-row").filter({ hasText: name }).locator("strong"),
-    ).toHaveCSS("color", "rgb(255, 255, 255)");
+    ).toHaveCSS("color", "rgb(17, 17, 17)");
+  await expect(page.locator(".wechat-ui")).toHaveAttribute(
+    "data-chat-appearance",
+    "light",
+  );
+  await expect(page.locator(".wechat-ui")).toHaveCSS(
+    "background-color",
+    "rgb(237, 237, 237)",
+  );
   await page.locator(".wx-chat-row").filter({ hasText: "王橹杰" }).click();
   await expect(
     page.locator(".skin-message.outgoing .skin-avatar img").first(),
@@ -1061,4 +1072,50 @@ test("August weather has daytime Chongqing Qingdao and Beijing before story endi
   await unlock(page);
   await page.getByRole("button", { name: "打开天气", exact: true }).click();
   await expect(page.locator(".weather-native-current h1")).toHaveText("北京");
+});
+
+test("chapter one Messages and WeChat use readable daytime chat backgrounds", async ({
+  page,
+}) => {
+  const intro = structuredClone(raw);
+  const firstSms = intro.content.messages.find(
+    (item: { id: string }) => item.id === "first-lemon-sms",
+  );
+  firstSms.hidden = false;
+  const { work } = compileStory({
+    ...intro,
+    id: "daytime-chat-check",
+    events: [],
+  });
+  await page.route("**/work.json", (route) => route.fulfill({ json: work }));
+  await page.goto("/");
+  await unlock(page);
+  await page.getByRole("button", { name: "打开短信", exact: true }).click();
+  const sms = page.locator(".native-messages");
+  await expect(sms).toHaveAttribute("data-chat-appearance", "light");
+  await expect(sms).toHaveCSS("background-color", "rgb(255, 255, 255)");
+  await expect(
+    sms.locator(".catalog-message:not(.outgoing) > button").first(),
+  ).toHaveCSS("color", "rgb(17, 17, 17)");
+  await page
+    .locator(".phone-screen")
+    .screenshot({ path: "outputs/mu-phone/daytime-messages.png" });
+  await page.getByRole("button", { name: "返回桌面", exact: true }).click();
+  await page.getByRole("button", { name: "打开微信", exact: true }).click();
+  await expect(page.locator(".wx-chat-row strong").first()).toHaveCSS(
+    "color",
+    "rgb(17, 17, 17)",
+  );
+  await page.locator(".wx-chat-row").filter({ hasText: "穆之友" }).click();
+  await expect(page.locator(".skin-messages")).toHaveCSS(
+    "background-color",
+    "rgb(237, 237, 237)",
+  );
+  await expect(page.locator(".wx-nav strong")).toHaveCSS(
+    "color",
+    "rgb(17, 17, 17)",
+  );
+  await page
+    .locator(".phone-screen")
+    .screenshot({ path: "outputs/mu-phone/daytime-wechat.png" });
 });

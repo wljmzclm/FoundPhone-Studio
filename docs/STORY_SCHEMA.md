@@ -31,3 +31,5 @@
 `phone.chapterTransition` 可选配置 `currentTitle`、`nextTitle` 与 `requiredApps`。主线结局已关闭、所有指定 App 均已访问后，回到桌面显示章节选择；暂缓选择后保留桌面入口。下一章尚未配置剧情时仅显示章节预告，不清空第一章存档。选择状态保存在手机 UI 存档中。
 
 `phone.introduction` 可选配置开场说明页：`title`、`guide`、`note`、`tagline` 与 `chapters`（每项 `title`，可选 `subtitle`）。每次打开链接首先显示说明页，点击第一章进入原有手机和存档，后续章节暂标待开启。未配置的作品沿用直接打开手机的行为。
+
+`phone.chatAppearance` 可选设为 `light`/`dark`，用于聊天应用的昼夜外观。第一章设置为 light，信息使用白底灰/蓝气泡，微信使用浅灰背景与白/绿气泡，不修改聊天内容或图文附件。

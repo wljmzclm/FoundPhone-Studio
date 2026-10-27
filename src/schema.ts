@@ -144,6 +144,7 @@ export const workSchema = z.object({
       })
       .optional(),
     theme: z.enum(["light", "dark"]),
+    chatAppearance: z.enum(["light", "dark"]).optional(),
     time: z.string(),
     battery: z.number().min(0).max(100),
     network: z.string(),

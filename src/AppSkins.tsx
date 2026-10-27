@@ -35,6 +35,7 @@ import {
 } from "lucide-react";
 import { safeMedia, type Item, type UiValue } from "./schema";
 export type SkinProps = {
+  chatAppearance?: "light" | "dark";
   ui?: Record<string, UiValue>;
   onUi?: (key: string, value: UiValue) => void;
   appId?: string;
@@ -252,6 +253,7 @@ export function WeChatSkin(p: SkinProps) {
   return (
     <div
       className={`wechat-ui independent-skin ${history ? "wechat-history" : p.scriptedChat ? "scripted-wechat-dark" : ""}`}
+      data-chat-appearance={p.chatAppearance}
       data-tab={tab}
       data-thread={!!p.thread}
       data-moments={moments}

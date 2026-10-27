@@ -134,7 +134,10 @@ export function MessagesSkin(p: Props) {
   if (items.some((i) => i.meta.appearance === "dark"))
     return <StoryMessages p={p} items={items} />;
   return (
-    <div className="catalog-skin native-messages">
+    <div
+      className="catalog-skin native-messages"
+      data-chat-appearance={p.chatAppearance}
+    >
       <Header
         p={{ ...p, onBack: () => (p.thread ? p.onThread("") : p.onBack()) }}
       />
@@ -172,7 +175,10 @@ function StoryMessages({ p, items }: { p: Props; items: Item[] }) {
   const thread = p.thread || first?.title || "信息";
   const [reported, setReported] = useState(false);
   return (
-    <div className="catalog-skin native-messages sms-story-dark">
+    <div
+      className="catalog-skin native-messages sms-story-dark"
+      data-chat-appearance={p.chatAppearance}
+    >
       <header className="sms-story-nav">
         <button aria-label="返回" onClick={p.onBack}>
           <ChevronLeft />

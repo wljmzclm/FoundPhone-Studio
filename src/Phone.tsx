@@ -1073,6 +1073,7 @@ function AppContent({
           <Suspense fallback={<div className="catalog-loading">正在打开…</div>}>
             <Skin
               appId={app.id}
+              chatAppearance={work.phone.chatAppearance}
               owner={work.phone.owner}
               ownerAvatar={items.find((i) => i.outgoing && i.avatar)?.avatar}
               virtualTime={state.time}

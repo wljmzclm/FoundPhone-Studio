@@ -157,6 +157,13 @@
             "dark"
           ]
         },
+        "chatAppearance": {
+          "type": "string",
+          "enum": [
+            "light",
+            "dark"
+          ]
+        },
         "time": {
           "type": "string"
         },
