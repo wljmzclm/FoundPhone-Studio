@@ -10,6 +10,7 @@ import {
   Wallet,
 } from "lucide-react";
 import { useState } from "react";
+import { safeMedia } from "../schema";
 import {
   Empty,
   Header,
@@ -91,6 +92,36 @@ export function AlipaySkin(p: Props) {
   );
 }
 export function TaobaoSkin(p: Props) {
+  const records = p.items.filter((i) => i.meta.view === "order-reference");
+  if (records.length)
+    return (
+      <div className="catalog-skin taobao-ui taobao-purchase-records">
+        <Header p={p} />
+        <div className="catalog-scroll">
+          <h1>购买记录</h1>
+          {records.map((item) => (
+            <article className="taobao-purchase-record" key={item.id}>
+              <div className="taobao-purchase-summary">
+                <strong>{item.sender}</strong>
+                <span>{meta(item, "status")}</span>
+              </div>
+              <button
+                aria-label={`查看购买记录：${item.title}`}
+                onClick={() => p.onItem(item)}
+              >
+                <img
+                  src={safeMedia(item.media)}
+                  alt={`${item.title}，实付款¥${meta(item, "price")}`}
+                />
+              </button>
+            </article>
+          ))}
+        </div>
+      </div>
+    );
+  return <TaobaoFeed p={p} />;
+}
+function TaobaoFeed({ p }: { p: Props }) {
   const { tab, setTab, q, setQ, items } = useContent(p, "商品");
   const [status, setStatus] = useState("全部");
   const list = items

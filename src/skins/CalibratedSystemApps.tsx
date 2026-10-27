@@ -11,6 +11,7 @@ import {
   User,
   Plus,
   MoonStar,
+  Sun,
   Sunrise,
   CloudSun,
   Droplet,
@@ -381,6 +382,12 @@ export function WeatherSkin(p: Props) {
   const item = p.items[index] || p.items[0],
     hourly = listMeta(item, "hourly"),
     daily = listMeta(item, "daily");
+  const daytime = item?.meta.daytime === "true";
+  const SkyIcon = daytime
+    ? item.meta.condition === "多云"
+      ? CloudSun
+      : Sun
+    : MoonStar;
   const read = () => {
     if (item) {
       if (p.creator || item.password) p.onItem(item);
@@ -391,6 +398,7 @@ export function WeatherSkin(p: Props) {
     <div
       className="catalog-skin native-weather calibrated-weather"
       data-empty={!item}
+      data-daytime={daytime}
     >
       <div className="weather-stars" aria-hidden="true" />
       <div className="weather-native-scroll">
@@ -403,7 +411,7 @@ export function WeatherSkin(p: Props) {
             <span>最低 {meta(item, "low", "—")}°</span>
           </div>
           <p>{meta(item, "condition", "暂无天气数据")}</p>
-          <MoonStar className="weather-moon-art" size={55} />
+          <SkyIcon className="weather-moon-art" size={55} />
         </section>
         <button
           className="weather-native-card weather-air-quality"
@@ -476,13 +484,13 @@ export function WeatherSkin(p: Props) {
                   {hourly[n]?.time ||
                     ["现在", "—时", "—时", "—时", "—时", "日出"][n]}
                 </strong>
-                {n === 5 ? (
+                {n === 5 && !daytime ? (
                   <Sunrise size={28} color="#ffd60a" />
                 ) : (
-                  <MoonStar size={28} />
+                  <SkyIcon size={28} />
                 )}
                 <span>
-                  {n === 5
+                  {n === 5 && !daytime
                     ? meta(item, "sunrise", "—")
                     : mode === "temperature"
                       ? (hourly[n]?.temperature ?? "—") + "°"

@@ -4219,3 +4219,42 @@
   backdrop-filter: blur(12px);
   font-size: 14px;
 }
+.taobao-purchase-records .catalog-scroll {
+  padding: 16px 10px;
+  background: #f5f5f5;
+}
+.taobao-purchase-records h1 {
+  font-size: 23px;
+  padding: 0 6px;
+  margin: 6px 0 20px;
+}
+.taobao-purchase-record {
+  background: #fff;
+  border-radius: 14px;
+  overflow: hidden;
+  margin-bottom: 16px;
+}
+.taobao-purchase-summary {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  padding: 14px;
+  font-size: 13px;
+}
+.taobao-purchase-summary span {
+  color: #ef781c;
+}
+.taobao-purchase-record > button {
+  display: block;
+  width: 100%;
+  border: 0;
+  padding: 0;
+  background: #fff;
+}
+.taobao-purchase-record img {
+  display: block;
+  width: 100%;
+  height: auto;
+  max-height: none;
+}

@@ -3,7 +3,7 @@
   "id": "mu-zhicheng-phone",
   "title": "命中注定我爱你",
   "description": "以穆祉丞的视角探索手机，从王橹杰的新微博通知开始。后续主剧情待补充。",
-  "revision": 30,
+  "revision": 32,
   "phone": {
     "owner": "穆祉丞",
     "date": "2026-10-25",
@@ -21,7 +21,9 @@
         "douyin",
         "netease",
         "phone",
-        "photos"
+        "photos",
+        "taobao",
+        "weather"
       ],
       "afterEnding": []
     },
@@ -35,7 +37,9 @@
         "douyin",
         "netease",
         "photos",
-        "phone"
+        "phone",
+        "taobao",
+        "weather"
       ]
     },
     "introduction": {
@@ -128,6 +132,24 @@
       "installed": true,
       "visible": true,
       "dock": true,
+      "folder": "",
+      "icon": ""
+    },
+    {
+      "id": "taobao",
+      "name": "淘宝",
+      "installed": true,
+      "visible": true,
+      "dock": false,
+      "folder": "",
+      "icon": ""
+    },
+    {
+      "id": "weather",
+      "name": "天气",
+      "installed": true,
+      "visible": true,
+      "dock": false,
       "folder": "",
       "icon": ""
     }
@@ -1546,6 +1568,103 @@
         "media": "./story-assets/wang-unavailable.m4a",
         "meta": {
           "view": "unavailable-contact"
+        }
+      }
+    ],
+    "taobao": [
+      {
+        "id": "taobao-order-lights",
+        "title": "橹穆99应援发光物（3件）",
+        "sender": "星驿站",
+        "body": "电池魔改棒plus（自备3个7号电池）×1；充电胸牌（出厂不带充电头充电线）×1；手机背夹（出厂带cr2032电池）×1。",
+        "time": "04.04",
+        "folder": "订单",
+        "kind": "image",
+        "media": "./story-assets/taobao-order-lights.jpg",
+        "meta": {
+          "view": "order-reference",
+          "status": "交易成功",
+          "price": "135.9"
+        }
+      },
+      {
+        "id": "taobao-order-sign",
+        "title": "橹穆99应援发光灯牌",
+        "sender": "星驿站4店",
+        "body": "四字灯牌套餐（27年2月3前发完）×1",
+        "time": "购买记录",
+        "folder": "订单",
+        "kind": "image",
+        "media": "./story-assets/taobao-order-sign.jpg",
+        "meta": {
+          "view": "order-reference",
+          "status": "已付款",
+          "price": "355"
+        }
+      }
+    ],
+    "weather": [
+      {
+        "id": "weather-chongqing",
+        "title": "重庆",
+        "body": "炎热天气，外出注意防暑，多补充水分。",
+        "time": "8月 · 暑假天气",
+        "meta": {
+          "locationLabel": "8月 · 暑假天气",
+          "daytime": "true",
+          "temperature": "34",
+          "high": "37",
+          "low": "28",
+          "condition": "晴",
+          "aqi": "62",
+          "aqiLabel": "良",
+          "rain": "10%",
+          "wind": "东南风 2级",
+          "humidity": "62%",
+          "hourly": "[{\"time\":\"现在\",\"temperature\":\"34\"},{\"time\":\"12时\",\"temperature\":\"35\"},{\"time\":\"13时\",\"temperature\":\"37\"},{\"time\":\"14时\",\"temperature\":\"37\"},{\"time\":\"15时\",\"temperature\":\"36\"},{\"time\":\"16时\",\"temperature\":\"34\"}]",
+          "daily": "[{\"label\":\"今天\",\"low\":\"28\",\"high\":\"37\"}]"
+        }
+      },
+      {
+        "id": "weather-qingdao",
+        "title": "青岛",
+        "body": "海风轻拂，适合傍晚沿海散步。",
+        "time": "8月 · 暑假天气",
+        "meta": {
+          "locationLabel": "8月 · 暑假天气",
+          "daytime": "true",
+          "temperature": "28",
+          "high": "30",
+          "low": "24",
+          "condition": "多云",
+          "aqi": "38",
+          "aqiLabel": "优",
+          "rain": "20%",
+          "wind": "东南风 2级",
+          "humidity": "75%",
+          "hourly": "[{\"time\":\"现在\",\"temperature\":\"28\"},{\"time\":\"12时\",\"temperature\":\"29\"},{\"time\":\"13时\",\"temperature\":\"30\"},{\"time\":\"14时\",\"temperature\":\"30\"},{\"time\":\"15时\",\"temperature\":\"29\"},{\"time\":\"16时\",\"temperature\":\"28\"}]",
+          "daily": "[{\"label\":\"今天\",\"low\":\"24\",\"high\":\"30\"}]"
+        }
+      },
+      {
+        "id": "weather-beijing",
+        "title": "北京",
+        "body": "午后晴热，外出注意防晒。",
+        "time": "8月 · 暑假天气",
+        "meta": {
+          "locationLabel": "8月 · 暑假天气",
+          "daytime": "true",
+          "temperature": "32",
+          "high": "34",
+          "low": "24",
+          "condition": "晴",
+          "aqi": "45",
+          "aqiLabel": "优",
+          "rain": "10%",
+          "wind": "东南风 2级",
+          "humidity": "58%",
+          "hourly": "[{\"time\":\"现在\",\"temperature\":\"32\"},{\"time\":\"12时\",\"temperature\":\"33\"},{\"time\":\"13时\",\"temperature\":\"34\"},{\"time\":\"14时\",\"temperature\":\"34\"},{\"time\":\"15时\",\"temperature\":\"33\"},{\"time\":\"16时\",\"temperature\":\"32\"}]",
+          "daily": "[{\"label\":\"今天\",\"low\":\"24\",\"high\":\"34\"}]"
         }
       }
     ]

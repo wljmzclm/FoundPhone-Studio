@@ -749,7 +749,7 @@ test("MUahahaha has one dated post during and after the main story", async ({
   await expect(page.locator(".weibo-post")).toHaveCount(1);
 });
 
-test("chapter choice waits for ending and all seven apps, and can be deferred", async ({
+test("chapter choice waits for ending and all nine apps, and can be deferred", async ({
   page,
 }) => {
   const { work } = compileStory({
@@ -779,7 +779,15 @@ test("chapter choice waits for ending and all seven apps, and can be deferred", 
   await page.getByRole("button", { name: "打开抖音", exact: true }).click();
   await page.getByRole("button", { name: "继续探索手机", exact: true }).click();
   await expect(page.getByRole("dialog", { name: "章节选择" })).toHaveCount(0);
-  for (const name of ["微信", "短信", "微博", "网易云音乐", "电话"]) {
+  for (const name of [
+    "微信",
+    "短信",
+    "微博",
+    "网易云音乐",
+    "电话",
+    "淘宝",
+    "天气",
+  ]) {
     await page
       .getByRole("button", { name: "打开" + name, exact: true })
       .click();
@@ -950,4 +958,97 @@ test("blue-pink introduction presents six chapters before the passcode", async (
   ).toBeVisible();
   await page.reload();
   await expect(page.locator(".story-introduction")).toBeVisible();
+});
+
+test("Taobao purchase records and every installed app are available before main story completion", async ({
+  page,
+}) => {
+  await page.goto("/");
+  await unlock(page);
+  for (const name of [
+    "微信",
+    "短信",
+    "微博",
+    "抖音",
+    "网易云音乐",
+    "电话",
+    "相册",
+    "淘宝",
+    "天气",
+  ])
+    await expect(
+      page.getByRole("button", { name: "打开" + name, exact: true }),
+    ).toBeVisible();
+  for (const name of ["浏览器", "哔哩哔哩"])
+    await expect(
+      page.getByRole("button", { name: "打开" + name, exact: true }),
+    ).toHaveCount(0);
+  await expect(page.locator(".story-overlay.ending")).toHaveCount(0);
+  await page.getByRole("button", { name: "打开淘宝", exact: true }).click();
+  await expect(
+    page.getByRole("heading", { name: "购买记录", exact: true }),
+  ).toBeVisible();
+  const records = page.locator(".taobao-purchase-record");
+  await expect(records).toHaveCount(2);
+  await expect(records.nth(0).locator("img")).toHaveAttribute(
+    "src",
+    "./story-assets/taobao-order-lights.jpg",
+  );
+  await expect(records.nth(0).locator("img")).toHaveAttribute("alt", /135.9/);
+  await expect(records.nth(1).locator("img")).toHaveAttribute(
+    "src",
+    "./story-assets/taobao-order-sign.jpg",
+  );
+  await expect(records.nth(1).locator("img")).toHaveAttribute("alt", /355/);
+  await expect
+    .poll(() =>
+      records
+        .first()
+        .locator("img")
+        .evaluate((el: HTMLImageElement) => el.naturalWidth),
+    )
+    .toBe(1320);
+  await page
+    .locator(".phone-screen")
+    .screenshot({ path: "outputs/mu-phone/taobao-records.png" });
+  await records.nth(1).getByRole("button").click();
+  await expect(page.locator(".app-screen")).toContainText("四字灯牌套餐");
+});
+
+test("August weather has daytime Chongqing Qingdao and Beijing before story ending", async ({
+  page,
+}) => {
+  await page.goto("/");
+  await unlock(page);
+  await page.getByRole("button", { name: "打开天气", exact: true }).click();
+  await expect(page.locator(".calibrated-weather")).toHaveAttribute(
+    "data-daytime",
+    "true",
+  );
+  await expect(page.locator(".weather-native-current h1")).toHaveText("重庆");
+  await expect(page.locator(".weather-native-current output")).toHaveText(
+    "34°",
+  );
+  await expect(page.locator(".weather-native-current")).toContainText(
+    "8月 · 暑假天气",
+  );
+  await page
+    .locator(".phone-screen")
+    .screenshot({ path: "outputs/mu-phone/weather-chongqing.png" });
+  await page.getByRole("button", { name: "切换城市青岛", exact: true }).click();
+  await expect(page.locator(".weather-native-current h1")).toHaveText("青岛");
+  await expect(page.locator(".weather-native-current output")).toHaveText(
+    "28°",
+  );
+  await page.getByRole("button", { name: "城市列表", exact: true }).click();
+  await expect(page.locator(".weather-city-row")).toHaveCount(3);
+  await page.locator(".weather-city-row").filter({ hasText: "北京" }).click();
+  await expect(page.locator(".weather-native-current h1")).toHaveText("北京");
+  await expect(page.locator(".weather-native-current output")).toHaveText(
+    "32°",
+  );
+  await page.reload();
+  await unlock(page);
+  await page.getByRole("button", { name: "打开天气", exact: true }).click();
+  await expect(page.locator(".weather-native-current h1")).toHaveText("北京");
 });

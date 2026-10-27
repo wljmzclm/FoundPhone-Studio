@@ -886,3 +886,13 @@
 .ios18 .calibrated-weather[data-empty="true"] .weather-days > button > i {
   background: #ffffff30;
 }
+
+.ios18 .calibrated-weather[data-daytime="true"] {
+  background: linear-gradient(170deg, #338ccf, #79c4ee 65%, #b8e2f5);
+}
+.ios18 .calibrated-weather[data-daytime="true"] .weather-stars {
+  display: none;
+}
+.ios18 .calibrated-weather[data-daytime="true"] .weather-moon-art {
+  color: #ffe280;
+}
