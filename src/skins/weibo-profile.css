@@ -254,18 +254,19 @@
 
 .mu-weibo-cover {
   position: relative;
-  aspect-ratio: 1320 / 535;
+  aspect-ratio: 4 / 3;
   overflow: hidden;
   background: #626574;
 }
 .mu-weibo-cover > img {
   position: absolute;
   width: 100%;
-  height: auto;
+  height: 100%;
   max-height: none;
   top: 0;
   left: 0;
-  transform: translateY(-12.024%);
+  object-fit: cover;
+  object-position: center 30%;
 }
 .mu-weibo-cover header {
   position: absolute;
@@ -275,7 +276,7 @@
   align-items: center;
   justify-content: space-between;
   padding: 0 14px;
-  background: #555965;
+  background: linear-gradient(#0007, #0000);
   color: #fff;
 }
 .mu-weibo-cover header span {

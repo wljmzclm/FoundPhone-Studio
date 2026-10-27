@@ -708,6 +708,13 @@ test("MUahahaha has one dated post during and after the main story", async ({
     .locator(".weibo-post-detail")
     .getByRole("button", { name: "返回帖子列表", exact: true })
     .click();
+  await expect(page.locator(".mu-weibo-cover > img")).toHaveAttribute(
+    "src",
+    "./story-assets/muahahaha-cover.jpg",
+  );
+  await page.locator(".weibo-author-page .catalog-scroll").evaluate((el) => {
+    el.scrollTop = 0;
+  });
   await page
     .locator(".phone-screen")
     .screenshot({ path: "outputs/mu-phone/muahahaha-weibo.png" });
