@@ -47,7 +47,7 @@ export function WeiboAccounts({ p }: { p: Props }) {
           </header>
           <div className="catalog-scroll">
             <section className="weibo-simple-profile">
-              <Avatar name={profile.sender} />
+              <Avatar name={profile.sender} src={profile.avatar} />
               <h2>{profile.sender}</h2>
               <p>
                 微博{" "}
