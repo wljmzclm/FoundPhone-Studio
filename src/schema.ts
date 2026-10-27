@@ -119,6 +119,13 @@ export const workSchema = z.object({
         afterEnding: z.array(z.string()),
       })
       .optional(),
+    chapterTransition: z
+      .object({
+        currentTitle: z.string().min(1).max(100),
+        nextTitle: z.string().min(1).max(100),
+        requiredApps: z.array(z.string()).min(1),
+      })
+      .optional(),
     theme: z.enum(["light", "dark"]),
     time: z.string(),
     battery: z.number().min(0).max(100),

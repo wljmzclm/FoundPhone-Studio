@@ -743,3 +743,71 @@ test("MUahahaha has one dated post during and after the main story", async ({
     .click();
   await expect(page.locator(".weibo-post")).toHaveCount(1);
 });
+
+test("chapter choice waits for ending and all eight apps, and can be deferred", async ({
+  page,
+}) => {
+  const { work } = compileStory({
+    ...raw,
+    id: "chapter-entry-check",
+    events: [
+      {
+        id: "chapter-test-ending",
+        label: "章节入口测试",
+        type: "event",
+        event: "openApp",
+        target: "douyin",
+        actions: [{ type: "ending", key: "", value: "第一章主线结束" }],
+      },
+    ],
+  });
+  await page.route("**/work.json", (route) => route.fulfill({ json: work }));
+  await page.route("https://music.163.com/**", (route) =>
+    route.fulfill({ body: "player" }),
+  );
+  await page.route("https://player.bilibili.com/**", (route) =>
+    route.fulfill({ body: "player" }),
+  );
+  await page.goto("/");
+  await unlock(page);
+  await expect(page.getByRole("dialog", { name: "章节选择" })).toHaveCount(0);
+  await page.getByRole("button", { name: "打开抖音", exact: true }).click();
+  await page.getByRole("button", { name: "继续探索手机", exact: true }).click();
+  await expect(page.getByRole("dialog", { name: "章节选择" })).toHaveCount(0);
+  for (const name of ["微信", "短信", "微博", "网易云音乐", "相册", "浏览器"]) {
+    await page
+      .getByRole("button", { name: "打开" + name, exact: true })
+      .click();
+    await page
+      .getByRole("button", { name: "返回桌面", exact: true })
+      .last()
+      .click();
+    await expect(page.getByRole("dialog", { name: "章节选择" })).toHaveCount(0);
+  }
+  await page.getByRole("button", { name: "打开哔哩哔哩", exact: true }).click();
+  await expect(page.getByRole("dialog", { name: "章节选择" })).toHaveCount(0);
+  await page.getByRole("button", { name: "返回桌面", exact: true }).click();
+  await expect(page.getByRole("dialog", { name: "章节选择" })).toBeVisible();
+  await page
+    .getByRole("button", { name: "继续探索第一章", exact: true })
+    .click();
+  await expect(page.getByRole("dialog", { name: "章节选择" })).toHaveCount(0);
+  await page.reload();
+  await unlock(page);
+  await expect(page.getByRole("dialog", { name: "章节选择" })).toHaveCount(0);
+  await page
+    .getByRole("button", { name: "章节 · 进入第二章", exact: true })
+    .click();
+  await page.getByRole("button", { name: "进入第二章", exact: true }).click();
+  await expect(
+    page.getByRole("dialog", { name: "第二章", exact: true }),
+  ).toContainText("敬请期待");
+  await page.reload();
+  await unlock(page);
+  await expect(
+    page.getByRole("dialog", { name: "第二章", exact: true }),
+  ).toBeVisible();
+  await page.getByRole("button", { name: "返回第一章", exact: true }).click();
+  await page.getByRole("button", { name: "打开微博", exact: true }).click();
+  await expect(page.locator(".weibo-post")).toHaveCount(5);
+});

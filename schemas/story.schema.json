@@ -67,6 +67,34 @@
           ],
           "additionalProperties": false
         },
+        "chapterTransition": {
+          "type": "object",
+          "properties": {
+            "currentTitle": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 100
+            },
+            "nextTitle": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 100
+            },
+            "requiredApps": {
+              "minItems": 1,
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            }
+          },
+          "required": [
+            "currentTitle",
+            "nextTitle",
+            "requiredApps"
+          ],
+          "additionalProperties": false
+        },
         "theme": {
           "type": "string",
           "enum": [

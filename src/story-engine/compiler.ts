@@ -133,6 +133,12 @@ export function compileStory(raw: unknown): { story: Story; work: Work } {
     if (!registry.some((r) => r.id === (typeof a === "string" ? a : a.id)))
       fail(`installedApps.${i}`, "未注册的 App");
   });
+  if (s.phone.chapterTransition) {
+    for (const id of s.phone.chapterTransition.requiredApps) {
+      if (!installed.has(id))
+        fail("phone.chapterTransition.requiredApps", `章节 App ${id} 未安装`);
+    }
+  }
   if (s.phone.appAccess) {
     for (const [phase, apps] of Object.entries(s.phone.appAccess)) {
       for (const app of apps) {
@@ -156,7 +162,10 @@ export function compileStory(raw: unknown): { story: Story; work: Work } {
     });
     for (const k of ["media", "avatar"] as const)
       if (item[k] && !safeMedia(item[k]))
-        fail(p + "." + k, "仅允许受支持的内嵌媒体或 story-assets 图片，不允许脚本或远程资源");
+        fail(
+          p + "." + k,
+          "仅允许受支持的内嵌媒体或 story-assets 图片，不允许脚本或远程资源",
+        );
     if (item.richText) {
       let doc;
       try {

@@ -1,4 +1,5 @@
 import { StatusGlyph } from "./ios/StatusGlyph";
+import { ChapterEntry } from "./ChapterEntry";
 import { PersistentNetease } from "./skins/PersistentNetease";
 import { SocialDetail, socialDetailApps } from "./skins/SocialDetails";
 import { NativeCalculator } from "./ios/Calculator";
@@ -634,7 +635,11 @@ function PhoneRuntime({
             s.ui?.phone?.dismissedEndings !== s.endings.length && (
               <div className="story-overlay ending">
                 <span className="eyebrow">ENDING · {s.endings.length}</span>
-                <h2>故事在这里停泊。</h2>
+                <h2>
+                  {work.phone.chapterTransition
+                    ? `${work.phone.chapterTransition.currentTitle}主线已结束`
+                    : "故事在这里停泊。"}
+                </h2>
                 <p>{s.endings[s.endings.length - 1]}</p>
                 {work.phone.appAccess && (
                   <button
@@ -825,6 +830,27 @@ function PhoneRuntime({
               </div>
             </div>
           )}
+          {!creator &&
+            !locked &&
+            !app &&
+            !panel &&
+            !folder &&
+            !s.choices.length && (
+              <ChapterEntry
+                work={work}
+                state={s}
+                onChange={(values) => {
+                  const current = runtimeRef.current;
+                  update({
+                    ...current,
+                    ui: {
+                      ...current.ui,
+                      phone: { ...current.ui?.phone, ...values },
+                    },
+                  });
+                }}
+              />
+            )}
           {keyboard && <DeviceKeyboard close={() => setKeyboard(false)} />}
           {loadError && (
             <button className="runtime-error" onClick={() => setLoadError("")}>

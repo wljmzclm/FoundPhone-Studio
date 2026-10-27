@@ -4203,3 +4203,19 @@
   margin-top: 18px;
   color: #ff8090;
 }
+
+.chapter-entry-button {
+  position: absolute;
+  bottom: 128px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 30;
+  white-space: nowrap;
+  padding: 10px 18px;
+  border: 1px solid #ffffff66;
+  border-radius: 24px;
+  background: #20202ecc;
+  color: #fff;
+  backdrop-filter: blur(12px);
+  font-size: 14px;
+}

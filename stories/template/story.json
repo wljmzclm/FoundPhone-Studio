@@ -3,7 +3,7 @@
   "id": "mu-zhicheng-phone",
   "title": "穆祉丞的手机",
   "description": "以穆祉丞的视角探索手机，从王橹杰的新微博通知开始。后续主剧情待补充。",
-  "revision": 25,
+  "revision": 26,
   "phone": {
     "owner": "穆祉丞",
     "date": "2026-10-25",
@@ -22,6 +22,20 @@
         "netease"
       ],
       "afterEnding": [
+        "photos",
+        "safari",
+        "bilibili"
+      ]
+    },
+    "chapterTransition": {
+      "currentTitle": "第一章",
+      "nextTitle": "第二章",
+      "requiredApps": [
+        "wechat",
+        "messages",
+        "weibo",
+        "douyin",
+        "netease",
         "photos",
         "safari",
         "bilibili"
