@@ -600,7 +600,41 @@ test("post-story Douyin links appear in supplied order and preserve story graphi
     "href",
     "https://v.douyin.com/UGtriLMpDd8/",
   );
+  const firstVideo = cards.nth(0).locator("video");
+  const secondVideo = cards.nth(1).locator("video");
+  await expect(firstVideo).toHaveAttribute(
+    "src",
+    "./story-assets/douyin-night-dance.mp4",
+  );
+  await expect(secondVideo).toHaveAttribute(
+    "src",
+    "./story-assets/douyin-hello-mask.mp4",
+  );
+  await firstVideo.evaluate((el: HTMLVideoElement) => el.play());
+  await expect
+    .poll(() => firstVideo.evaluate((el: HTMLVideoElement) => el.currentTime))
+    .toBeGreaterThan(0);
+  expect(
+    await firstVideo.evaluate((el: HTMLVideoElement) => el.duration),
+  ).toBeGreaterThan(40);
   await cards.nth(1).scrollIntoViewIfNeeded();
+  await expect
+    .poll(() => firstVideo.evaluate((el: HTMLVideoElement) => el.paused))
+    .toBe(true);
+  await secondVideo.evaluate((el: HTMLVideoElement) => el.play());
+  await expect
+    .poll(() => secondVideo.evaluate((el: HTMLVideoElement) => el.currentTime))
+    .toBeGreaterThan(0);
+  expect(
+    await secondVideo.evaluate((el: HTMLVideoElement) => el.duration),
+  ).toBeGreaterThan(11);
+  await secondVideo.evaluate((el: HTMLVideoElement) => {
+    el.currentTime = 5;
+    el.pause();
+  });
+  await expect
+    .poll(() => secondVideo.evaluate((el: HTMLVideoElement) => el.currentTime))
+    .toBeGreaterThanOrEqual(5);
   await expect(cards.nth(1).locator("a")).toBeVisible();
   await page.getByRole("button", { name: "查看剧情图文", exact: true }).click();
   await expect(page.locator(".douyin-story")).toBeVisible();

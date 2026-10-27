@@ -10,6 +10,35 @@
   background: #080808;
   color: #fff;
 }
+.douyin-link-scroll article:has(video) {
+  height: 100%;
+  min-height: 0;
+  padding: 12px 16px;
+  gap: 8px;
+}
+.douyin-link-scroll video {
+  display: block;
+  flex: 1;
+  min-height: 0;
+  width: 100%;
+  object-fit: contain;
+  background: #000;
+  border-radius: 8px;
+}
+.douyin-link-scroll article:has(video) p {
+  margin: 0;
+  font-size: 13px;
+  line-height: 1.5;
+}
+.douyin-link-scroll article:has(video) strong {
+  font-size: 16px;
+}
+.douyin-link-scroll article:has(video) a {
+  padding: 6px;
+  font-size: 12px;
+  background: transparent;
+  color: #bbb;
+}
 .douyin-link-feed .app-nav {
   color: #fff;
 }

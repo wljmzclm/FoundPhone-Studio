@@ -90,6 +90,19 @@ describe("import and schema safety", () => {
     expect(safeMedia("data:image/svg+xml;base64,PHN2Zz4=")).toBe("");
     expect(safeMedia("https://example.com/image.png")).toBe("");
     expect(safeMedia("data:image/png;base64,YQ==")).not.toBe("");
+    expect(safeMedia("./story-assets/douyin-night-dance.mp4")).toBe(
+      "./story-assets/douyin-night-dance.mp4",
+    );
+    expect(safeMedia("./story-assets/clip.webm")).toBe(
+      "./story-assets/clip.webm",
+    );
+    const work = createWork();
+    expect(() =>
+      validateWork({
+        ...work,
+        phone: { ...work.phone, lockWallpaper: "./story-assets/clip.mp4" },
+      }),
+    ).toThrow();
     expect(safeMedia("./story-assets/mu-zhiyou-avatar.jpg")).toBe(
       "./story-assets/mu-zhiyou-avatar.jpg",
     );
@@ -99,6 +112,9 @@ describe("import and schema safety", () => {
       "./story-assets/picture.svg",
       "//example.com/picture.jpg",
       "./story-assets/photo.jpg?redirect=https://example.com",
+      "./story-assets/../clip.mp4",
+      "https://example.com/clip.mp4",
+      "./story-assets/clip.mp4?code=1",
     ])
       expect(safeMedia(path)).toBe("");
   });

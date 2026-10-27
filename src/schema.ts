@@ -107,7 +107,9 @@ export const workSchema = z.object({
         (v) =>
           !v ||
           (Boolean(safeMedia(v)) &&
-            /^(data:image\/|\.\/story-assets\/)/.test(v)),
+            /^(data:image\/|\.\/story-assets\/[A-Za-z0-9][A-Za-z0-9_-]*\.(png|jpe?g|webp|gif)$)/.test(
+              v,
+            )),
         "锁屏壁纸必须是内嵌图片或作品内图片",
       )
       .optional(),
@@ -213,7 +215,7 @@ export function validateWork(input: unknown): Work {
 }
 export function safeMedia(value: string) {
   if (
-    /^\.\/story-assets\/[A-Za-z0-9][A-Za-z0-9_-]*\.(png|jpe?g|webp|gif)$/.test(
+    /^\.\/story-assets\/[A-Za-z0-9][A-Za-z0-9_-]*\.(png|jpe?g|webp|gif|mp4|webm)$/.test(
       value,
     )
   )

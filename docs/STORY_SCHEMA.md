@@ -24,6 +24,6 @@
 
 测试step支持event/target、password、advanceMs、choose。测试是指定路径的可达性证据，不是对任意用户自定义条件的数学穷举证明。未知密码、隐藏内容、悬空引用、无测试结局会失败。
 
-媒体支持 safeMedia 允许的内嵌 data URL，或 `./story-assets/文件名.jpg` 形式的作品内图片。作品图片放在 public/story-assets，文件名仅使用英文字母、数字、短横线或下划线，扩展名为 png/jpg/jpeg/webp/gif；不允许路径穿越、查询参数、远程地址或 SVG。禁止HTML/JS脚本；富文本为安全结构化JSON。作品脚本是公开静态数据，谜题密码不属于安全保密机制。
+媒体支持 safeMedia 允许的内嵌 data URL，或 `./story-assets/文件名.jpg` 形式的作品内图片。作品图片放在 public/story-assets，文件名仅使用英文字母、数字、短横线或下划线，图片扩展名为 png/jpg/jpeg/webp/gif，视频扩展名为 mp4/webm（锁屏仍仅支持图片）；不允许路径穿越、查询参数、远程地址或 SVG。禁止HTML/JS脚本；富文本为安全结构化JSON。作品脚本是公开静态数据，谜题密码不属于安全保密机制。
 
 默认空白模板：stories/blank/story.json。引擎回归样例位于tests/fixtures/story-example，不作为内置作品。自然语言原稿：tests/fixtures/story-example/STORY.md。只改故事数据就能改变手机内容。

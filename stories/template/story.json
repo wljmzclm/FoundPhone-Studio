@@ -3,7 +3,7 @@
   "id": "mu-zhicheng-phone",
   "title": "穆祉丞的手机",
   "description": "以穆祉丞的视角探索手机，从王橹杰的新微博通知开始。后续主剧情待补充。",
-  "revision": 20,
+  "revision": 21,
   "phone": {
     "owner": "穆祉丞",
     "date": "2026-10-25",
@@ -1363,8 +1363,11 @@
         "body": "适合夜晚散步的地方 在路灯下跳完这支舞吧🍂",
         "hidden": true,
         "meta": {
-          "douyinUrl": "https://v.douyin.com/_F2ZpBJw3UM/"
-        }
+          "douyinUrl": "https://v.douyin.com/_F2ZpBJw3UM/",
+          "poster": "./story-assets/douyin-night-dance-poster.jpg"
+        },
+        "kind": "video",
+        "media": "./story-assets/douyin-night-dance.mp4"
       },
       {
         "id": "douyin-hello-mask",
@@ -1373,8 +1376,11 @@
         "body": "你好啊 #长了一颗痘 #方块脸也能拍网纱面具转…",
         "hidden": true,
         "meta": {
-          "douyinUrl": "https://v.douyin.com/UGtriLMpDd8/"
-        }
+          "douyinUrl": "https://v.douyin.com/UGtriLMpDd8/",
+          "poster": "./story-assets/douyin-hello-mask-poster.jpg"
+        },
+        "kind": "video",
+        "media": "./story-assets/douyin-hello-mask.mp4"
       }
     ],
     "safari": [
