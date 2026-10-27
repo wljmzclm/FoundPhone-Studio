@@ -57,7 +57,11 @@ export function defaultLayout(input: Work): DeviceLayout {
   return {
     version: 1,
     workId: w.id,
-    previewLayoutRevision: w.id === "ui-test-phone-v2" ? 1 : 0,
+    previewLayoutRevision: ["ui-test-phone-v2", "mu-zhicheng-phone"].includes(
+      w.id,
+    )
+      ? 1
+      : 0,
     apps: structuredClone(w.apps)
       .sort((a, b) => (a.id === "appstore" ? -1 : b.id === "appstore" ? 1 : 0))
       .map((a) =>
@@ -116,6 +120,19 @@ export function validateLayout(raw: unknown, input: Work) {
       ...visibleApps,
       ...layout.order.filter((id) => !visibleApps.includes(id)),
     ];
+    layout.previewLayoutRevision = 1;
+  }
+  if (w.id === "mu-zhicheng-phone" && layout.previewLayoutRevision < 1) {
+    for (const app of layout.apps) {
+      if (["douyin", "phone"].includes(app.id)) {
+        app.dock = app.id === "phone";
+        app.installed = true;
+        app.visible = true;
+        app.folder = "";
+        delete layout.positions[app.id];
+      }
+    }
+    layout.order = ["douyin", ...layout.order.filter((id) => id !== "douyin")];
     layout.previewLayoutRevision = 1;
   }
   const entries = homeEntries(layout),

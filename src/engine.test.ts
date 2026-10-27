@@ -93,6 +93,9 @@ describe("import and schema safety", () => {
     expect(safeMedia("./story-assets/douyin-night-dance.mp4")).toBe(
       "./story-assets/douyin-night-dance.mp4",
     );
+    expect(safeMedia("./story-assets/wang-unavailable.m4a")).toBe(
+      "./story-assets/wang-unavailable.m4a",
+    );
     expect(safeMedia("./story-assets/clip.webm")).toBe(
       "./story-assets/clip.webm",
     );

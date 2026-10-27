@@ -222,7 +222,7 @@ export function validateWork(input: unknown): Work {
 }
 export function safeMedia(value: string) {
   if (
-    /^\.\/story-assets\/[A-Za-z0-9][A-Za-z0-9_-]*\.(png|jpe?g|webp|gif|mp4|webm)$/.test(
+    /^\.\/story-assets\/[A-Za-z0-9][A-Za-z0-9_-]*\.(png|jpe?g|webp|gif|mp4|webm|m4a)$/.test(
       value,
     )
   )

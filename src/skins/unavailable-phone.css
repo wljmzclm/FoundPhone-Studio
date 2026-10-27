@@ -1,0 +1,93 @@
+.unavailable-phone .catalog-scroll {
+  padding: 20px;
+}
+.unavailable-contact {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  width: 100%;
+  padding: 18px 0;
+  border: 0;
+  border-bottom: 1px solid #ddd;
+  background: transparent;
+  color: inherit;
+  text-align: left;
+}
+.unavailable-contact > span:not(.catalog-avatar) {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  flex: 1;
+}
+.unavailable-contact small {
+  color: #888;
+}
+.unavailable-contact > svg {
+  color: #35c85a;
+}
+.unavailable-call {
+  flex: 1;
+  min-height: 0;
+  background: linear-gradient(160deg, #595961, #303038);
+  color: #fff;
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+  align-items: center;
+  padding: 42px 24px 24px;
+}
+.unavailable-call > small {
+  color: #d0d0d4;
+  font-size: 16px;
+}
+.unavailable-call h2 {
+  font-size: 34px;
+  font-weight: 400;
+  margin: 14px 0;
+}
+.unavailable-call > p {
+  font-size: 15px;
+  color: #d0d0d4;
+}
+.unavailable-call-actions {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  width: 100%;
+  gap: 24px 12px;
+  margin-top: auto;
+  padding-top: 24px;
+}
+.unavailable-call-actions button {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+  background: transparent;
+  border: 0;
+  color: #fff;
+  font-size: 13px;
+}
+.unavailable-call-actions button > span {
+  display: grid;
+  place-items: center;
+  width: 68px;
+  height: 68px;
+  border-radius: 50%;
+  background: #ffffff18;
+}
+.unavailable-call-actions svg {
+  width: 28px;
+  height: 28px;
+}
+.unavailable-call-actions button:disabled {
+  opacity: 0.35;
+}
+.unavailable-call-actions button[aria-pressed="true"] > span {
+  background: #ffffff38;
+}
+.unavailable-call-actions .call-end > span {
+  background: #ff273e;
+}
+.unavailable-call-actions .call-end svg {
+  transform: rotate(135deg);
+}

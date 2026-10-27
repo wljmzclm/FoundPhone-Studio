@@ -111,7 +111,7 @@ test("only a completed ending opens exploration apps; continuation and save surv
     await expect(
       page.getByRole("button", { name: "打开" + name, exact: true }),
     ).toHaveCount(1);
-  for (const name of ["设置", "电话", "文件", "备忘录"])
+  for (const name of ["设置", "文件", "备忘录"])
     await expect(
       page.getByRole("button", { name: "打开" + name, exact: true }),
     ).toHaveCount(0);
@@ -340,7 +340,7 @@ test("scripted Mu conversation: player taps sends, friend replies, Douyin return
     await expect(
       page.getByRole("button", { name: "打开" + name, exact: true }),
     ).toHaveCount(1);
-  for (const name of ["设置", "电话", "文件", "备忘录"])
+  for (const name of ["设置", "文件", "备忘录"])
     await expect(
       page.getByRole("button", { name: "打开" + name, exact: true }),
     ).toHaveCount(0);
@@ -434,7 +434,7 @@ test("uploaded images, avatars, album and ordered browser history work with the 
   await page.goto("/");
   await unlock(page);
   await page.getByRole("button", { name: "继续探索手机", exact: true }).click();
-  for (const name of ["电话", "文件", "哔哩哔哩", "网易云", "备忘录"])
+  for (const name of ["文件", "哔哩哔哩", "网易云", "备忘录"])
     await expect(
       page.getByRole("button", { name: "打开" + name, exact: true }),
     ).toHaveCount(0);
@@ -766,7 +766,7 @@ test("MUahahaha has one dated post during and after the main story", async ({
   await expect(page.locator(".weibo-post")).toHaveCount(1);
 });
 
-test("chapter choice waits for ending and all eight apps, and can be deferred", async ({
+test("chapter choice waits for ending and all nine apps, and can be deferred", async ({
   page,
 }) => {
   const { work } = compileStory({
@@ -796,7 +796,15 @@ test("chapter choice waits for ending and all eight apps, and can be deferred", 
   await page.getByRole("button", { name: "打开抖音", exact: true }).click();
   await page.getByRole("button", { name: "继续探索手机", exact: true }).click();
   await expect(page.getByRole("dialog", { name: "章节选择" })).toHaveCount(0);
-  for (const name of ["微信", "短信", "微博", "网易云音乐", "相册", "浏览器"]) {
+  for (const name of [
+    "微信",
+    "短信",
+    "微博",
+    "网易云音乐",
+    "电话",
+    "相册",
+    "浏览器",
+  ]) {
     await page
       .getByRole("button", { name: "打开" + name, exact: true })
       .click();
@@ -832,4 +840,79 @@ test("chapter choice waits for ending and all eight apps, and can be deferred", 
   await page.getByRole("button", { name: "返回第一章", exact: true }).click();
   await page.getByRole("button", { name: "打开微博", exact: true }).click();
   await expect(page.locator(".weibo-post")).toHaveCount(5);
+});
+
+test("phone replaces dock Douyin in saved layouts and plays the unavailable-number recording", async ({
+  page,
+}) => {
+  const { work } = compileStory(raw);
+  const oldLayout = {
+    version: 1,
+    workId: work.id,
+    previewLayoutRevision: 0,
+    apps: work.apps
+      .filter((a) => a.id !== "phone")
+      .map((a) => (a.id === "douyin" ? { ...a, dock: true } : a)),
+    widgets: [],
+    order: [],
+    cleared: [],
+    positions: {},
+  };
+  await page.addInitScript((layout) => {
+    const key = "foundphone-layout-v1:" + layout.workId;
+    if (!localStorage.getItem(key))
+      localStorage.setItem(key, JSON.stringify(layout));
+  }, oldLayout);
+  await page.goto("/");
+  await unlock(page);
+  const dock = page.locator(".interactive-home .dock");
+  await expect(
+    dock.getByRole("button", { name: "打开抖音", exact: true }),
+  ).toHaveCount(0);
+  await expect(
+    dock.getByRole("button", { name: "打开电话", exact: true }),
+  ).toBeVisible();
+  await expect(dock.locator("[data-app-id]").last()).toHaveAttribute(
+    "data-app-id",
+    "phone",
+  );
+  await expect(
+    page.getByRole("button", { name: "打开抖音", exact: true }),
+  ).toBeVisible();
+  await page.getByRole("button", { name: "打开电话", exact: true }).click();
+  await page.getByRole("button", { name: "拨打王橹杰", exact: true }).click();
+  await expect(page.locator(".unavailable-call h2")).toHaveText("王橹杰");
+  await expect(page.locator(".unavailable-call")).toContainText(
+    "您拨打的号码是空号",
+  );
+  const audio = page.locator('audio[aria-label="空号提示音"]');
+  await expect
+    .poll(() => audio.evaluate((el: HTMLAudioElement) => el.currentTime))
+    .toBeGreaterThan(0);
+  expect(
+    await audio.evaluate((el: HTMLAudioElement) => el.duration),
+  ).toBeGreaterThan(4);
+  await page
+    .locator(".phone-screen")
+    .screenshot({ path: "outputs/mu-phone/unavailable-call.png" });
+  await page.getByRole("button", { name: "静音", exact: true }).click();
+  await expect
+    .poll(() => audio.evaluate((el: HTMLAudioElement) => el.muted))
+    .toBe(true);
+  await page.getByRole("button", { name: "结束通话", exact: true }).click();
+  await expect
+    .poll(() => audio.evaluate((el: HTMLAudioElement) => el.paused))
+    .toBe(true);
+  await expect(
+    page.getByRole("button", { name: "拨打王橹杰", exact: true }),
+  ).toBeVisible();
+  await page.getByRole("button", { name: "返回桌面", exact: true }).click();
+  await page.reload();
+  await unlock(page);
+  await expect(
+    dock.getByRole("button", { name: "打开电话", exact: true }),
+  ).toBeVisible();
+  await expect(
+    dock.getByRole("button", { name: "打开抖音", exact: true }),
+  ).toHaveCount(0);
 });

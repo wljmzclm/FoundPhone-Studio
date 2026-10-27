@@ -1,5 +1,6 @@
 export { WeatherSkin, HealthSkin } from "./CalibratedSystemApps";
 import { AudioPlayer, useTrack } from "../audio";
+import { UnavailablePhone } from "./UnavailablePhone";
 import { useSkinState } from "../skinState";
 import {
   Calendar,
@@ -43,6 +44,11 @@ import {
   type Props,
 } from "./shared";
 export function PhoneSkin(p: Props) {
+  const contact = p.items.find((i) => i.meta.view === "unavailable-contact");
+  if (contact) return <UnavailablePhone p={p} contact={contact} />;
+  return <PhoneFeed p={p} />;
+}
+function PhoneFeed({ p }: { p: Props }) {
   const { tab, setTab, q, setQ, items } = useContent(p, "最近通话");
   const [digits, setDigits] = useState(""),
     [call, setCall] = useState("");

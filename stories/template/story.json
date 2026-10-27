@@ -3,7 +3,7 @@
   "id": "mu-zhicheng-phone",
   "title": "穆祉丞的手机",
   "description": "以穆祉丞的视角探索手机，从王橹杰的新微博通知开始。后续主剧情待补充。",
-  "revision": 27,
+  "revision": 28,
   "phone": {
     "owner": "穆祉丞",
     "date": "2026-10-25",
@@ -19,7 +19,8 @@
         "messages",
         "weibo",
         "douyin",
-        "netease"
+        "netease",
+        "phone"
       ],
       "afterEnding": [
         "photos",
@@ -38,7 +39,8 @@
         "netease",
         "photos",
         "safari",
-        "bilibili"
+        "bilibili",
+        "phone"
       ]
     }
   },
@@ -75,7 +77,7 @@
       "name": "抖音",
       "installed": true,
       "visible": true,
-      "dock": true,
+      "dock": false,
       "folder": "",
       "icon": ""
     },
@@ -112,6 +114,15 @@
       "installed": true,
       "visible": true,
       "dock": false,
+      "folder": "",
+      "icon": ""
+    },
+    {
+      "id": "phone",
+      "name": "电话",
+      "installed": true,
+      "visible": true,
+      "dock": true,
       "folder": "",
       "icon": ""
     }
@@ -1568,6 +1579,20 @@
         "body": "BV1h1kcBfEuJ",
         "meta": {
           "bilibiliBvid": "BV1h1kcBfEuJ"
+        }
+      }
+    ],
+    "phone": [
+      {
+        "id": "wang-unavailable-contact",
+        "title": "王橹杰",
+        "sender": "王橹杰",
+        "avatar": "./story-assets/wang-lujie-avatar.jpg",
+        "body": "您拨打的号码是空号",
+        "kind": "audio",
+        "media": "./story-assets/wang-unavailable.m4a",
+        "meta": {
+          "view": "unavailable-contact"
         }
       }
     ]
