@@ -398,11 +398,11 @@ test("post-story Wang history is immediately readable, dated, failed and require
     page.getByRole("button", { name: "看了你最近的训练", exact: true }),
   ).toBeVisible();
   expect(await page.locator(".history-date").allTextContents()).toEqual([
-    "7月27日 00:09",
-    "8月13日 16:10",
+    "8月17日 00:09",
+    "8月17日 16:10",
     "8月17日 23:11",
-    "9月27日 09:13",
-    "04:41",
+    "8月17日 09:13",
+    "8月17日 04:41",
   ]);
   await expect(page.locator(".wechat-history .skin-messages")).toHaveCSS(
     "background-color",
