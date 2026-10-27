@@ -666,6 +666,28 @@ test("MUahahaha has one dated post during and after the main story", async ({
   await expect(page.locator(".weibo-post .social-author small")).toContainText(
     "2024-12-19",
   );
+  await expect(page.locator(".mu-weibo-cover header")).toContainText(
+    "访问量 2711",
+  );
+  await expect(page.locator(".mu-weibo-stats")).toHaveText(
+    "1 粉丝1 关注1 转评赞",
+  );
+  await expect(page.locator(".weibo-simple-profile .lucide-crown")).toHaveCount(
+    0,
+  );
+  await expect(page.locator(".weibo-post .lucide-crown")).toHaveCount(0);
+  await expect(page.locator(".weibo-super-topic")).toHaveCount(0);
+  await page.getByRole("button", { name: "查看关注", exact: true }).click();
+  await expect(page.locator(".mu-weibo-follow-row")).toHaveCount(1);
+  await expect(page.locator(".mu-weibo-follow-row")).toContainText(
+    "TF家族-王橹杰LJW",
+  );
+  await page.locator(".mu-weibo-follow-row").click();
+  await expect(page.locator(".weibo-post")).toHaveCount(5);
+  await page
+    .getByRole("navigation", { name: "微博账号" })
+    .getByRole("button", { name: "MUahahaha", exact: true })
+    .click();
   const photo = page.locator(".weibo-post .story-gallery img");
   await expect(photo).toHaveAttribute(
     "src",

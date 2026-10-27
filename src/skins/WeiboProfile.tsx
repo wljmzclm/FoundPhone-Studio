@@ -21,6 +21,7 @@ const wan = (n: number) =>
 export function WeiboAccounts({ p }: { p: Props }) {
   const profiles = p.items.filter((i) => i.meta.view === "profile");
   const [selected, setSelected] = useState(profiles[0]?.id || "");
+  const [following, setFollowing] = useState(false);
   const profile = profiles.find((i) => i.id === selected) || profiles[0];
   if (!profile) return null;
   return (
@@ -30,7 +31,10 @@ export function WeiboAccounts({ p }: { p: Props }) {
           <button
             key={item.id}
             aria-pressed={profile.id === item.id}
-            onClick={() => setSelected(item.id)}
+            onClick={() => {
+              setSelected(item.id);
+              setFollowing(false);
+            }}
           >
             {item.sender}
           </button>
@@ -38,34 +42,74 @@ export function WeiboAccounts({ p }: { p: Props }) {
       </nav>
       {profile.meta.simpleProfile === "true" ? (
         <div className="catalog-skin weibo-ui weibo-author-page">
-          <header className="app-nav">
-            <button aria-label="返回" onClick={p.onBack}>
-              <ChevronLeft />
-            </button>
-            <strong>{profile.sender}</strong>
-            <span />
-          </header>
           <div className="catalog-scroll">
+            <div className="mu-weibo-cover">
+              <img src={safeMedia(profile.media)} alt="主页背景" />
+              <header>
+                <button aria-label="返回" onClick={p.onBack}>
+                  <ChevronLeft />
+                </button>
+                <span>访问量 {meta(profile, "visits")}</span>
+              </header>
+            </div>
             <section className="weibo-simple-profile">
               <Avatar name={profile.sender} src={profile.avatar} />
               <h2>{profile.sender}</h2>
-              <p>
-                微博{" "}
-                {
-                  p.items.filter(
+              <div className="mu-weibo-stats">
+                <span>
+                  <b>{meta(profile, "followers")}</b> 粉丝
+                </span>
+                <button
+                  aria-label="查看关注"
+                  onClick={() => setFollowing(!following)}
+                >
+                  <b>{meta(profile, "following")}</b> 关注
+                </button>
+                <span>
+                  <b>{meta(profile, "engagement")}</b> 转评赞
+                </span>
+              </div>
+            </section>
+            {following ? (
+              <section className="mu-weibo-following">
+                <button onClick={() => setFollowing(false)}>‹ 返回主页</button>
+                <h3>关注 1</h3>
+                {profiles
+                  .filter((i) => i.id === profile.meta.followingProfile)
+                  .map((item) => (
+                    <button
+                      className="mu-weibo-follow-row"
+                      key={item.id}
+                      onClick={() => {
+                        setSelected(item.id);
+                        setFollowing(false);
+                      }}
+                    >
+                      <Avatar
+                        name={item.sender}
+                        src={item.avatar}
+                        crop={item.meta.avatarCrop}
+                      />
+                      <strong>{item.sender}</strong>
+                      <span>›</span>
+                    </button>
+                  ))}
+              </section>
+            ) : (
+              <>
+                <nav className="mu-weibo-tabs" aria-label="主页栏目">
+                  <span>微博 1</span>
+                </nav>
+                {p.items
+                  .filter(
                     (i) =>
                       i.sender === profile.sender && i.meta.view !== "profile",
-                  ).length
-                }
-              </p>
-            </section>
-            {p.items
-              .filter(
-                (i) => i.sender === profile.sender && i.meta.view !== "profile",
-              )
-              .map((item) => (
-                <ProfilePost key={item.id} p={p} item={item} />
-              ))}
+                  )
+                  .map((item) => (
+                    <ProfilePost key={item.id} p={p} item={item} />
+                  ))}
+              </>
+            )}
           </div>
         </div>
       ) : (
@@ -86,7 +130,8 @@ function ProfilePost({ p, item }: { p: Props; item: Item }) {
         />
         <span>
           <strong>
-            {item.sender} <Crown size={13} />
+            {item.sender}{" "}
+            {item.meta.plainAccount !== "true" && <Crown size={13} />}
           </strong>
           <small>
             {item.time} {meta(item, "location")}
