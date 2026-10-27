@@ -3,7 +3,7 @@
   "id": "mu-zhicheng-phone",
   "title": "穆祉丞的手机",
   "description": "以穆祉丞的视角探索手机，从王橹杰的新微博通知开始。后续主剧情待补充。",
-  "revision": 19,
+  "revision": 20,
   "phone": {
     "owner": "穆祉丞",
     "date": "2026-10-25",
@@ -1354,6 +1354,26 @@
           "attachment": "douyin",
           "originalSms": "【蜜雪冰城】尊敬的客户，您分期购买的 [冰鲜柠檬水] 本月应付 0.33 元（1/12期），现已逾期，请您尽快将足额款项及滞纳金存入指定的扣款账户，否则将计入个人征信系统，对您造成不良影响。",
           "caption": "靠近你就靠近了痛苦 远离你就远离了幸福。 #短信爱 #textluv #cashtrippy"
+        }
+      },
+      {
+        "id": "douyin-night-dance",
+        "title": "适合夜晚散步的地方 在路灯下跳完这支舞吧🍂",
+        "sender": "TF家族",
+        "body": "适合夜晚散步的地方 在路灯下跳完这支舞吧🍂",
+        "hidden": true,
+        "meta": {
+          "douyinUrl": "https://v.douyin.com/_F2ZpBJw3UM/"
+        }
+      },
+      {
+        "id": "douyin-hello-mask",
+        "title": "你好啊 #长了一颗痘 #方块脸也能拍网纱面具转…",
+        "sender": "穆祉丞",
+        "body": "你好啊 #长了一颗痘 #方块脸也能拍网纱面具转…",
+        "hidden": true,
+        "meta": {
+          "douyinUrl": "https://v.douyin.com/UGtriLMpDd8/"
         }
       }
     ],
@@ -3074,6 +3094,16 @@
       "actions": [
         {
           "type": "unlock",
+          "key": "douyin-night-dance",
+          "value": true
+        },
+        {
+          "type": "unlock",
+          "key": "douyin-hello-mask",
+          "value": true
+        },
+        {
+          "type": "unlock",
           "key": "wang-post-story-thread",
           "value": true
         },
@@ -3102,7 +3132,8 @@
       ],
       "expectNotifications": [
         "微博：TF家族-王橹杰LJW发送了新的微博"
-      ]
+      ],
+      "expectUnlocked": []
     },
     {
       "name": "微博五秒后短信，进入短信立即微信提示",
@@ -3431,7 +3462,9 @@
       "expectUnlocked": [
         "sms-goodnight",
         "sms-question-last-reply-1",
-        "wang-post-story-thread"
+        "wang-post-story-thread",
+        "douyin-night-dance",
+        "douyin-hello-mask"
       ]
     }
   ]

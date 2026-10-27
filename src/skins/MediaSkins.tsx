@@ -1,6 +1,7 @@
 import { AudioPlayer, useTrack } from "../audio";
 import { useSkinState } from "../skinState";
 import { DouyinStory } from "./DouyinStory";
+import { DouyinLinks } from "./DouyinLinks";
 import {
   Bookmark,
   Check,
@@ -432,6 +433,7 @@ function VerticalVideo({ p, item }: { p: Props; item: Item }) {
   );
 }
 export function DouyinSkin(p: Props) {
+  if (p.items.some((i) => i.meta.douyinUrl)) return <DouyinLinks p={p} />;
   const story = p.items.find((i) => i.meta.view === "sms-story");
   if (story) return <DouyinStory p={p} item={story} />;
   return <DouyinFeed p={p} />;

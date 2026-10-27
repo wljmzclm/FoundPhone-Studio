@@ -557,3 +557,60 @@ test("Netease opens after unlock and keeps the same player when leaving", async 
   await expect(page.locator(".persistent-netease")).toHaveClass(/active/);
   expect(loads).toBe(1);
 });
+
+test("post-story Douyin links appear in supplied order and preserve story graphic", async ({
+  page,
+}) => {
+  await page.goto("/");
+  await unlock(page);
+  await page.getByRole("button", { name: "打开抖音", exact: true }).click();
+  await expect(page.locator(".douyin-link-feed")).toHaveCount(0);
+  const ending = raw.events.find(
+    (node: { id: string }) => node.id === "messages-complete-to-explore",
+  );
+  const { work } = compileStory({
+    ...raw,
+    id: "douyin-explore-check",
+    events: [
+      {
+        ...ending,
+        type: "start",
+        conditions: [],
+        actions: [
+          { type: "unlock", key: "douyin-sms-love", value: true },
+          ...ending.actions,
+        ],
+      },
+    ],
+  });
+  await page.route("**/work.json", (route) => route.fulfill({ json: work }));
+  await page.reload();
+  await unlock(page);
+  await page.getByRole("button", { name: "继续探索手机", exact: true }).click();
+  await page.getByRole("button", { name: "打开抖音", exact: true }).click();
+  const cards = page.locator(".douyin-link-scroll article");
+  await expect(cards).toHaveCount(2);
+  await expect(cards.nth(0).locator("strong")).toHaveText("@TF家族");
+  await expect(cards.nth(0).locator("a")).toHaveAttribute(
+    "href",
+    "https://v.douyin.com/_F2ZpBJw3UM/",
+  );
+  await expect(cards.nth(1).locator("strong")).toHaveText("@穆祉丞");
+  await expect(cards.nth(1).locator("a")).toHaveAttribute(
+    "href",
+    "https://v.douyin.com/UGtriLMpDd8/",
+  );
+  await cards.nth(1).scrollIntoViewIfNeeded();
+  await expect(cards.nth(1).locator("a")).toBeVisible();
+  await page.getByRole("button", { name: "查看剧情图文", exact: true }).click();
+  await expect(page.locator(".douyin-story")).toBeVisible();
+  await page
+    .locator(".douyin-story")
+    .getByRole("button", { name: "返回", exact: true })
+    .click();
+  await expect(cards).toHaveCount(2);
+  await page.reload();
+  await unlock(page);
+  await page.getByRole("button", { name: "打开抖音", exact: true }).click();
+  await expect(cards).toHaveCount(2);
+});

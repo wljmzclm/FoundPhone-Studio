@@ -6,6 +6,67 @@
   color: white;
   position: relative;
 }
+.douyin-link-feed {
+  background: #080808;
+  color: #fff;
+}
+.douyin-link-feed .app-nav {
+  color: #fff;
+}
+.douyin-link-scroll {
+  flex: 1;
+  min-height: 0;
+  overflow-y: auto;
+  scroll-snap-type: y mandatory;
+}
+.douyin-link-scroll article {
+  min-height: 100%;
+  box-sizing: border-box;
+  padding: 24px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  scroll-snap-align: start;
+  background: radial-gradient(ellipse at top, #292034, #080808 75%);
+}
+.douyin-link-number {
+  color: #aaa;
+  font-size: 12px;
+}
+.douyin-link-symbol {
+  font-size: 100px;
+  text-align: center;
+  padding: 20px;
+  text-shadow:
+    -4px 0 #25f4ee,
+    4px 2px #fe2c55;
+}
+.douyin-link-scroll strong {
+  font-size: 20px;
+}
+.douyin-link-scroll p {
+  font-size: 15px;
+  line-height: 1.8;
+}
+.douyin-link-scroll a {
+  padding: 14px;
+  background: #fe2c55;
+  border-radius: 10px;
+  text-align: center;
+  color: #fff;
+  text-decoration: none;
+}
+.douyin-link-scroll small {
+  color: #aaa;
+  margin-top: 14px;
+  font-size: 12px;
+}
+.douyin-link-history {
+  padding: 14px;
+  color: #ddd;
+  background: #181818;
+  border: 0;
+}
 .douyin-story > header {
   display: flex;
   align-items: center;
