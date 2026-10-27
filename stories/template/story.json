@@ -3,7 +3,7 @@
   "id": "mu-zhicheng-phone",
   "title": "命中注定我爱你",
   "description": "以穆祉丞的视角探索手机，从王橹杰的新微博通知开始。后续主剧情待补充。",
-  "revision": 36,
+  "revision": 37,
   "phone": {
     "owner": "穆祉丞",
     "date": "2026-10-25",
@@ -57,7 +57,7 @@
           "subtitle": "王橹杰的手机"
         },
         {
-          "title": "十七岁的愿望关于你"
+          "title": "十六岁的愿望关于你"
         },
         {
           "title": "南山塔的诅咒"
@@ -1446,17 +1446,30 @@
         "media": "./story-assets/douyin-night-dance.mp4"
       },
       {
-        "id": "douyin-hello-mask",
-        "title": "你好啊 #长了一颗痘 #方块脸也能拍网纱面具转…",
-        "sender": "穆祉丞",
-        "body": "你好啊 #长了一颗痘 #方块脸也能拍网纱面具转…",
+        "id": "douyin-tf-9255",
+        "title": "TF家族的视频",
+        "sender": "TF家族",
+        "body": "TF家族的作品",
+        "kind": "video",
+        "media": "./story-assets/douyin-tf-9255.mp4",
         "hidden": true,
         "meta": {
-          "douyinUrl": "https://v.douyin.com/UGtriLMpDd8/",
-          "poster": "./story-assets/douyin-hello-mask-poster.jpg"
-        },
+          "poster": "./story-assets/douyin-tf-9255-poster.jpg",
+          "view": "uploaded-douyin"
+        }
+      },
+      {
+        "id": "douyin-tf-9256",
+        "title": "TF家族的视频",
+        "sender": "TF家族",
+        "body": "TF家族的作品",
         "kind": "video",
-        "media": "./story-assets/douyin-hello-mask.mp4"
+        "media": "./story-assets/douyin-tf-9256.mp4",
+        "hidden": true,
+        "meta": {
+          "poster": "./story-assets/douyin-tf-9256-poster.jpg",
+          "view": "uploaded-douyin"
+        }
       }
     ],
     "photos": [
@@ -3240,7 +3253,12 @@
         },
         {
           "type": "unlock",
-          "key": "douyin-hello-mask",
+          "key": "douyin-tf-9255",
+          "value": true
+        },
+        {
+          "type": "unlock",
+          "key": "douyin-tf-9256",
           "value": true
         },
         {
@@ -3605,7 +3623,8 @@
         "sms-question-last-reply-1",
         "wang-post-story-thread",
         "douyin-night-dance",
-        "douyin-hello-mask"
+        "douyin-tf-9255",
+        "douyin-tf-9256"
       ]
     }
   ]

@@ -605,17 +605,13 @@ test("post-story Douyin links appear in supplied order and preserve story graphi
   await page.getByRole("button", { name: "继续探索手机", exact: true }).click();
   await page.getByRole("button", { name: "打开抖音", exact: true }).click();
   const cards = page.locator(".douyin-link-scroll article");
-  await expect(cards).toHaveCount(2);
+  await expect(cards).toHaveCount(3);
   await expect(cards.nth(0).locator("strong")).toHaveText("@TF家族");
   await expect(cards.nth(0).locator("a")).toHaveAttribute(
     "href",
     "https://v.douyin.com/_F2ZpBJw3UM/",
   );
-  await expect(cards.nth(1).locator("strong")).toHaveText("@穆祉丞");
-  await expect(cards.nth(1).locator("a")).toHaveAttribute(
-    "href",
-    "https://v.douyin.com/UGtriLMpDd8/",
-  );
+  await expect(cards.nth(1).locator("strong")).toHaveText("@TF家族");
   const firstVideo = cards.nth(0).locator("video");
   const secondVideo = cards.nth(1).locator("video");
   await expect(firstVideo).toHaveAttribute(
@@ -624,7 +620,7 @@ test("post-story Douyin links appear in supplied order and preserve story graphi
   );
   await expect(secondVideo).toHaveAttribute(
     "src",
-    "./story-assets/douyin-hello-mask.mp4",
+    "./story-assets/douyin-tf-9255.mp4",
   );
   await firstVideo.evaluate((el: HTMLVideoElement) => el.play());
   await expect
@@ -643,7 +639,7 @@ test("post-story Douyin links appear in supplied order and preserve story graphi
     .toBeGreaterThan(0);
   expect(
     await secondVideo.evaluate((el: HTMLVideoElement) => el.duration),
-  ).toBeGreaterThan(11);
+  ).toBeGreaterThan(16);
   await secondVideo.evaluate((el: HTMLVideoElement) => {
     el.currentTime = 5;
     el.pause();
@@ -651,18 +647,32 @@ test("post-story Douyin links appear in supplied order and preserve story graphi
   await expect
     .poll(() => secondVideo.evaluate((el: HTMLVideoElement) => el.currentTime))
     .toBeGreaterThanOrEqual(5);
-  await expect(cards.nth(1).locator("a")).toBeVisible();
+  await cards.nth(2).scrollIntoViewIfNeeded();
+  const thirdVideo = cards.nth(2).locator("video");
+  await expect(thirdVideo).toHaveAttribute(
+    "src",
+    "./story-assets/douyin-tf-9256.mp4",
+  );
+  await thirdVideo.evaluate((el: HTMLVideoElement) => el.play());
+  await expect
+    .poll(() => thirdVideo.evaluate((el: HTMLVideoElement) => el.currentTime))
+    .toBeGreaterThan(0);
+  expect(
+    await thirdVideo.evaluate((el: HTMLVideoElement) => el.duration),
+  ).toBeGreaterThan(17);
+  await expect(page.locator('video[src*="hello-mask"]')).toHaveCount(0);
+
   await page.getByRole("button", { name: "查看剧情图文", exact: true }).click();
   await expect(page.locator(".douyin-story")).toBeVisible();
   await page
     .locator(".douyin-story")
     .getByRole("button", { name: "返回", exact: true })
     .click();
-  await expect(cards).toHaveCount(2);
+  await expect(cards).toHaveCount(3);
   await page.reload();
   await unlock(page);
   await page.getByRole("button", { name: "打开抖音", exact: true }).click();
-  await expect(cards).toHaveCount(2);
+  await expect(cards).toHaveCount(3);
 });
 
 test("MUahahaha has one dated post during and after the main story", async ({
@@ -1143,7 +1153,9 @@ test("first WeChat screenshot send shows and opens the daytime SMS picture", asy
   await page
     .getByRole("button", { name: "发送下一条消息", exact: true })
     .click();
-  const picture = page.locator('[data-message-id="mu-sms-shot"] .skin-bubble img');
+  const picture = page.locator(
+    '[data-message-id="mu-sms-shot"] .skin-bubble img',
+  );
   await expect(picture).toHaveAttribute(
     "src",
     "./story-assets/mu-shared-sms-day.png",

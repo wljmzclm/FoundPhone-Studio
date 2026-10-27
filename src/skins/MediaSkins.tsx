@@ -433,7 +433,10 @@ function VerticalVideo({ p, item }: { p: Props; item: Item }) {
   );
 }
 export function DouyinSkin(p: Props) {
-  if (p.items.some((i) => i.meta.douyinUrl)) return <DouyinLinks p={p} />;
+  if (
+    p.items.some((i) => i.meta.douyinUrl || i.meta.view === "uploaded-douyin")
+  )
+    return <DouyinLinks p={p} />;
   const story = p.items.find((i) => i.meta.view === "sms-story");
   if (story) return <DouyinStory p={p} item={story} />;
   return <DouyinFeed p={p} />;

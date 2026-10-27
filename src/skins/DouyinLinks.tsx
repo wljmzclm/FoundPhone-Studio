@@ -52,8 +52,12 @@ function UploadedVideo({ item }: { item: Item }) {
 export function DouyinLinks({ p }: { p: Props }) {
   const [history, setHistory] = useState(false);
   const story = p.items.find((i) => i.meta.view === "sms-story");
-  const videos = p.items.filter((i) =>
-    /^https:\/\/v\.douyin\.com\/[A-Za-z0-9_-]+\/$/.test(i.meta.douyinUrl || ""),
+  const videos = p.items.filter(
+    (i) =>
+      (i.kind === "video" && !!safeMedia(i.media)) ||
+      /^https:\/\/v\.douyin\.com\/[A-Za-z0-9_-]+\/$/.test(
+        i.meta.douyinUrl || "",
+      ),
   );
   if (history && story)
     return (
@@ -77,13 +81,17 @@ export function DouyinLinks({ p }: { p: Props }) {
             )}
             <strong>@{item.sender}</strong>
             <p>{item.body}</p>
-            <a
-              href={item.meta.douyinUrl}
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              {item.media ? "在抖音查看原视频 ↗" : "打开抖音观看 ↗"}
-            </a>
+            {/^https:\/\/v\.douyin\.com\/[A-Za-z0-9_-]+\/$/.test(
+              item.meta.douyinUrl || "",
+            ) && (
+              <a
+                href={item.meta.douyinUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                {item.media ? "在抖音查看原视频 ↗" : "打开抖音观看 ↗"}
+              </a>
+            )}
             {!item.media && <small>此视频通过原链接在抖音中播放</small>}
           </article>
         ))}
