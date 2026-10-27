@@ -3,7 +3,7 @@
   "id": "mu-zhicheng-phone",
   "title": "命中注定我爱你",
   "description": "以穆祉丞的视角探索手机，从王橹杰的新微博通知开始。后续主剧情待补充。",
-  "revision": 38,
+  "revision": 39,
   "phone": {
     "owner": "穆祉丞",
     "date": "2026-10-25",
@@ -24,7 +24,8 @@
         "photos",
         "taobao",
         "weather",
-        "calendar"
+        "calendar",
+        "qq"
       ],
       "afterEnding": []
     },
@@ -41,7 +42,8 @@
         "phone",
         "taobao",
         "weather",
-        "calendar"
+        "calendar",
+        "qq"
       ]
     },
     "introduction": {
@@ -164,6 +166,15 @@
       "dock": false,
       "folder": "",
       "icon": ""
+    },
+    {
+      "id": "qq",
+      "name": "QQ",
+      "installed": true,
+      "visible": true,
+      "dock": false,
+      "folder": "",
+      "icon": ""
     }
   ],
   "contacts": [
@@ -176,6 +187,11 @@
       "id": "mu-zhiyou",
       "name": "穆之友",
       "avatar": "./story-assets/mu-zhiyou-avatar.jpg"
+    },
+    {
+      "id": "qq-kunkun",
+      "name": "困困",
+      "avatar": "./story-assets/qq-kunkun-avatar.jpg"
     }
   ],
   "chats": [
@@ -383,21 +399,24 @@
       ],
       "messages": [
         {
-          "id": "wang-post-story-thread",
+          "id": "wang-wechat-added",
           "body": "",
           "senderId": "wang-lujie",
           "hidden": true,
           "meta": {
             "conversationOnly": "true",
-            "avatarReference": "作者提供的拉小提琴的猫"
-          }
+            "avatarReference": "作者提供的拉小提琴的猫",
+            "wechatAccount": "reflection2711",
+            "friendReadyKey": "qq-wechat-invite-ready"
+          },
+          "unlock": "unlocked:wang-wechat-added"
         },
         {
           "id": "wang-history-01",
           "body": "看了你最近的训练",
           "senderId": "owner",
           "time": "2026-07-27 00:09",
-          "unlock": "unlocked:wang-post-story-thread",
+          "unlock": "unlocked:wang-wechat-added",
           "meta": {
             "historyOnly": "true",
             "deliveryStatus": "failed",
@@ -410,7 +429,7 @@
           "body": "进步越来越大了",
           "senderId": "owner",
           "time": "2026-07-27 00:09",
-          "unlock": "unlocked:wang-post-story-thread",
+          "unlock": "unlocked:wang-wechat-added",
           "meta": {
             "historyOnly": "true",
             "deliveryStatus": "failed"
@@ -422,7 +441,7 @@
           "body": "越来越多人喜欢你了",
           "senderId": "owner",
           "time": "2026-07-27 00:09",
-          "unlock": "unlocked:wang-post-story-thread",
+          "unlock": "unlocked:wang-wechat-added",
           "meta": {
             "historyOnly": "true",
             "deliveryStatus": "failed"
@@ -434,7 +453,7 @@
           "body": "不知道我该开心还是该难过",
           "senderId": "owner",
           "time": "2026-07-27 00:09",
-          "unlock": "unlocked:wang-post-story-thread",
+          "unlock": "unlocked:wang-wechat-added",
           "meta": {
             "historyOnly": "true",
             "deliveryStatus": "failed"
@@ -446,7 +465,7 @@
           "body": "希望你被所有人喜欢",
           "senderId": "owner",
           "time": "2026-07-27 00:09",
-          "unlock": "unlocked:wang-post-story-thread",
+          "unlock": "unlocked:wang-wechat-added",
           "meta": {
             "historyOnly": "true",
             "deliveryStatus": "failed"
@@ -458,7 +477,7 @@
           "body": "但又希望只有我一个人知道你的好",
           "senderId": "owner",
           "time": "2026-07-27 00:09",
-          "unlock": "unlocked:wang-post-story-thread",
+          "unlock": "unlocked:wang-wechat-added",
           "meta": {
             "historyOnly": "true",
             "deliveryStatus": "failed"
@@ -470,7 +489,7 @@
           "body": "睡个好觉",
           "senderId": "owner",
           "time": "2026-07-27 00:09",
-          "unlock": "unlocked:wang-post-story-thread",
+          "unlock": "unlocked:wang-wechat-added",
           "meta": {
             "historyOnly": "true",
             "deliveryStatus": "failed"
@@ -482,7 +501,7 @@
           "body": "想你",
           "senderId": "owner",
           "time": "2026-07-27 00:09",
-          "unlock": "unlocked:wang-post-story-thread",
+          "unlock": "unlocked:wang-wechat-added",
           "meta": {
             "historyOnly": "true",
             "deliveryStatus": "failed"
@@ -494,7 +513,7 @@
           "body": "四天的票都买到了",
           "senderId": "owner",
           "time": "2026-08-13 16:10",
-          "unlock": "unlocked:wang-post-story-thread",
+          "unlock": "unlocked:wang-wechat-added",
           "meta": {
             "historyOnly": "true",
             "deliveryStatus": "failed",
@@ -507,7 +526,7 @@
           "body": "但是不是很近",
           "senderId": "owner",
           "time": "2026-08-13 16:10",
-          "unlock": "unlocked:wang-post-story-thread",
+          "unlock": "unlocked:wang-wechat-added",
           "meta": {
             "historyOnly": "true",
             "deliveryStatus": "failed"
@@ -519,7 +538,7 @@
           "body": "你会看见我嘛",
           "senderId": "owner",
           "time": "2026-08-13 16:10",
-          "unlock": "unlocked:wang-post-story-thread",
+          "unlock": "unlocked:wang-wechat-added",
           "meta": {
             "historyOnly": "true",
             "deliveryStatus": "failed"
@@ -531,7 +550,7 @@
           "body": "舞台都好好看",
           "senderId": "owner",
           "time": "2026-08-17 23:11",
-          "unlock": "unlocked:wang-post-story-thread",
+          "unlock": "unlocked:wang-wechat-added",
           "meta": {
             "historyOnly": "true",
             "deliveryStatus": "failed",
@@ -544,7 +563,7 @@
           "body": "我的周围全是你的粉丝呢",
           "senderId": "owner",
           "time": "2026-08-17 23:11",
-          "unlock": "unlocked:wang-post-story-thread",
+          "unlock": "unlocked:wang-wechat-added",
           "meta": {
             "historyOnly": "true",
             "deliveryStatus": "failed"
@@ -556,7 +575,7 @@
           "body": "每一天的座位从第10排到第5排",
           "senderId": "owner",
           "time": "2026-08-17 23:11",
-          "unlock": "unlocked:wang-post-story-thread",
+          "unlock": "unlocked:wang-wechat-added",
           "meta": {
             "historyOnly": "true",
             "deliveryStatus": "failed"
@@ -568,7 +587,7 @@
           "body": "但是怎么感觉我们越离越远呢",
           "senderId": "owner",
           "time": "2026-08-17 23:11",
-          "unlock": "unlocked:wang-post-story-thread",
+          "unlock": "unlocked:wang-wechat-added",
           "meta": {
             "historyOnly": "true",
             "deliveryStatus": "failed"
@@ -580,7 +599,7 @@
           "body": "想你了",
           "senderId": "owner",
           "time": "2026-09-27 09:13",
-          "unlock": "unlocked:wang-post-story-thread",
+          "unlock": "unlocked:wang-wechat-added",
           "meta": {
             "historyOnly": "true",
             "deliveryStatus": "failed",
@@ -593,7 +612,7 @@
           "body": "不想忘记你",
           "senderId": "owner",
           "time": "2026-10-25 04:41",
-          "unlock": "unlocked:wang-post-story-thread",
+          "unlock": "unlocked:wang-wechat-added",
           "meta": {
             "historyOnly": "true",
             "deliveryStatus": "failed",
@@ -606,7 +625,7 @@
           "body": "不想和你分开",
           "senderId": "owner",
           "time": "2026-10-25 04:41",
-          "unlock": "unlocked:wang-post-story-thread",
+          "unlock": "unlocked:wang-wechat-added",
           "meta": {
             "historyOnly": "true",
             "deliveryStatus": "failed"
@@ -618,12 +637,131 @@
           "body": "怎么办",
           "senderId": "owner",
           "time": "2026-10-25 04:41",
-          "unlock": "unlocked:wang-post-story-thread",
+          "unlock": "unlocked:wang-wechat-added",
           "meta": {
             "historyOnly": "true",
             "deliveryStatus": "failed"
           },
           "avatar": "./story-assets/mu-zhicheng-avatar.jpg"
+        }
+      ]
+    },
+    {
+      "id": "qq-kunkun-chat",
+      "app": "qq",
+      "title": "困困",
+      "participants": [
+        "owner",
+        "qq-kunkun"
+      ],
+      "messages": [
+        {
+          "id": "qq-kunkun-01",
+          "body": "哥哥我也有微信啦°˘ω˘°",
+          "senderId": "qq-kunkun",
+          "avatar": "./story-assets/qq-kunkun-avatar.jpg",
+          "meta": {
+            "status": "聊天记录"
+          }
+        },
+        {
+          "id": "qq-kunkun-02",
+          "body": "快加我好友！",
+          "senderId": "qq-kunkun",
+          "avatar": "./story-assets/qq-kunkun-avatar.jpg",
+          "meta": {
+            "status": "聊天记录"
+          }
+        },
+        {
+          "id": "qq-kunkun-03",
+          "body": "哈哈哈",
+          "senderId": "owner",
+          "avatar": "./story-assets/qq-mu-avatar.jpg",
+          "meta": {
+            "status": "聊天记录"
+          }
+        },
+        {
+          "id": "qq-kunkun-04",
+          "body": "怎么突然注册微信",
+          "senderId": "owner",
+          "avatar": "./story-assets/qq-mu-avatar.jpg",
+          "meta": {
+            "status": "聊天记录"
+          }
+        },
+        {
+          "id": "qq-kunkun-05",
+          "body": "我也想和哥哥聊天",
+          "senderId": "qq-kunkun",
+          "avatar": "./story-assets/qq-kunkun-avatar.jpg",
+          "meta": {
+            "status": "聊天记录"
+          }
+        },
+        {
+          "id": "qq-kunkun-06",
+          "body": "qq也可以聊呀",
+          "senderId": "owner",
+          "avatar": "./story-assets/qq-mu-avatar.jpg",
+          "meta": {
+            "status": "聊天记录"
+          }
+        },
+        {
+          "id": "qq-kunkun-07",
+          "body": "不一样的！",
+          "senderId": "qq-kunkun",
+          "avatar": "./story-assets/qq-kunkun-avatar.jpg",
+          "meta": {
+            "status": "聊天记录"
+          }
+        },
+        {
+          "id": "qq-kunkun-08",
+          "body": "他们都说qq是给小孩子用的",
+          "senderId": "qq-kunkun",
+          "avatar": "./story-assets/qq-kunkun-avatar.jpg",
+          "meta": {
+            "status": "聊天记录"
+          }
+        },
+        {
+          "id": "qq-kunkun-09",
+          "body": "我已经不是小孩子了",
+          "senderId": "qq-kunkun",
+          "avatar": "./story-assets/qq-kunkun-avatar.jpg",
+          "meta": {
+            "status": "聊天记录"
+          }
+        },
+        {
+          "id": "qq-kunkun-10",
+          "body": "困困永远都是哥哥的小孩子🤭",
+          "senderId": "owner",
+          "avatar": "./story-assets/qq-mu-avatar.jpg",
+          "meta": {
+            "status": "聊天记录"
+          }
+        },
+        {
+          "id": "qq-kunkun-11",
+          "body": "(≧ᗜ≦)՞",
+          "senderId": "qq-kunkun",
+          "avatar": "./story-assets/qq-kunkun-avatar.jpg",
+          "meta": {
+            "status": "聊天记录"
+          }
+        },
+        {
+          "id": "qq-kunkun-12",
+          "body": "发过来吧我加",
+          "senderId": "owner",
+          "avatar": "./story-assets/qq-mu-avatar.jpg",
+          "meta": {
+            "status": "聊天记录"
+          }
         }
       ]
     }
@@ -3300,11 +3438,6 @@
           "value": true
         },
         {
-          "type": "unlock",
-          "key": "wang-post-story-thread",
-          "value": true
-        },
-        {
           "type": "variable",
           "key": "storyPhase",
           "value": "explore"
@@ -3313,6 +3446,62 @@
           "type": "ending",
           "key": "",
           "value": "主剧情已结束，你可以继续探索这部手机。"
+        }
+      ],
+      "once": true
+    },
+    {
+      "id": "qq-opens-wechat-invite",
+      "label": "首次打开QQ，五秒后提醒添加微信好友",
+      "event": "openApp",
+      "target": "qq",
+      "actions": [],
+      "next": [
+        "qq-wechat-invite-delay"
+      ],
+      "once": true
+    },
+    {
+      "id": "qq-wechat-invite-delay",
+      "label": "QQ打开五秒后的微信好友提醒",
+      "type": "delay",
+      "delayMs": 5000,
+      "actions": [
+        {
+          "type": "variable",
+          "key": "qq-wechat-invite-ready",
+          "value": true
+        },
+        {
+          "type": "notification",
+          "key": "",
+          "value": "微信：有好友需要添加，微信号 reflection2711"
+        }
+      ],
+      "once": true
+    },
+    {
+      "id": "add-wang-wechat-friend",
+      "label": "输入正确微信号后显示王橹杰聊天记录",
+      "event": "variable",
+      "target": "ui:wechat:friendAccount",
+      "conditions": [
+        {
+          "key": "qq-wechat-invite-ready",
+          "op": "eq",
+          "value": true
+        },
+        {
+          "key": "ui:wechat:friendAccount",
+          "op": "eq",
+          "value": "reflection2711"
+        }
+      ],
+      "actions": [
+        {
+          "type": "unlock",
+          "key": "wang-wechat-added",
+          "value": true
         }
       ],
       "once": true
@@ -3649,20 +3838,31 @@
         },
         {
           "advanceMs": 1000
-        },
-        {
-          "event": "read",
-          "target": "wang-history-19"
         }
       ],
       "ending": "主剧情已结束，你可以继续探索这部手机。",
       "expectUnlocked": [
         "sms-goodnight",
         "sms-question-last-reply-1",
-        "wang-post-story-thread",
         "douyin-night-dance",
         "douyin-tf-9255",
         "douyin-tf-9256"
+      ]
+    },
+    {
+      "name": "QQ打开五秒收到微信好友提醒",
+      "steps": [
+        {
+          "event": "openApp",
+          "target": "qq"
+        },
+        {
+          "advanceMs": 5000
+        }
+      ],
+      "expectUnlocked": [],
+      "expectNotifications": [
+        "微信：有好友需要添加，微信号 reflection2711"
       ]
     }
   ]

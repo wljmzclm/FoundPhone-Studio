@@ -35,6 +35,12 @@ import {
 } from "lucide-react";
 import { safeMedia, type Item, type UiValue } from "./schema";
 export type SkinProps = {
+  friendRequest?: {
+    account: string;
+    name: string;
+    ready: boolean;
+    added: boolean;
+  };
   chatAppearance?: "light" | "dark";
   ui?: Record<string, UiValue>;
   onUi?: (key: string, value: UiValue) => void;
@@ -233,6 +239,8 @@ function Compose({
   );
 }
 export function WeChatSkin(p: SkinProps) {
+  const [friendAccount, setFriendAccount] = useState("");
+  const [friendResult, setFriendResult] = useState("");
   const [tab, setTab] = useState("微信"),
     [query, setQuery] = useState(""),
     [moments, setMoments] = useState(false),
@@ -326,6 +334,49 @@ export function WeChatSkin(p: SkinProps) {
       )}
       {utility ? (
         <div className="skin-scroll wx-utility">
+          {utility === "添加朋友" && p.friendRequest && (
+            <form
+              className="wx-add-friend"
+              onSubmit={(e) => {
+                e.preventDefault();
+                const request = p.friendRequest!;
+                if (request.added) {
+                  setUtility("");
+                  p.onThread(request.name);
+                  return;
+                }
+                if (!request.ready) {
+                  setFriendResult("暂未收到好友添加提醒");
+                } else if (friendAccount.trim() !== request.account) {
+                  setFriendResult("未找到该用户，请检查微信号");
+                } else {
+                  p.onUi?.("friendAccount", friendAccount.trim());
+                  setFriendResult(
+                    `已添加${request.name}，可返回微信查看聊天记录`,
+                  );
+                }
+              }}
+            >
+              <label>
+                微信号
+                <input
+                  aria-label="输入微信号"
+                  placeholder="微信号"
+                  value={friendAccount}
+                  onChange={(e) => setFriendAccount(e.target.value)}
+                />
+              </label>
+              <button type="submit">
+                {p.friendRequest.added ? "查看好友" : "添加到通讯录"}
+              </button>
+              <p role="status">
+                {friendResult ||
+                  (p.friendRequest.added
+                    ? `已添加${p.friendRequest.name}`
+                    : "输入微信号添加朋友")}
+              </p>
+            </form>
+          )}
           {utility === "聊天信息" && (
             <div className="wx-members">
               {[
@@ -358,7 +409,10 @@ export function WeChatSkin(p: SkinProps) {
               </button>
             ))}
           {!p.items.some((i) => i.folder === utility) &&
-            utility !== "聊天信息" && <p className="skin-empty">暂无内容</p>}
+            utility !== "聊天信息" &&
+            !(utility === "添加朋友" && p.friendRequest) && (
+              <p className="skin-empty">暂无内容</p>
+            )}
         </div>
       ) : p.thread ? (
         <>

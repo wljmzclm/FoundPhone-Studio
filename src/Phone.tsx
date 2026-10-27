@@ -1072,6 +1072,20 @@ function AppContent({
         <div className="catalog-slot" hidden={!!detail}>
           <Suspense fallback={<div className="catalog-loading">正在打开…</div>}>
             <Skin
+              friendRequest={(() => {
+                const request = items.find((i) => i.meta.wechatAccount);
+                return request
+                  ? {
+                      account: request.meta.wechatAccount,
+                      name: request.title,
+                      ready:
+                        state.variables[request.meta.friendReadyKey] === true,
+                      added:
+                        state.unlocked.includes(request.id) &&
+                        visible(request, state),
+                    }
+                  : undefined;
+              })()}
               appId={app.id}
               chatAppearance={work.phone.chatAppearance}
               owner={work.phone.owner}

@@ -105,7 +105,10 @@ function ChatRows({
   return (
     <>
       {names.map((name) => {
-        const last = items.filter((i) => i.title === name).at(-1)!;
+        const messages = items.filter((i) => i.title === name);
+        const last = messages.at(-1)!;
+        const avatar =
+          messages.find((i) => !i.outgoing && i.avatar)?.avatar || last.avatar;
         return (
           <button
             className="catalog-chat"
@@ -115,7 +118,7 @@ function ChatRows({
               p.onRead(name);
             }}
           >
-            <Avatar name={name} src={last.avatar} round={round} />
+            <Avatar name={name} src={avatar} round={round} />
             <span>
               <strong>{name}</strong>
               <p>{last.body}</p>
@@ -223,7 +226,7 @@ export function QQSkin(p: Props) {
       {!p.thread && <Header p={p} />}
       {!p.thread && (
         <div className="qq-profile-bar">
-          <Avatar name={p.owner ?? "我"} />
+          <Avatar name={p.owner ?? "我"} src={p.ownerAvatar} />
           <div>
             <strong>{p.thread || p.owner || "我的QQ"}</strong>
             <small>QQ</small>
