@@ -8,7 +8,7 @@ async function unlock(page: Page, pin = "2711") {
     .first()
     .waitFor({ state: "visible" });
   const start = page.getByRole("button", {
-    name: "进入第一章：短信爱",
+    name: "进入第一章：他来听我的演唱会",
     exact: true,
   });
   if (await start.isVisible()) await start.click();
@@ -23,7 +23,7 @@ test("Mu phone: wallpaper, four-digit passcode and four allowed story apps", asy
 }) => {
   await page.goto("/");
   await page
-    .getByRole("button", { name: "进入第一章：短信爱", exact: true })
+    .getByRole("button", { name: "进入第一章：他来听我的演唱会", exact: true })
     .click();
   await expect(page.locator(".lock-screen")).toBeVisible();
   expect(
@@ -112,15 +112,12 @@ test("album stays available after ending while deleted apps remain absent", asyn
   ).toHaveCount(1);
 });
 
-test("unlock notification opens Wang Lujie profile with five ordered posts", async ({
+test("Weibo opens Wang Lujie profile with five ordered posts", async ({
   page,
 }) => {
   await page.goto("/");
   await unlock(page);
-  await page
-    .locator(".device-banner")
-    .filter({ hasText: "TF家族-王橹杰LJW发送了新的微博" })
-    .click();
+  await page.getByRole("button", { name: "打开微博", exact: true }).click();
   await expect(page.locator(".weibo-author-info h2")).toContainText(
     "TF家族-王橹杰LJW",
   );
@@ -169,427 +166,6 @@ test("unlock notification opens Wang Lujie profile with five ordered posts", asy
   await expect(page.locator(".weibo-detail-tabs")).toContainText("7.3万");
   await page.getByRole("button", { name: "返回帖子列表", exact: true }).click();
   await expect(page.locator(".weibo-author-info h2")).toBeVisible();
-});
-
-test("five-second SMS banner routes to SMS and immediately offers WeChat", async ({
-  page,
-}) => {
-  await page.goto("/");
-  await unlock(page);
-  await page
-    .locator(".device-banner")
-    .filter({ hasText: "TF家族-王橹杰LJW发送了新的微博" })
-    .click();
-  const sms = page.locator(".device-banner").filter({ hasText: "短信" });
-  await expect(sms).toBeVisible({ timeout: 8000 });
-  await sms.click();
-  await expect(page.locator(".phone-screen")).toHaveAttribute(
-    "data-app",
-    "messages",
-  );
-  const wechat = page
-    .locator(".device-banner")
-    .filter({ hasText: "有信息需发送" });
-  await expect(wechat).toBeVisible();
-  await wechat.click();
-  await expect(page.locator(".phone-screen")).toHaveAttribute(
-    "data-app",
-    "wechat",
-  );
-  await expect(page.locator(".home-indicator")).toHaveCSS(
-    "background-color",
-    "rgba(0, 0, 0, 0)",
-  );
-  await page.reload();
-  await unlock(page);
-  await expect(page.locator(".device-banner")).toHaveCount(0);
-});
-
-test("scripted Mu conversation: player taps sends, friend replies, Douyin returns to WeChat, then SMS reminder", async ({
-  page,
-}) => {
-  test.setTimeout(180000);
-  await page.goto("/");
-  await unlock(page);
-  await page
-    .locator(".device-banner")
-    .filter({ hasText: "TF家族-王橹杰LJW发送了新的微博" })
-    .click();
-  await page
-    .locator(".device-banner")
-    .filter({ hasText: "短信" })
-    .waitFor({ timeout: 8000 });
-  await page.locator(".device-banner").filter({ hasText: "短信" }).click();
-  await expect(page.locator(".sms-story-dark")).toContainText(
-    "本月应付 0.33 元",
-  );
-  await expect(page.locator(".sms-story-bubbles")).toHaveCSS(
-    "background-color",
-    "rgb(255, 255, 255)",
-  );
-  await page
-    .locator(".phone-screen")
-    .screenshot({ path: "outputs/mu-phone/first-sms.png" });
-  await page
-    .locator(".device-banner")
-    .filter({ hasText: "有信息需发送" })
-    .click();
-  await expect(
-    page.locator(".wx-chat-row").filter({ hasText: "王橹杰" }),
-  ).toHaveCount(0);
-  await page.locator(".wx-chat-row").filter({ hasText: "穆之友" }).click();
-  const send = page.getByRole("button", {
-    name: "发送下一条消息",
-    exact: true,
-  });
-  await expect(page.locator(".wechat-ui")).toHaveCSS(
-    "background-color",
-    "rgb(237, 237, 237)",
-  );
-  await expect(
-    page.getByRole("button", { name: "不知道", exact: true }),
-  ).toHaveCount(0);
-  await send.click();
-  await expect(
-    page.getByRole("button", { name: "？谁发的这么抽象", exact: true }),
-  ).toBeVisible();
-  await expect(
-    page.getByRole("button", { name: "不知道", exact: true }),
-  ).toHaveCount(0);
-  await send.click();
-  await expect(
-    page.getByRole("button", { name: "不知道", exact: true }),
-  ).toBeVisible();
-  await expect(
-    page.getByRole("button", { name: "我好像知道了", exact: true }),
-  ).toBeVisible();
-  await page.locator(".device-banner").filter({ hasText: "抖音" }).click();
-  await expect(page.locator(".douyin-story")).toContainText(
-    "不要再打扰我的生活",
-  );
-  await page
-    .locator(".phone-screen")
-    .screenshot({ path: "outputs/mu-phone/douyin.png" });
-  await page
-    .locator(".device-banner")
-    .filter({ hasText: "穆之友有信息需发送" })
-    .click();
-  await page.locator(".wx-chat-row").filter({ hasText: "穆之友" }).click();
-  for (const incoming of [
-    "可能你的某个前任想你了",
-    "不要再打扰我的生活",
-    "帮你复制的文案",
-    "再说了你不想知道他是谁嘛",
-  ]) {
-    await expect(send).toBeEnabled({ timeout: 20000 });
-    await send.click();
-    await expect(
-      page
-        .locator(".skin-message:not(.outgoing) .skin-bubble")
-        .filter({ hasText: incoming })
-        .last(),
-    ).toBeVisible({ timeout: 10000 });
-  }
-  await expect(send).toBeEnabled({ timeout: 20000 });
-  await send.click();
-  await expect(
-    page.getByRole("button", { name: "我其实好像知道是谁", exact: true }),
-  ).toBeVisible();
-  await expect(
-    page.locator(".device-banner").filter({ hasText: "短信" }),
-  ).toBeVisible();
-  await page
-    .locator(".phone-screen")
-    .screenshot({ path: "outputs/mu-phone/wechat-complete.png" });
-  await page.reload();
-  await unlock(page);
-  await page.getByRole("button", { name: "打开微信", exact: true }).click();
-  await page.locator(".wx-chat-row").filter({ hasText: "穆之友" }).click();
-  await expect(
-    page.getByRole("button", { name: "我其实好像知道是谁", exact: true }),
-  ).toBeVisible();
-  await expect(send).toBeDisabled();
-  await page.getByRole("button", { name: "返回桌面", exact: true }).click();
-  await page.getByRole("button", { name: "打开短信", exact: true }).click();
-  const outgoing = raw.content.messages.filter(
-    (item: { outgoing?: boolean }) => item.outgoing,
-  );
-  for (const item of outgoing) {
-    await expect(send).toBeEnabled({ timeout: 20000 });
-    const bubble = page.locator('[data-message-id="' + item.id + '"]');
-    await expect(bubble).toHaveCount(0);
-    await send.click();
-    await expect(bubble).toBeVisible();
-  }
-  await expect(page.locator(".story-overlay.ending")).toContainText(
-    "主剧情已结束",
-  );
-  await page.getByRole("button", { name: "继续探索手机", exact: true }).click();
-  for (const name of ["相册"])
-    await expect(
-      page.getByRole("button", { name: "打开" + name, exact: true }),
-    ).toHaveCount(1);
-  for (const name of ["设置", "文件", "备忘录", "浏览器", "哔哩哔哩"])
-    await expect(
-      page.getByRole("button", { name: "打开" + name, exact: true }),
-    ).toHaveCount(0);
-  await page.reload();
-  await unlock(page);
-  await expect(page.locator(".story-overlay.ending")).toHaveCount(0);
-  await expect(
-    page.getByRole("button", { name: "打开相册", exact: true }),
-  ).toHaveCount(1);
-  await page.getByRole("button", { name: "打开微信", exact: true }).click();
-  await expect(
-    page.locator(".wx-chat-row").filter({ hasText: "王橹杰" }),
-  ).toHaveCount(0);
-  await page
-    .locator(".phone-screen")
-    .screenshot({ path: "outputs/mu-phone/exploration.png" });
-});
-
-test("post-story Wang history is immediately readable, dated, failed and requires no sends", async ({
-  page,
-}) => {
-  const ending = raw.events.find(
-    (node: { id: string }) => node.id === "messages-complete-to-explore",
-  );
-  const { work } = compileStory({
-    ...raw,
-    id: "wang-history-browser-check",
-    events: [
-      { ...ending, type: "start", conditions: [] },
-      ...raw.events.filter((e) =>
-        [
-          "qq-opens-wechat-invite",
-          "qq-wechat-invite-delay",
-          "add-wang-wechat-friend",
-        ].includes(e.id),
-      ),
-    ],
-  });
-  await page.route("**/work.json", (route) => route.fulfill({ json: work }));
-  await page.goto("/");
-  await unlock(page);
-  await page.getByRole("button", { name: "继续探索手机", exact: true }).click();
-  await page.getByRole("button", { name: "打开微信", exact: true }).click();
-  await expect(
-    page.locator(".wx-chat-row").filter({ hasText: "王橹杰" }),
-  ).toHaveCount(0);
-  await page.getByRole("button", { name: "返回桌面", exact: true }).click();
-  await page.getByRole("button", { name: "打开QQ", exact: true }).click();
-  await page.waitForTimeout(5500);
-  await page.getByRole("button", { name: "返回桌面", exact: true }).click();
-  await page.getByRole("button", { name: "打开微信", exact: true }).click();
-  await page.getByRole("button", { name: "微信菜单", exact: true }).click();
-  await page.getByRole("menuitem", { name: "添加朋友", exact: true }).click();
-  await page
-    .getByRole("textbox", { name: "输入微信号" })
-    .fill("reflection2711");
-  await page.getByRole("button", { name: "添加到通讯录", exact: true }).click();
-  await page.getByRole("button", { name: "返回", exact: true }).click();
-  await page.locator(".wx-chat-row").filter({ hasText: "王橹杰" }).click();
-  await expect(page.locator(".wechat-history .skin-message")).toHaveCount(19);
-  await expect(page.locator(".history-send-failed")).toHaveCount(19);
-  await expect(
-    page.getByRole("button", { name: "发送下一条消息", exact: true }),
-  ).toHaveCount(0);
-  await expect(
-    page.getByRole("button", { name: "看了你最近的训练", exact: true }),
-  ).toBeVisible();
-  expect(await page.locator(".history-date").allTextContents()).toEqual([
-    "8月17日 00:09",
-    "8月17日 16:10",
-    "8月17日 23:11",
-    "8月17日 09:13",
-    "8月17日 04:41",
-  ]);
-  await expect(page.locator(".wechat-history .skin-messages")).toHaveCSS(
-    "background-color",
-    "rgb(237, 237, 237)",
-  );
-  await page
-    .locator(".phone-screen")
-    .screenshot({ path: "outputs/mu-phone/wang-history-first.png" });
-  await page
-    .getByRole("button", { name: "怎么办", exact: true })
-    .scrollIntoViewIfNeeded();
-  await expect(
-    page.getByRole("button", { name: "不想和你分开", exact: true }),
-  ).toBeVisible();
-  await page
-    .locator(".phone-screen")
-    .screenshot({ path: "outputs/mu-phone/wang-history-last.png" });
-  await page.reload();
-  await unlock(page);
-  await page.getByRole("button", { name: "打开微信", exact: true }).click();
-  await page.locator(".wx-chat-row").filter({ hasText: "王橹杰" }).click();
-  await expect(page.locator(".wechat-history .skin-message")).toHaveCount(19);
-  await expect(
-    page.getByRole("button", { name: "看了你最近的训练", exact: true }),
-  ).toBeVisible();
-});
-
-test("uploaded images, avatars and album work with the final app restrictions", async ({
-  page,
-}) => {
-  const ending = raw.events.find(
-    (node: { id: string }) => node.id === "messages-complete-to-explore",
-  );
-  const { work } = compileStory({
-    ...raw,
-    id: "uploaded-media-browser-check",
-    events: [
-      { ...ending, type: "start", conditions: [] },
-      ...raw.events.filter((e) =>
-        [
-          "qq-opens-wechat-invite",
-          "qq-wechat-invite-delay",
-          "add-wang-wechat-friend",
-        ].includes(e.id),
-      ),
-    ],
-  });
-  await page.route("**/work.json", (route) => route.fulfill({ json: work }));
-  await page.goto("/");
-  await unlock(page);
-  await page.getByRole("button", { name: "继续探索手机", exact: true }).click();
-  for (const name of ["文件", "哔哩哔哩", "网易云", "备忘录"])
-    await expect(
-      page.getByRole("button", { name: "打开" + name, exact: true }),
-    ).toHaveCount(0);
-  await page.getByRole("button", { name: "打开相册", exact: true }).click();
-  await expect(page.locator(".photo-mosaic button")).toHaveCount(40);
-  await page
-    .getByRole("button", { name: "查看2023年照片 1", exact: true })
-    .click();
-  await expect(page.locator(".native-detail-photos img")).toHaveAttribute(
-    "src",
-    "./story-assets/album-2023-01.jpg",
-  );
-  await expect
-    .poll(() =>
-      page
-        .locator(".native-detail-photos img")
-        .evaluate((el: HTMLImageElement) => el.naturalWidth),
-    )
-    .toBeGreaterThan(0);
-  await page
-    .locator(".phone-screen")
-    .screenshot({ path: "outputs/mu-phone/album-original.png" });
-  await page.getByRole("button", { name: "返回桌面", exact: true }).click();
-  await page.getByRole("button", { name: "打开微信", exact: true }).click();
-  await expect(
-    page.locator(".wx-chat-row").filter({ hasText: "穆之友" }).locator("img"),
-  ).toHaveAttribute("src", "./story-assets/mu-zhiyou-avatar.jpg");
-  await expect(
-    page.locator(".wx-chat-row").filter({ hasText: "王橹杰" }),
-  ).toHaveCount(0);
-  await page
-    .locator(".phone-screen")
-    .screenshot({ path: "outputs/mu-phone/imported-avatars.png" });
-  await page.getByRole("button", { name: "返回桌面", exact: true }).click();
-  await page.getByRole("button", { name: "打开微博", exact: true }).click();
-  await expect(page.locator(".weibo-author-cover")).toHaveCSS(
-    "background-image",
-    /story-assets\/weibo-profile\.jpg/,
-  );
-  await expect(page.locator(".weibo-post")).toHaveCount(5);
-  await expect(page.locator(".weibo-post .story-gallery img")).toHaveCount(22);
-  await page.locator(".weibo-post").first().locator(".social-body").click();
-  await page.getByRole("button", { name: "查看微博原图", exact: true }).click();
-  const viewer = page.getByRole("dialog", { name: "微博原图" });
-  await expect(viewer.locator("img")).toHaveAttribute(
-    "src",
-    "./story-assets/weibo-0817-photo-1.jpg",
-  );
-  await page.getByRole("button", { name: "图片 2", exact: true }).click();
-  await expect
-    .poll(() =>
-      viewer.locator("img").evaluate((el: HTMLImageElement) => el.naturalWidth),
-    )
-    .toBe(2000);
-  await page.getByRole("button", { name: "关闭原图", exact: true }).click();
-});
-
-test("matching home wallpaper, owner avatar, left-aligned Weibo names and legible WeChat names", async ({
-  page,
-}) => {
-  const ending = raw.events.find(
-    (node: { id: string }) => node.id === "messages-complete-to-explore",
-  );
-  const { work } = compileStory({
-    ...raw,
-    id: "visual-revisions-check",
-    events: [
-      { ...ending, type: "start", conditions: [] },
-      ...raw.events.filter((e) =>
-        [
-          "qq-opens-wechat-invite",
-          "qq-wechat-invite-delay",
-          "add-wang-wechat-friend",
-        ].includes(e.id),
-      ),
-    ],
-  });
-  await page.route("**/work.json", (route) => route.fulfill({ json: work }));
-  await page.goto("/");
-  await page
-    .getByRole("button", { name: "进入第一章：短信爱", exact: true })
-    .click();
-  await page.getByRole("button", { name: "轻触解锁", exact: true }).waitFor();
-  const background = await page
-    .locator(".phone-screen")
-    .evaluate((el) => getComputedStyle(el).backgroundImage);
-  await unlock(page);
-  await page.getByRole("button", { name: "继续探索手机", exact: true }).click();
-  await expect(page.locator(".phone-screen")).toHaveCSS(
-    "background-image",
-    background,
-  );
-  await expect(page.locator(".wallpaper-orb")).toHaveCount(0);
-  await page
-    .locator(".phone-screen")
-    .screenshot({ path: "outputs/mu-phone/matching-home-wallpaper.png" });
-  await page.getByRole("button", { name: "打开QQ", exact: true }).click();
-  await page.waitForTimeout(5500);
-  await page.getByRole("button", { name: "返回桌面", exact: true }).click();
-  await page.getByRole("button", { name: "打开微信", exact: true }).click();
-  await page.getByRole("button", { name: "微信菜单", exact: true }).click();
-  await page.getByRole("menuitem", { name: "添加朋友", exact: true }).click();
-  await page
-    .getByRole("textbox", { name: "输入微信号" })
-    .fill("reflection2711");
-  await page.getByRole("button", { name: "添加到通讯录", exact: true }).click();
-  await page.getByRole("button", { name: "返回", exact: true }).click();
-  for (const name of ["穆之友", "王橹杰"])
-    await expect(
-      page.locator(".wx-chat-row").filter({ hasText: name }).locator("strong"),
-    ).toHaveCSS("color", "rgb(17, 17, 17)");
-  await expect(page.locator(".wechat-ui")).toHaveAttribute(
-    "data-chat-appearance",
-    "light",
-  );
-  await expect(page.locator(".wechat-ui")).toHaveCSS(
-    "background-color",
-    "rgb(237, 237, 237)",
-  );
-  await page.locator(".wx-chat-row").filter({ hasText: "王橹杰" }).click();
-  await expect(
-    page.locator(".skin-message.outgoing .skin-avatar img").first(),
-  ).toHaveAttribute("src", "./story-assets/mu-zhicheng-avatar.jpg");
-  await page.getByRole("button", { name: "返回桌面", exact: true }).click();
-  await page.getByRole("button", { name: "打开微博", exact: true }).click();
-  const post = page.locator(".weibo-post").first();
-  const avatar = await post
-    .locator(".social-author .catalog-avatar")
-    .boundingBox();
-  const card = await post.boundingBox();
-  expect(avatar && card && avatar.x - card.x).toBeLessThan(20);
-  await expect(post.locator(".social-author")).toHaveCSS(
-    "justify-content",
-    "flex-start",
-  );
 });
 
 test("local music opens on gesture, plays in the background and loops the complete upload", async ({
@@ -654,35 +230,11 @@ test("local music opens on gesture, plays in the background and loops the comple
   expect(await audio.evaluate((a: HTMLAudioElement) => a.paused)).toBe(true);
 });
 
-test("post-story Douyin links appear in supplied order and preserve story graphic", async ({
+test("Douyin exploration videos remain available without plot gates", async ({
   page,
 }) => {
   await page.goto("/");
   await unlock(page);
-  await page.getByRole("button", { name: "打开抖音", exact: true }).click();
-  await expect(page.locator(".douyin-link-feed")).toHaveCount(0);
-  const ending = raw.events.find(
-    (node: { id: string }) => node.id === "messages-complete-to-explore",
-  );
-  const { work } = compileStory({
-    ...raw,
-    id: "douyin-explore-check",
-    events: [
-      {
-        ...ending,
-        type: "start",
-        conditions: [],
-        actions: [
-          { type: "unlock", key: "douyin-sms-love", value: true },
-          ...ending.actions,
-        ],
-      },
-    ],
-  });
-  await page.route("**/work.json", (route) => route.fulfill({ json: work }));
-  await page.reload();
-  await unlock(page);
-  await page.getByRole("button", { name: "继续探索手机", exact: true }).click();
   await page.getByRole("button", { name: "打开抖音", exact: true }).click();
   const cards = page.locator(".douyin-link-scroll article");
   await expect(cards).toHaveCount(3);
@@ -741,18 +293,6 @@ test("post-story Douyin links appear in supplied order and preserve story graphi
     await thirdVideo.evaluate((el: HTMLVideoElement) => el.duration),
   ).toBeGreaterThan(17);
   await expect(page.locator('video[src*="hello-mask"]')).toHaveCount(0);
-
-  await page.getByRole("button", { name: "查看剧情图文", exact: true }).click();
-  await expect(page.locator(".douyin-story")).toBeVisible();
-  await page
-    .locator(".douyin-story")
-    .getByRole("button", { name: "返回", exact: true })
-    .click();
-  await expect(cards).toHaveCount(3);
-  await page.reload();
-  await unlock(page);
-  await page.getByRole("button", { name: "打开抖音", exact: true }).click();
-  await expect(cards).toHaveCount(3);
 });
 
 test("MUahahaha has one dated post during and after the main story", async ({
@@ -830,33 +370,6 @@ test("MUahahaha has one dated post during and after the main story", async ({
     .getByRole("button", { name: "TF家族-王橹杰LJW", exact: true })
     .click();
   await expect(page.locator(".weibo-post")).toHaveCount(5);
-  const ending = raw.events.find(
-    (node: { id: string }) => node.id === "messages-complete-to-explore",
-  );
-  const { work } = compileStory({
-    ...raw,
-    id: "mu-weibo-explore",
-    events: [
-      { ...ending, type: "start", conditions: [] },
-      ...raw.events.filter((e) =>
-        [
-          "qq-opens-wechat-invite",
-          "qq-wechat-invite-delay",
-          "add-wang-wechat-friend",
-        ].includes(e.id),
-      ),
-    ],
-  });
-  await page.route("**/work.json", (route) => route.fulfill({ json: work }));
-  await page.reload();
-  await unlock(page);
-  await page.getByRole("button", { name: "继续探索手机", exact: true }).click();
-  await page.getByRole("button", { name: "打开微博", exact: true }).click();
-  await page
-    .getByRole("navigation", { name: "微博账号" })
-    .getByRole("button", { name: "MUahahaha", exact: true })
-    .click();
-  await expect(page.locator(".weibo-post")).toHaveCount(1);
 });
 
 test("chapter choice waits for ending and all twelve apps, and can be deferred", async ({
@@ -1222,96 +735,6 @@ test("August weather has daytime Chongqing Qingdao and Beijing before story endi
   await expect(page.locator(".weather-native-current h1")).toHaveText("北京");
 });
 
-test("chapter one Messages and WeChat use readable daytime chat backgrounds", async ({
-  page,
-}) => {
-  const intro = structuredClone(raw);
-  const firstSms = intro.content.messages.find(
-    (item: { id: string }) => item.id === "first-lemon-sms",
-  );
-  firstSms.hidden = false;
-  const { work } = compileStory({
-    ...intro,
-    id: "daytime-chat-check",
-    events: [],
-  });
-  await page.route("**/work.json", (route) => route.fulfill({ json: work }));
-  await page.goto("/");
-  await unlock(page);
-  await page.getByRole("button", { name: "打开短信", exact: true }).click();
-  const sms = page.locator(".native-messages");
-  await expect(sms).toHaveAttribute("data-chat-appearance", "light");
-  await expect(sms).toHaveCSS("background-color", "rgb(255, 255, 255)");
-  await expect(
-    sms.locator(".catalog-message:not(.outgoing) > button").first(),
-  ).toHaveCSS("color", "rgb(17, 17, 17)");
-  await page
-    .locator(".phone-screen")
-    .screenshot({ path: "outputs/mu-phone/daytime-messages.png" });
-  await page.getByRole("button", { name: "返回桌面", exact: true }).click();
-  await page.getByRole("button", { name: "打开微信", exact: true }).click();
-  await expect(page.locator(".wx-chat-row strong").first()).toHaveCSS(
-    "color",
-    "rgb(17, 17, 17)",
-  );
-  await page.locator(".wx-chat-row").filter({ hasText: "穆之友" }).click();
-  await expect(page.locator(".skin-messages")).toHaveCSS(
-    "background-color",
-    "rgb(237, 237, 237)",
-  );
-  await expect(page.locator(".wx-nav strong")).toHaveCSS(
-    "color",
-    "rgb(17, 17, 17)",
-  );
-  await page
-    .locator(".phone-screen")
-    .screenshot({ path: "outputs/mu-phone/daytime-wechat.png" });
-});
-
-test("first WeChat screenshot send shows and opens the daytime SMS picture", async ({
-  page,
-}) => {
-  await page.goto("/");
-  await unlock(page);
-  await page
-    .locator(".device-banner")
-    .filter({ hasText: "TF家族-王橹杰LJW发送了新的微博" })
-    .click();
-  await page
-    .locator(".device-banner")
-    .filter({ hasText: "短信" })
-    .waitFor({ timeout: 8000 });
-  await page.locator(".device-banner").filter({ hasText: "短信" }).click();
-  await page
-    .locator(".device-banner")
-    .filter({ hasText: "有信息需发送" })
-    .click();
-  await page.locator(".wx-chat-row").filter({ hasText: "穆之友" }).click();
-  await expect(page.locator('[data-message-id="mu-sms-shot"]')).toHaveCount(0);
-  await page
-    .getByRole("button", { name: "发送下一条消息", exact: true })
-    .click();
-  const picture = page.locator(
-    '[data-message-id="mu-sms-shot"] .skin-bubble img',
-  );
-  await expect(picture).toHaveAttribute(
-    "src",
-    "./story-assets/mu-shared-sms-day.png",
-  );
-  await expect
-    .poll(() => picture.evaluate((el: HTMLImageElement) => el.naturalHeight))
-    .toBeGreaterThan(1000);
-  await picture.click();
-  await expect(page.locator(".chat-evidence-overlay > img")).toHaveAttribute(
-    "src",
-    "./story-assets/mu-shared-sms-day.png",
-  );
-  await page.getByRole("button", { name: "关闭图片", exact: true }).click();
-  await expect(
-    page.getByRole("button", { name: "？谁发的这么抽象", exact: true }),
-  ).toBeVisible({ timeout: 6000 });
-});
-
 test("calendar repeats Wang birthdays from 2023 and marks only the 2025 public day", async ({
   page,
 }) => {
@@ -1346,81 +769,6 @@ test("calendar repeats Wang birthdays from 2023 and marks only the 2025 public d
     .getByRole("button", { name: "王橹杰生日 每年1月8日 · 2023年起" })
     .click();
   await expect(page.locator(".calendar-event")).toContainText("王橹杰生日");
-});
-
-test("QQ records use supplied avatars and invite an exact WeChat friend after five seconds", async ({
-  page,
-}) => {
-  const { work } = compileStory({
-    ...raw,
-    events: raw.events.filter((e) =>
-      [
-        "qq-opens-wechat-invite",
-        "qq-wechat-invite-delay",
-        "add-wang-wechat-friend",
-      ].includes(e.id),
-    ),
-  });
-  await page.route("**/work.json", (route) => route.fulfill({ json: work }));
-  await page.goto("/");
-  await unlock(page);
-  await page.getByRole("button", { name: "打开微信", exact: true }).click();
-  await expect(page.locator(".wx-chat-row")).toHaveCount(1);
-  await expect(page.locator(".wx-chat-row")).toContainText("穆之友");
-  await page.getByRole("button", { name: "微信菜单", exact: true }).click();
-  await page.getByRole("menuitem", { name: "添加朋友", exact: true }).click();
-  await page
-    .getByRole("textbox", { name: "输入微信号" })
-    .fill("reflection2711");
-  await page.getByRole("button", { name: "添加到通讯录", exact: true }).click();
-  await expect(page.getByRole("status")).toContainText("暂未收到");
-  await page.getByRole("button", { name: "返回桌面", exact: true }).click();
-  await page.getByRole("button", { name: "打开QQ", exact: true }).click();
-  await expect(page.locator(".qq-profile-bar img")).toHaveAttribute(
-    "src",
-    "./story-assets/qq-mu-avatar.jpg",
-  );
-  await page.locator(".catalog-chat").filter({ hasText: "困困" }).click();
-  await expect(page.locator(".qq-native-message")).toHaveCount(12);
-  await expect(
-    page.locator(".qq-native-message:not(.outgoing) img").first(),
-  ).toHaveAttribute("src", "./story-assets/qq-kunkun-avatar.jpg");
-  await expect(
-    page.locator(".qq-native-message.outgoing img").first(),
-  ).toHaveAttribute("src", "./story-assets/qq-mu-avatar.jpg");
-  await page
-    .locator(".phone-screen")
-    .screenshot({ path: "outputs/mu-phone/qq-kunkun.png" });
-  await expect(
-    page
-      .locator(".device-banner")
-      .filter({ hasText: "有好友需要添加，微信号 reflection2711" }),
-  ).toBeVisible({ timeout: 8000 });
-  await page
-    .locator(".device-banner")
-    .filter({ hasText: "reflection2711" })
-    .click();
-  await page.getByRole("button", { name: "微信菜单", exact: true }).click();
-  await page.getByRole("menuitem", { name: "添加朋友", exact: true }).click();
-  await page.getByRole("textbox", { name: "输入微信号" }).fill("wrong");
-  await page.getByRole("button", { name: "添加到通讯录", exact: true }).click();
-  await expect(page.getByRole("status")).toContainText("未找到");
-  await page
-    .getByRole("textbox", { name: "输入微信号" })
-    .fill("reflection2711");
-  await page.getByRole("button", { name: "添加到通讯录", exact: true }).click();
-  await expect(page.getByRole("status")).toContainText("已添加王橹杰");
-  await page
-    .locator(".phone-screen")
-    .screenshot({ path: "outputs/mu-phone/wechat-add-friend.png" });
-  await page.getByRole("button", { name: "查看好友", exact: true }).click();
-  await expect(page.locator(".wechat-history .skin-message")).toHaveCount(19);
-  await page.reload();
-  await unlock(page);
-  await page.getByRole("button", { name: "打开微信", exact: true }).click();
-  await expect(
-    page.locator(".wx-chat-row").filter({ hasText: "王橹杰" }),
-  ).toHaveCount(1);
 });
 
 test("album time sections replace all retired photos and preserve the forty originals by year", async ({
@@ -1537,4 +885,47 @@ test("concert reminders match the supplied completed states and persist player c
   await expect(
     page.getByRole("checkbox", { name: "灯牌", exact: true }),
   ).not.toBeChecked();
+});
+
+test("reset first chapter keeps apps but has no chat story, timers or banners", async ({
+  page,
+}) => {
+  test.setTimeout(45000);
+  await page.goto("/");
+  await expect(
+    page.locator(".introduction-chapter-grid button").first(),
+  ).toContainText("他来听我的演唱会");
+  await unlock(page);
+  await expect(page.locator(".device-banner")).toHaveCount(0);
+  for (const name of ["短信", "微信", "QQ", "微博"]) {
+    await page
+      .getByRole("button", { name: "打开" + name, exact: true })
+      .click();
+    if (name === "微信")
+      await expect(page.locator(".wx-chat-row")).toHaveCount(0);
+    if (name === "QQ")
+      await expect(page.locator(".catalog-chat")).toHaveCount(0);
+    if (name === "短信")
+      await expect(page.locator(".catalog-message")).toHaveCount(0);
+    await page.waitForTimeout(5500);
+    await expect(page.locator(".device-banner")).toHaveCount(0);
+    await page.getByRole("button", { name: "返回桌面", exact: true }).click();
+  }
+  for (const name of [
+    "抖音",
+    "音乐",
+    "相册",
+    "电话",
+    "淘宝",
+    "天气",
+    "日历",
+    "提醒事项",
+  ])
+    await expect(
+      page.getByRole("button", { name: "打开" + name, exact: true }),
+    ).toBeVisible();
+  await expect(page.getByRole("dialog", { name: "章节选择" })).toHaveCount(0);
+  await page.reload();
+  await unlock(page);
+  await expect(page.locator(".device-banner")).toHaveCount(0);
 });
