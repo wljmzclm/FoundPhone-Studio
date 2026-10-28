@@ -4,21 +4,33 @@ import { compileStory } from "./compiler";
 import { initialRuntime } from "../schema";
 import { dispatch, advance } from "../engine";
 
-it("allows exploring the reset chapter without activating retired plot callbacks", () => {
+it("delivers Mom, work and friend on the lock screen at one-second intervals and resumes once", () => {
   const { work } = compileStory(raw);
-  let state = dispatch(work, initialRuntime(work), "password", "2711");
-  for (const app of work.phone.appAccess!.duringStory) {
+  let state = dispatch(work, initialRuntime(work), "start");
+  expect(state.notifications).toEqual([
+    "微信：妈妈：儿子什么时候放假回重庆呀？",
+  ]);
+  state = advance(work, state, 999);
+  expect(state.notifications).toHaveLength(1);
+  state = advance(work, state, 1);
+  expect(state.notifications.at(-1)).toBe(
+    "微信：工作消息：@全体成员，下周一开组会。",
+  );
+  state = dispatch(work, structuredClone(state), "start");
+  state = advance(work, state, 999);
+  expect(state.notifications).toHaveLength(2);
+  state = advance(work, state, 1);
+  expect(state.notifications.at(-1)).toBe("微信：穆之友：你真要去看他演唱会？");
+  expect(state.unlocked).toEqual([
+    "opening-mom",
+    "opening-work",
+    "opening-friend",
+  ]);
+  for (const app of work.phone.appAccess!.duringStory)
     state = dispatch(work, state, "openApp", app);
-    state = advance(work, state, 6000);
-  }
   state = dispatch(work, state, "sendMessage", "mu-sms-shot");
-  state = dispatch(work, state, "variable", "ui:wechat:friendAccount");
   state = advance(work, state, 60000);
-  expect(state.notifications).toEqual([]);
+  expect(state.notifications).toHaveLength(3);
   expect(state.scheduled ?? []).toEqual([]);
   expect(state.endings).toEqual([]);
-  expect(state.unlocked).toEqual([]);
-  expect(state.visited).toEqual(
-    expect.arrayContaining(work.phone.appAccess!.duringStory),
-  );
 });

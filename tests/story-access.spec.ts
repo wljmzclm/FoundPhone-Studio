@@ -853,7 +853,7 @@ test("concert reminders match the supplied completed states and persist player c
   await expect(page.getByRole("checkbox")).toHaveCount(9);
   await expect(page.getByRole("checkbox", { checked: true })).toHaveCount(8);
   await expect(
-    page.getByRole("checkbox", { name: "演唱会就是今天！", exact: true }),
+    page.getByRole("checkbox", { name: "演唱会就是明天！", exact: true }),
   ).not.toBeChecked();
   for (const title of [
     "灯牌",
@@ -873,59 +873,64 @@ test("concert reminders match the supplied completed states and persist player c
     .locator(".phone-screen")
     .screenshot({ path: "outputs/mu-phone/concert-reminders.png" });
   await page
-    .getByRole("checkbox", { name: "演唱会就是今天！", exact: true })
+    .getByRole("checkbox", { name: "演唱会就是明天！", exact: true })
     .click();
   await page.getByRole("checkbox", { name: "灯牌", exact: true }).click();
   await page.reload();
   await unlock(page);
   await page.getByRole("button", { name: "打开提醒事项", exact: true }).click();
   await expect(
-    page.getByRole("checkbox", { name: "演唱会就是今天！", exact: true }),
+    page.getByRole("checkbox", { name: "演唱会就是明天！", exact: true }),
   ).toBeChecked();
   await expect(
     page.getByRole("checkbox", { name: "灯牌", exact: true }),
   ).not.toBeChecked();
 });
 
-test("reset first chapter keeps apps but has no chat story, timers or banners", async ({
+test("new chapter opens with three lock screen WeChat messages and keeps them in their chats", async ({
   page,
 }) => {
-  test.setTimeout(45000);
   await page.goto("/");
-  await expect(
-    page.locator(".introduction-chapter-grid button").first(),
-  ).toContainText("他来听我的演唱会");
+  await page
+    .getByRole("button", { name: "进入第一章：他来听我的演唱会", exact: true })
+    .click();
+  const lock = page.locator(".lock-screen");
+  await expect(lock).toBeVisible();
+  await expect(lock.locator(".device-notice")).toContainText(
+    "妈妈：儿子什么时候放假回重庆呀？",
+  );
+  await expect(lock.locator(".device-notice")).toContainText(
+    "工作消息：@全体成员，下周一开组会。",
+    { timeout: 3000 },
+  );
+  await expect(lock.locator(".device-notice")).toContainText(
+    "穆之友：你真要去看他演唱会？",
+    { timeout: 3000 },
+  );
+  await lock.getByRole("button", { name: "3 条通知", exact: true }).click();
+  await expect(lock.locator(".device-notice")).toHaveCount(3);
+  await page
+    .locator(".phone-screen")
+    .screenshot({ path: "outputs/mu-phone/lock-opening-messages.png" });
   await unlock(page);
-  await expect(page.locator(".device-banner")).toHaveCount(0);
-  for (const name of ["短信", "微信", "QQ", "微博"]) {
-    await page
-      .getByRole("button", { name: "打开" + name, exact: true })
-      .click();
-    if (name === "微信")
-      await expect(page.locator(".wx-chat-row")).toHaveCount(0);
-    if (name === "QQ")
-      await expect(page.locator(".catalog-chat")).toHaveCount(0);
-    if (name === "短信")
-      await expect(page.locator(".catalog-message")).toHaveCount(0);
-    await page.waitForTimeout(5500);
-    await expect(page.locator(".device-banner")).toHaveCount(0);
-    await page.getByRole("button", { name: "返回桌面", exact: true }).click();
+  await page.getByRole("button", { name: "打开微信", exact: true }).click();
+  const chats = [
+    ["妈妈", "儿子什么时候放假回重庆呀？"],
+    ["工作消息", "@全体成员，下周一开组会。"],
+    ["穆之友", "你真要去看他演唱会？"],
+  ];
+  await expect(page.locator(".wx-chat-row")).toHaveCount(3);
+  for (const [name, body] of chats) {
+    await page.locator(".wx-chat-row").filter({ hasText: name }).click();
+    await expect(page.locator(".skin-message .skin-bubble")).toContainText(
+      body,
+    );
+    await page.getByRole("button", { name: "返回", exact: true }).click();
   }
-  for (const name of [
-    "抖音",
-    "音乐",
-    "相册",
-    "电话",
-    "淘宝",
-    "天气",
-    "日历",
-    "提醒事项",
-  ])
-    await expect(
-      page.getByRole("button", { name: "打开" + name, exact: true }),
-    ).toBeVisible();
-  await expect(page.getByRole("dialog", { name: "章节选择" })).toHaveCount(0);
   await page.reload();
-  await unlock(page);
-  await expect(page.locator(".device-banner")).toHaveCount(0);
+  await page
+    .getByRole("button", { name: "进入第一章：他来听我的演唱会", exact: true })
+    .click();
+  await page.getByRole("button", { name: "3 条通知", exact: true }).click();
+  await expect(page.locator(".lock-screen .device-notice")).toHaveCount(3);
 });
