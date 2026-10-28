@@ -851,10 +851,10 @@ test("concert reminders match the supplied completed states and persist player c
   await page.getByRole("button", { name: "打开提醒事项", exact: true }).click();
   await expect(page.locator(".native-reminders h1")).toHaveText("重要‼");
   await expect(page.getByRole("checkbox")).toHaveCount(9);
-  await expect(page.getByRole("checkbox", { checked: true })).toHaveCount(8);
+  await expect(page.getByRole("checkbox", { checked: true })).toHaveCount(9);
   await expect(
-    page.getByRole("checkbox", { name: "演唱会就是明天！", exact: true }),
-  ).not.toBeChecked();
+    page.getByRole("checkbox", { name: "演唱会就是今天！", exact: true }),
+  ).toBeChecked();
   for (const title of [
     "灯牌",
     "应援棒",
@@ -873,15 +873,15 @@ test("concert reminders match the supplied completed states and persist player c
     .locator(".phone-screen")
     .screenshot({ path: "outputs/mu-phone/concert-reminders.png" });
   await page
-    .getByRole("checkbox", { name: "演唱会就是明天！", exact: true })
+    .getByRole("checkbox", { name: "演唱会就是今天！", exact: true })
     .click();
   await page.getByRole("checkbox", { name: "灯牌", exact: true }).click();
   await page.reload();
   await unlock(page);
   await page.getByRole("button", { name: "打开提醒事项", exact: true }).click();
   await expect(
-    page.getByRole("checkbox", { name: "演唱会就是明天！", exact: true }),
-  ).toBeChecked();
+    page.getByRole("checkbox", { name: "演唱会就是今天！", exact: true }),
+  ).not.toBeChecked();
   await expect(
     page.getByRole("checkbox", { name: "灯牌", exact: true }),
   ).not.toBeChecked();
@@ -897,7 +897,7 @@ test("new chapter opens with two lock screen WeChat messages and keeps them in t
   const lock = page.locator(".lock-screen");
   await expect(lock).toBeVisible();
   await expect(lock.locator(".device-notice")).toContainText(
-    "妈妈：儿子什么时候放假回重庆呀？",
+    "妈妈：儿子放假什么时候回重庆呀？",
   );
   await expect(lock.locator(".device-notice")).toContainText(
     "穆之友：你真要去看他演唱会？",
@@ -912,15 +912,13 @@ test("new chapter opens with two lock screen WeChat messages and keeps them in t
   await unlock(page);
   await page.getByRole("button", { name: "打开微信", exact: true }).click();
   const chats = [
-    ["妈妈", "儿子什么时候放假回重庆呀？"],
+    ["妈妈", "儿子放假什么时候回重庆呀？"],
     ["穆之友", "你真要去看他演唱会？"],
   ];
   await expect(page.locator(".wx-chat-row")).toHaveCount(2);
   for (const [name, body] of chats) {
     await page.locator(".wx-chat-row").filter({ hasText: name }).click();
-    await expect(page.locator(".skin-message .skin-bubble")).toContainText(
-      body,
-    );
+    await expect(page.locator(".skin-messages")).toContainText(body);
     await page.getByRole("button", { name: "返回", exact: true }).click();
   }
   await page.reload();
@@ -929,4 +927,96 @@ test("new chapter opens with two lock screen WeChat messages and keeps them in t
     .click();
   await page.getByRole("button", { name: "2 条通知", exact: true }).click();
   await expect(page.locator(".lock-screen .device-notice")).toHaveCount(2);
+});
+
+test("new WeChat avatars, profile, unread dots and Mom's tap-to-send conversation", async ({
+  page,
+}) => {
+  await page.goto("/");
+  await unlock(page);
+  await page.getByRole("button", { name: "打开微信", exact: true }).click();
+  const mom = page.locator(".wx-chat-row").filter({ hasText: "妈妈" });
+  const friend = page.locator(".wx-chat-row").filter({ hasText: "穆之友" });
+  await expect(page.locator(".wx-chat-row")).toHaveCount(2);
+  await expect(mom.locator("p")).toHaveText("儿子放假什么时候回重庆呀？");
+  await expect(page.locator(".wx-unread-dot")).toHaveCount(2);
+  await expect(mom.locator("img")).toHaveAttribute(
+    "src",
+    "./story-assets/mu-mom-avatar.jpg",
+  );
+  await expect(friend.locator("img")).toHaveAttribute(
+    "src",
+    "./story-assets/mu-zhiyou-avatar.jpg",
+  );
+  await page
+    .locator(".phone-screen")
+    .screenshot({ path: "outputs/mu-phone/wechat-unread-dots.png" });
+  await mom.click();
+  await expect(page.locator(".skin-message")).toHaveCount(1);
+  await expect(page.locator(".skin-date")).toHaveText("11:14");
+  const send = page.getByRole("button", {
+    name: "发送下一条消息",
+    exact: true,
+  });
+  await send.click();
+  await expect(
+    page.locator('[data-message-id="mom-holiday-reply"]'),
+  ).toContainText("妈中秋一放假就回来！");
+  await expect(send).toBeDisabled();
+  await expect(page.locator('[data-message-id="mom-received"]')).toContainText(
+    "收到！",
+  );
+  await expect(page.locator('[data-message-id="mom-duoduo"]')).toContainText(
+    "朵朵也好想你",
+  );
+  await expect(page.locator('[data-message-id="mom-miss-you"]')).toHaveCount(0);
+  await send.click();
+  await expect(page.locator(".skin-message")).toHaveCount(5);
+  await expect(page.locator('[data-message-id="mom-miss-you"]')).toContainText(
+    "我也想你们了❤️❤️",
+  );
+  await expect(
+    page.locator(".skin-message.outgoing img").first(),
+  ).toHaveAttribute("src", "./story-assets/mu-zhicheng-avatar.jpg");
+  await page
+    .locator(".phone-screen")
+    .screenshot({ path: "outputs/mu-phone/new-mom-chat.png" });
+  await page.getByRole("button", { name: "返回", exact: true }).click();
+  await expect(mom.locator(".wx-unread-dot")).toHaveCount(0);
+  await expect(friend.locator(".wx-unread-dot")).toHaveCount(1);
+  await friend.click();
+  await expect(page.locator(".skin-message")).toHaveCount(5);
+  await expect(page.locator(".skin-date")).toHaveText("11:27");
+  const lines = [
+    "兄弟来go！",
+    "来不了我不在家这几天🤭",
+    "去哪玩了？",
+    "青岛",
+    "你真要去看他演唱会？",
+  ];
+  for (const [i, line] of lines.entries())
+    await expect(page.locator(".skin-message").nth(i)).toContainText(line);
+  await expect(send).toHaveCount(0);
+  await page
+    .locator(".phone-screen")
+    .screenshot({ path: "outputs/mu-phone/new-friend-chat.png" });
+  await page.getByRole("button", { name: "返回", exact: true }).click();
+  await expect(page.locator(".wx-unread-dot")).toHaveCount(0);
+  await page.getByRole("button", { name: "我", exact: true }).click();
+  await expect(page.locator(".wx-profile h2")).toHaveText("MUahahaha");
+  await expect(page.locator(".wx-profile")).toContainText("微信号：01081116wm");
+  await expect(page.locator(".wx-profile img")).toHaveAttribute(
+    "src",
+    "./story-assets/mu-zhicheng-avatar.jpg",
+  );
+  await page
+    .locator(".phone-screen")
+    .screenshot({ path: "outputs/mu-phone/new-wechat-profile.png" });
+  await page.reload();
+  await unlock(page);
+  await page.getByRole("button", { name: "打开微信", exact: true }).click();
+  await expect(page.locator(".wx-unread-dot")).toHaveCount(0);
+  await mom.click();
+  await expect(page.locator(".skin-message")).toHaveCount(5);
+  await expect(send).toBeDisabled();
 });

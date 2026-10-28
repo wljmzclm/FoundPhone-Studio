@@ -30,6 +30,30 @@
         "owner": {
           "type": "string"
         },
+        "wechatProfile": {
+          "type": "object",
+          "properties": {
+            "nickname": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 100
+            },
+            "account": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 100
+            },
+            "avatar": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "nickname",
+            "account",
+            "avatar"
+          ],
+          "additionalProperties": false
+        },
         "date": {
           "default": "2026-10-23",
           "type": "string",

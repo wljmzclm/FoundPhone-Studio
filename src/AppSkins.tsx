@@ -47,6 +47,7 @@ export type SkinProps = {
   appId?: string;
   owner?: string;
   ownerAvatar?: string;
+  wechatProfile?: { nickname: string; account: string; avatar: string };
   virtualTime?: string;
   virtualDate?: string;
   name: string;
@@ -131,7 +132,9 @@ function MessageList({
       className={`skin-messages ${whatsapp ? "wa-wallpaper" : ""}`}
     >
       {!history && (
-        <div className="skin-date">{items[0]?.time.slice(0, 10)}</div>
+        <div className="skin-date">
+          {items[0]?.meta.dateLabel || items[0]?.time.slice(0, 10)}
+        </div>
       )}
       {items
         .filter((i) => i.meta.conversationOnly !== "true")
@@ -508,12 +511,20 @@ export function WeChatSkin(p: SkinProps) {
                         setReadThreads((v) => (v.includes(t) ? v : [...v, t]));
                         p.onThread(t);
                         p.onRead(t);
+                        p.onRead(list[0].id);
                       }}
                     >
                       <span className="wx-chat-avatar">
                         <Avatar name={t} src={avatar} />
                         {!readThreads.includes(t) && unread.length > 0 && (
-                          <b className="wx-unread">{unread.length}</b>
+                          <b
+                            className={`wx-unread ${list.some((i) => i.meta.unreadBadge === "dot") ? "wx-unread-dot" : ""}`}
+                            aria-label={`${t}有未读消息`}
+                          >
+                            {list.some((i) => i.meta.unreadBadge === "dot")
+                              ? ""
+                              : unread.length}
+                          </b>
                         )}
                       </span>
                       <div>
@@ -577,10 +588,13 @@ export function WeChatSkin(p: SkinProps) {
           ) : (
             <>
               <div className="wx-profile">
-                <Avatar name={p.owner || "机主"} src={p.ownerAvatar} />
+                <Avatar
+                  name={p.wechatProfile?.nickname || p.owner || "机主"}
+                  src={p.wechatProfile?.avatar || p.ownerAvatar}
+                />
                 <div>
-                  <h2>{p.owner || "机主"}</h2>
-                  <small>微信号：未设置</small>
+                  <h2>{p.wechatProfile?.nickname || p.owner || "机主"}</h2>
+                  <small>微信号：{p.wechatProfile?.account || "未设置"}</small>
                   <button
                     className="wx-profile-status"
                     onClick={() => setUtility("状态")}

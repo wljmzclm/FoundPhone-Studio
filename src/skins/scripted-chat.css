@@ -361,3 +361,13 @@
   line-height: 1.6;
   font-size: 14px;
 }
+
+.ios18 .wx-unread.wx-unread-dot {
+  width: 11px;
+  min-width: 11px;
+  height: 11px;
+  padding: 0;
+  top: -3px;
+  right: -3px;
+  border-radius: 50%;
+}

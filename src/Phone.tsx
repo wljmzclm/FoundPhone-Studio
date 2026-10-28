@@ -1109,6 +1109,7 @@ function AppContent({
               chatAppearance={work.phone.chatAppearance}
               owner={work.phone.owner}
               ownerAvatar={items.find((i) => i.outgoing && i.avatar)?.avatar}
+              wechatProfile={work.phone.wechatProfile}
               virtualTime={state.time}
               virtualDate={state.date || work.phone.date}
               ui={state.ui?.[app.id]}
@@ -1116,7 +1117,11 @@ function AppContent({
               name={name}
               items={shown}
               scriptedReply={nextScriptedReply(items, state)}
-              scriptedChat={items.some((i) => i.meta.sendOnTap === "true")}
+              scriptedChat={items.some(
+                (i) =>
+                  i.meta.sendOnTap === "true" &&
+                  (!thread || i.title === thread),
+              )}
               onSend={onSend}
               creator={creator}
               onRead={onRead}

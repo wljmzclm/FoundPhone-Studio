@@ -3,7 +3,7 @@
   "id": "mu-zhicheng-phone",
   "title": "命中注定我爱你",
   "description": "第一章：他来听我的演唱会。锁屏依次收到妈妈、穆之友的微信消息，后续剧情待编写。",
-  "revision": 48,
+  "revision": 50,
   "phone": {
     "owner": "穆祉丞",
     "date": "2026-08-17",
@@ -73,7 +73,12 @@
         }
       ]
     },
-    "chatAppearance": "light"
+    "chatAppearance": "light",
+    "wechatProfile": {
+      "nickname": "MUahahaha",
+      "account": "01081116wm",
+      "avatar": "./story-assets/mu-zhicheng-avatar.jpg"
+    }
   },
   "installedApps": [
     {
@@ -203,7 +208,8 @@
     },
     {
       "id": "mu-mom",
-      "name": "妈妈"
+      "name": "妈妈",
+      "avatar": "./story-assets/mu-mom-avatar.jpg"
     }
   ],
   "chats": [
@@ -218,9 +224,62 @@
       "messages": [
         {
           "id": "opening-mom",
-          "body": "儿子什么时候放假回重庆呀？",
+          "body": "儿子放假什么时候回重庆呀？",
           "senderId": "mu-mom",
-          "hidden": true
+          "time": "2026-08-17 11:14",
+          "hidden": true,
+          "meta": {
+            "dateLabel": "11:14",
+            "unreadBadge": "dot"
+          }
+        },
+        {
+          "id": "mom-holiday-reply",
+          "body": "妈中秋一放假就回来！",
+          "senderId": "owner",
+          "time": "2026-08-17 11:14",
+          "hidden": true,
+          "avatar": "./story-assets/mu-zhicheng-avatar.jpg",
+          "meta": {
+            "unreadBadge": "dot",
+            "sendOnTap": "true",
+            "sendPhase": "mom-chat",
+            "sendAfter": "opening-mom"
+          }
+        },
+        {
+          "id": "mom-received",
+          "body": "收到！",
+          "senderId": "mu-mom",
+          "time": "2026-08-17 11:14",
+          "hidden": true,
+          "meta": {
+            "unreadBadge": "dot"
+          }
+        },
+        {
+          "id": "mom-duoduo",
+          "body": "朵朵也好想你",
+          "senderId": "mu-mom",
+          "time": "2026-08-17 11:14",
+          "hidden": true,
+          "meta": {
+            "unreadBadge": "dot"
+          }
+        },
+        {
+          "id": "mom-miss-you",
+          "body": "我也想你们了❤️❤️",
+          "senderId": "owner",
+          "time": "2026-08-17 11:14",
+          "hidden": true,
+          "avatar": "./story-assets/mu-zhicheng-avatar.jpg",
+          "meta": {
+            "unreadBadge": "dot",
+            "sendOnTap": "true",
+            "sendPhase": "mom-chat",
+            "sendAfter": "mom-duoduo"
+          }
         }
       ]
     },
@@ -234,10 +293,57 @@
       ],
       "messages": [
         {
+          "id": "friend-go",
+          "body": "兄弟来go！",
+          "senderId": "mu-zhiyou",
+          "time": "2026-08-17 11:27",
+          "hidden": true,
+          "meta": {
+            "dateLabel": "11:27",
+            "unreadBadge": "dot"
+          }
+        },
+        {
+          "id": "friend-not-home",
+          "body": "来不了我不在家这几天🤭",
+          "senderId": "owner",
+          "time": "2026-08-17 11:27",
+          "hidden": true,
+          "avatar": "./story-assets/mu-zhicheng-avatar.jpg",
+          "meta": {
+            "unreadBadge": "dot"
+          }
+        },
+        {
+          "id": "friend-where",
+          "body": "去哪玩了？",
+          "senderId": "mu-zhiyou",
+          "time": "2026-08-17 11:27",
+          "hidden": true,
+          "meta": {
+            "unreadBadge": "dot"
+          }
+        },
+        {
+          "id": "friend-qingdao",
+          "body": "青岛",
+          "senderId": "owner",
+          "time": "2026-08-17 11:27",
+          "hidden": true,
+          "avatar": "./story-assets/mu-zhicheng-avatar.jpg",
+          "meta": {
+            "unreadBadge": "dot"
+          }
+        },
+        {
           "id": "opening-friend",
           "body": "你真要去看他演唱会？",
           "senderId": "mu-zhiyou",
-          "hidden": true
+          "time": "2026-08-17 11:27",
+          "hidden": true,
+          "meta": {
+            "unreadBadge": "dot"
+          }
         }
       ]
     }
@@ -1069,14 +1175,14 @@
     "reminders": [
       {
         "id": "concert-reminder-01",
-        "title": "演唱会就是明天！",
+        "title": "演唱会就是今天！",
         "body": "",
         "kind": "note",
         "folder": "重要‼",
         "meta": {
           "listTitle": "重要",
           "listEmphasis": "‼",
-          "completed": "false"
+          "completed": "true"
         }
       },
       {
@@ -1206,7 +1312,7 @@
         {
           "type": "notification",
           "key": "",
-          "value": "微信：妈妈：儿子什么时候放假回重庆呀？"
+          "value": "微信：妈妈：儿子放假什么时候回重庆呀？"
         }
       ],
       "once": true,
@@ -1232,6 +1338,150 @@
       ],
       "once": true,
       "delayMs": 1000
+    },
+    {
+      "id": "wechat-main-start",
+      "label": "玩家打开微信开启主剧情，显示妈妈首条来信与穆之友聊天",
+      "event": "openApp",
+      "target": "wechat",
+      "once": true,
+      "actions": [
+        {
+          "type": "variable",
+          "key": "storyPhase",
+          "value": "wechat-main"
+        },
+        {
+          "type": "unlock",
+          "key": "opening-mom",
+          "value": true
+        },
+        {
+          "type": "unlock",
+          "key": "friend-go",
+          "value": true
+        },
+        {
+          "type": "unlock",
+          "key": "friend-not-home",
+          "value": true
+        },
+        {
+          "type": "unlock",
+          "key": "friend-where",
+          "value": true
+        },
+        {
+          "type": "unlock",
+          "key": "friend-qingdao",
+          "value": true
+        },
+        {
+          "type": "unlock",
+          "key": "opening-friend",
+          "value": true
+        }
+      ]
+    },
+    {
+      "id": "enter-mom-chat",
+      "label": "玩家点进妈妈聊天后才允许回复",
+      "event": "read",
+      "target": "opening-mom",
+      "once": true,
+      "actions": [
+        {
+          "type": "variable",
+          "key": "storyPhase",
+          "value": "mom-chat"
+        }
+      ]
+    },
+    {
+      "id": "send-mom-holiday",
+      "label": "玩家发送中秋回家回复",
+      "event": "sendMessage",
+      "target": "mom-holiday-reply",
+      "once": true,
+      "conditions": [
+        {
+          "key": "storyPhase",
+          "op": "eq",
+          "value": "mom-chat"
+        }
+      ],
+      "actions": [
+        {
+          "type": "unlock",
+          "key": "mom-holiday-reply",
+          "value": true
+        }
+      ],
+      "next": [
+        "mom-auto-received"
+      ]
+    },
+    {
+      "id": "mom-auto-received",
+      "label": "妈妈自动回复收到",
+      "type": "delay",
+      "delayMs": 1000,
+      "once": true,
+      "actions": [
+        {
+          "type": "unlock",
+          "key": "mom-received",
+          "value": true
+        }
+      ],
+      "next": [
+        "mom-auto-duoduo"
+      ]
+    },
+    {
+      "id": "mom-auto-duoduo",
+      "label": "妈妈自动说朵朵想你",
+      "type": "delay",
+      "delayMs": 1000,
+      "once": true,
+      "actions": [
+        {
+          "type": "unlock",
+          "key": "mom-duoduo",
+          "value": true
+        }
+      ]
+    },
+    {
+      "id": "send-mom-miss-you",
+      "label": "玩家发送想你们的回复",
+      "event": "sendMessage",
+      "target": "mom-miss-you",
+      "once": true,
+      "conditions": [
+        {
+          "key": "storyPhase",
+          "op": "eq",
+          "value": "mom-chat"
+        },
+        {
+          "key": "unlocked:mom-duoduo",
+          "op": "eq",
+          "value": true
+        }
+      ],
+      "actions": [
+        {
+          "type": "unlock",
+          "key": "mom-miss-you",
+          "value": true
+        },
+        {
+          "type": "variable",
+          "key": "momConversationComplete",
+          "value": true
+        }
+      ]
     }
   ],
   "tests": [
@@ -1239,7 +1489,7 @@
       "name": "锁屏首条妈妈消息",
       "steps": [],
       "expectNotifications": [
-        "微信：妈妈：儿子什么时候放假回重庆呀？"
+        "微信：妈妈：儿子放假什么时候回重庆呀？"
       ],
       "expectUnlocked": [
         "opening-mom"
@@ -1253,12 +1503,60 @@
         }
       ],
       "expectNotifications": [
-        "微信：妈妈：儿子什么时候放假回重庆呀？",
+        "微信：妈妈：儿子放假什么时候回重庆呀？",
         "微信：穆之友：你真要去看他演唱会？"
       ],
       "expectUnlocked": [
         "opening-mom",
         "opening-friend"
+      ]
+    },
+    {
+      "name": "打开微信显示妈妈首条来信与穆之友完整聊天",
+      "steps": [
+        {
+          "event": "openApp",
+          "target": "wechat"
+        }
+      ],
+      "expectUnlocked": [
+        "opening-mom",
+        "friend-go",
+        "friend-not-home",
+        "friend-where",
+        "friend-qingdao",
+        "opening-friend"
+      ]
+    },
+    {
+      "name": "妈妈聊天玩家点击发送与按顺序自动回复",
+      "steps": [
+        {
+          "event": "openApp",
+          "target": "wechat"
+        },
+        {
+          "event": "read",
+          "target": "opening-mom"
+        },
+        {
+          "event": "sendMessage",
+          "target": "mom-holiday-reply"
+        },
+        {
+          "advanceMs": 2000
+        },
+        {
+          "event": "sendMessage",
+          "target": "mom-miss-you"
+        }
+      ],
+      "expectUnlocked": [
+        "opening-mom",
+        "mom-holiday-reply",
+        "mom-received",
+        "mom-duoduo",
+        "mom-miss-you"
       ]
     }
   ]
