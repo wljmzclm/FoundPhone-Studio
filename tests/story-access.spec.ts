@@ -996,7 +996,7 @@ test("new WeChat avatars, profile, unread dots and Mom's tap-to-send conversatio
   ];
   for (const [i, line] of lines.entries())
     await expect(page.locator(".skin-message").nth(i)).toContainText(line);
-  await expect(send).toHaveCount(0);
+  await expect(send).toBeEnabled();
   await page
     .locator(".phone-screen")
     .screenshot({ path: "outputs/mu-phone/new-friend-chat.png" });
@@ -1018,5 +1018,63 @@ test("new WeChat avatars, profile, unread dots and Mom's tap-to-send conversatio
   await expect(page.locator(".wx-unread-dot")).toHaveCount(0);
   await mom.click();
   await expect(page.locator(".skin-message")).toHaveCount(5);
+  await expect(send).toBeDisabled();
+});
+
+test("friend concert conversation uses player sends and ordered replies without blocking Mom", async ({
+  page,
+}) => {
+  test.setTimeout(60000);
+  await page.goto("/");
+  await unlock(page);
+  await page.getByRole("button", { name: "打开微信", exact: true }).click();
+  await page.locator(".wx-chat-row").filter({ hasText: "妈妈" }).click();
+  await page.getByRole("button", { name: "返回", exact: true }).click();
+  await page.locator(".wx-chat-row").filter({ hasText: "穆之友" }).click();
+  await expect(page.locator(".skin-message")).toHaveCount(5);
+  const send = page.getByRole("button", {
+    name: "发送下一条消息",
+    exact: true,
+  });
+  const replies = raw.chats
+    .find((c) => c.title === "穆之友")!
+    .messages.filter((m) => m.meta?.sendOnTap === "true");
+  expect(replies).toHaveLength(10);
+  for (const reply of replies) {
+    const bubble = page.locator(`[data-message-id="${reply.id}"]`);
+    await expect(bubble).toHaveCount(0);
+    await expect(send).toBeEnabled({ timeout: 8000 });
+    await send.click();
+    await expect(bubble).toContainText(reply.body);
+    if (reply.id === "friend-concert-10") {
+      await expect(bubble.locator(".wx-message-quote")).toHaveText(
+        "穆之友：你是后悔了嘛",
+      );
+      await page
+        .locator(".phone-screen")
+        .screenshot({ path: "outputs/mu-phone/friend-regret-quote.png" });
+    }
+  }
+  await expect(
+    page.locator('[data-message-id="friend-concert-20"]'),
+  ).toContainText("还是希望你看得开心", { timeout: 5000 });
+  await expect(page.locator(".skin-message")).toHaveCount(25);
+  await expect(send).toBeDisabled();
+  await page
+    .locator(".phone-screen")
+    .screenshot({ path: "outputs/mu-phone/friend-concert-complete.png" });
+  await page.getByRole("button", { name: "返回", exact: true }).click();
+  await page.locator(".wx-chat-row").filter({ hasText: "妈妈" }).click();
+  await expect(page.locator(".skin-message")).toHaveCount(1);
+  await expect(send).toBeEnabled();
+  await send.click();
+  await expect(page.locator('[data-message-id="mom-duoduo"]')).toBeVisible();
+  await send.click();
+  await expect(page.locator(".skin-message")).toHaveCount(5);
+  await page.reload();
+  await unlock(page);
+  await page.getByRole("button", { name: "打开微信", exact: true }).click();
+  await page.locator(".wx-chat-row").filter({ hasText: "穆之友" }).click();
+  await expect(page.locator(".skin-message")).toHaveCount(25);
   await expect(send).toBeDisabled();
 });

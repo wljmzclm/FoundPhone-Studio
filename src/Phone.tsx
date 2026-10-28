@@ -1116,7 +1116,11 @@ function AppContent({
               onUi={creator ? undefined : onUi}
               name={name}
               items={shown}
-              scriptedReply={nextScriptedReply(items, state)}
+              scriptedReply={nextScriptedReply(
+                items,
+                state,
+                thread || undefined,
+              )}
               scriptedChat={items.some(
                 (i) =>
                   i.meta.sendOnTap === "true" &&

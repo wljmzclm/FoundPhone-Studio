@@ -53,3 +53,28 @@ it("keeps Mom's replies hidden until her chat is entered and waits for each play
   expect(state.variables.momConversationComplete).toBe(true);
   expect(state.endings).toEqual([]);
 });
+
+it("keeps each conversation's next reply independent when both chats have been entered", async () => {
+  const { nextScriptedReply } = await import("../scriptedChat");
+  const { work } = compileStory(raw);
+  let state = dispatch(work, initialRuntime(work), "start");
+  state = dispatch(work, state, "openApp", "wechat");
+  state = dispatch(work, state, "read", "opening-mom");
+  state = dispatch(work, state, "read", "friend-go");
+  expect(nextScriptedReply(work.data.wechat, state, "妈妈")?.id).toBe(
+    "mom-holiday-reply",
+  );
+  expect(nextScriptedReply(work.data.wechat, state, "穆之友")?.id).toBe(
+    "friend-concert-01",
+  );
+  state = dispatch(work, state, "sendMessage", "friend-concert-01");
+  state = advance(work, state, 4999);
+  expect(nextScriptedReply(work.data.wechat, state, "穆之友")).toBeUndefined();
+  state = advance(work, state, 1);
+  expect(nextScriptedReply(work.data.wechat, state, "穆之友")?.id).toBe(
+    "friend-concert-07",
+  );
+  expect(nextScriptedReply(work.data.wechat, state, "妈妈")?.id).toBe(
+    "mom-holiday-reply",
+  );
+});

@@ -147,6 +147,7 @@ function MessageList({
               className={`skin-message ${i.outgoing ? "outgoing" : ""}`}
               data-message-id={i.id}
               data-attachment={i.meta.attachment}
+              data-quoted={!!i.meta.reply}
             >
               {!whatsapp && !i.outgoing && (
                 <Avatar name={i.sender} src={i.avatar} />
@@ -161,7 +162,7 @@ function MessageList({
                 </span>
               )}
               <button
-                className="skin-bubble"
+                className={`skin-bubble ${i.meta.reply ? "has-quote" : ""}`}
                 onClick={() => {
                   if (creator) onItem(i);
                   else {
@@ -184,6 +185,9 @@ function MessageList({
                   {i.time.slice(-5)}{" "}
                   {whatsapp && i.outgoing && <CheckCheck size={11} />}
                 </small>
+                {i.meta.reply && (
+                  <span className="wx-message-quote">{i.meta.reply}</span>
+                )}
               </button>
               {!whatsapp && i.outgoing && (
                 <Avatar name={i.sender} src={i.avatar} />

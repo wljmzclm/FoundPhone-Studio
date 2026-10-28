@@ -3,7 +3,7 @@
   "id": "mu-zhicheng-phone",
   "title": "命中注定我爱你",
   "description": "第一章：他来听我的演唱会。锁屏依次收到妈妈、穆之友的微信消息，后续剧情待编写。",
-  "revision": 50,
+  "revision": 51,
   "phone": {
     "owner": "穆祉丞",
     "date": "2026-08-17",
@@ -243,8 +243,8 @@
           "meta": {
             "unreadBadge": "dot",
             "sendOnTap": "true",
-            "sendPhase": "mom-chat",
-            "sendAfter": "opening-mom"
+            "sendAfter": "opening-mom",
+            "sendWhenRead": "opening-mom"
           }
         },
         {
@@ -277,8 +277,8 @@
           "meta": {
             "unreadBadge": "dot",
             "sendOnTap": "true",
-            "sendPhase": "mom-chat",
-            "sendAfter": "mom-duoduo"
+            "sendAfter": "mom-duoduo",
+            "sendWhenRead": "opening-mom"
           }
         }
       ]
@@ -341,6 +341,247 @@
           "senderId": "mu-zhiyou",
           "time": "2026-08-17 11:27",
           "hidden": true,
+          "meta": {
+            "unreadBadge": "dot"
+          }
+        },
+        {
+          "id": "friend-concert-01",
+          "body": "已经看三天了",
+          "senderId": "owner",
+          "hidden": true,
+          "time": "2026-08-17 11:27",
+          "meta": {
+            "unreadBadge": "dot",
+            "sendOnTap": "true",
+            "sendWhenRead": "friend-go",
+            "sendAfter": "opening-friend"
+          },
+          "avatar": "./story-assets/mu-zhicheng-avatar.jpg"
+        },
+        {
+          "id": "friend-concert-02",
+          "body": "？",
+          "senderId": "mu-zhiyou",
+          "hidden": true,
+          "time": "2026-08-17 11:27",
+          "meta": {
+            "unreadBadge": "dot"
+          }
+        },
+        {
+          "id": "friend-concert-03",
+          "body": "我真有点看不懂你了",
+          "senderId": "mu-zhiyou",
+          "hidden": true,
+          "time": "2026-08-17 11:27",
+          "meta": {
+            "unreadBadge": "dot"
+          }
+        },
+        {
+          "id": "friend-concert-04",
+          "body": "当初你吵着要跟他断绝关系",
+          "senderId": "mu-zhiyou",
+          "hidden": true,
+          "time": "2026-08-17 11:27",
+          "meta": {
+            "unreadBadge": "dot"
+          }
+        },
+        {
+          "id": "friend-concert-05",
+          "body": "现在又跑大老远去看他演唱会",
+          "senderId": "mu-zhiyou",
+          "hidden": true,
+          "time": "2026-08-17 11:27",
+          "meta": {
+            "unreadBadge": "dot"
+          }
+        },
+        {
+          "id": "friend-concert-06",
+          "body": "你是后悔了嘛",
+          "senderId": "mu-zhiyou",
+          "hidden": true,
+          "time": "2026-08-17 11:27",
+          "meta": {
+            "unreadBadge": "dot"
+          }
+        },
+        {
+          "id": "friend-concert-07",
+          "body": "我只是想见见他",
+          "senderId": "owner",
+          "hidden": true,
+          "time": "2026-08-17 11:27",
+          "meta": {
+            "unreadBadge": "dot",
+            "sendOnTap": "true",
+            "sendWhenRead": "friend-go",
+            "sendAfter": "friend-concert-06"
+          },
+          "avatar": "./story-assets/mu-zhicheng-avatar.jpg"
+        },
+        {
+          "id": "friend-concert-08",
+          "body": "他第一次在这么大的场馆演出",
+          "senderId": "owner",
+          "hidden": true,
+          "time": "2026-08-17 11:27",
+          "meta": {
+            "unreadBadge": "dot",
+            "sendOnTap": "true",
+            "sendWhenRead": "friend-go",
+            "sendAfter": "friend-concert-07"
+          },
+          "avatar": "./story-assets/mu-zhicheng-avatar.jpg"
+        },
+        {
+          "id": "friend-concert-09",
+          "body": "我舍不得错过",
+          "senderId": "owner",
+          "hidden": true,
+          "time": "2026-08-17 11:27",
+          "meta": {
+            "unreadBadge": "dot",
+            "sendOnTap": "true",
+            "sendWhenRead": "friend-go",
+            "sendAfter": "friend-concert-08"
+          },
+          "avatar": "./story-assets/mu-zhicheng-avatar.jpg"
+        },
+        {
+          "id": "friend-concert-10",
+          "body": "不后悔",
+          "senderId": "owner",
+          "hidden": true,
+          "time": "2026-08-17 11:27",
+          "meta": {
+            "unreadBadge": "dot",
+            "sendOnTap": "true",
+            "sendWhenRead": "friend-go",
+            "sendAfter": "friend-concert-09",
+            "reply": "穆之友：你是后悔了嘛"
+          },
+          "avatar": "./story-assets/mu-zhicheng-avatar.jpg"
+        },
+        {
+          "id": "friend-concert-11",
+          "body": "重来一次我还会做一样的决定",
+          "senderId": "owner",
+          "hidden": true,
+          "time": "2026-08-17 11:27",
+          "meta": {
+            "unreadBadge": "dot",
+            "sendOnTap": "true",
+            "sendWhenRead": "friend-go",
+            "sendAfter": "friend-concert-10"
+          },
+          "avatar": "./story-assets/mu-zhicheng-avatar.jpg"
+        },
+        {
+          "id": "friend-concert-12",
+          "body": "你看他现在过得多好",
+          "senderId": "owner",
+          "hidden": true,
+          "time": "2026-08-17 11:27",
+          "meta": {
+            "unreadBadge": "dot",
+            "sendOnTap": "true",
+            "sendWhenRead": "friend-go",
+            "sendAfter": "friend-concert-11"
+          },
+          "avatar": "./story-assets/mu-zhicheng-avatar.jpg"
+        },
+        {
+          "id": "friend-concert-13",
+          "body": "好吧",
+          "senderId": "mu-zhiyou",
+          "hidden": true,
+          "time": "2026-08-17 11:27",
+          "meta": {
+            "unreadBadge": "dot"
+          }
+        },
+        {
+          "id": "friend-concert-14",
+          "body": "你自己把握好分寸",
+          "senderId": "mu-zhiyou",
+          "hidden": true,
+          "time": "2026-08-17 11:27",
+          "meta": {
+            "unreadBadge": "dot"
+          }
+        },
+        {
+          "id": "friend-concert-15",
+          "body": "小心别被他发现了",
+          "senderId": "mu-zhiyou",
+          "hidden": true,
+          "time": "2026-08-17 11:27",
+          "meta": {
+            "unreadBadge": "dot"
+          }
+        },
+        {
+          "id": "friend-concert-16",
+          "body": "不会的",
+          "senderId": "owner",
+          "hidden": true,
+          "time": "2026-08-17 11:27",
+          "meta": {
+            "unreadBadge": "dot",
+            "sendOnTap": "true",
+            "sendWhenRead": "friend-go",
+            "sendAfter": "friend-concert-15"
+          },
+          "avatar": "./story-assets/mu-zhicheng-avatar.jpg"
+        },
+        {
+          "id": "friend-concert-17",
+          "body": "我位置不是很近",
+          "senderId": "owner",
+          "hidden": true,
+          "time": "2026-08-17 11:27",
+          "meta": {
+            "unreadBadge": "dot",
+            "sendOnTap": "true",
+            "sendWhenRead": "friend-go",
+            "sendAfter": "friend-concert-16"
+          },
+          "avatar": "./story-assets/mu-zhicheng-avatar.jpg"
+        },
+        {
+          "id": "friend-concert-18",
+          "body": "我远远得看着他就满足了",
+          "senderId": "owner",
+          "hidden": true,
+          "time": "2026-08-17 11:27",
+          "meta": {
+            "unreadBadge": "dot",
+            "sendOnTap": "true",
+            "sendWhenRead": "friend-go",
+            "sendAfter": "friend-concert-17"
+          },
+          "avatar": "./story-assets/mu-zhicheng-avatar.jpg"
+        },
+        {
+          "id": "friend-concert-19",
+          "body": "唉你真是的",
+          "senderId": "mu-zhiyou",
+          "hidden": true,
+          "time": "2026-08-17 11:27",
+          "meta": {
+            "unreadBadge": "dot"
+          }
+        },
+        {
+          "id": "friend-concert-20",
+          "body": "还是希望你看得开心",
+          "senderId": "mu-zhiyou",
+          "hidden": true,
+          "time": "2026-08-17 11:27",
           "meta": {
             "unreadBadge": "dot"
           }
@@ -1405,9 +1646,9 @@
       "once": true,
       "conditions": [
         {
-          "key": "storyPhase",
+          "key": "read:opening-mom",
           "op": "eq",
-          "value": "mom-chat"
+          "value": true
         }
       ],
       "actions": [
@@ -1460,9 +1701,9 @@
       "once": true,
       "conditions": [
         {
-          "key": "storyPhase",
+          "key": "read:opening-mom",
           "op": "eq",
-          "value": "mom-chat"
+          "value": true
         },
         {
           "key": "unlocked:mom-duoduo",
@@ -1482,6 +1723,441 @@
           "value": true
         }
       ]
+    },
+    {
+      "id": "deliver-friend-concert-01",
+      "label": "玩家发送：已经看三天了",
+      "once": true,
+      "actions": [
+        {
+          "type": "unlock",
+          "key": "friend-concert-01",
+          "value": true
+        }
+      ],
+      "event": "sendMessage",
+      "target": "friend-concert-01",
+      "conditions": [
+        {
+          "key": "read:friend-go",
+          "op": "eq",
+          "value": true
+        },
+        {
+          "key": "unlocked:opening-friend",
+          "op": "eq",
+          "value": true
+        }
+      ],
+      "next": [
+        "deliver-friend-concert-02"
+      ]
+    },
+    {
+      "id": "deliver-friend-concert-02",
+      "label": "穆之友自动回复：？",
+      "once": true,
+      "actions": [
+        {
+          "type": "unlock",
+          "key": "friend-concert-02",
+          "value": true
+        }
+      ],
+      "type": "delay",
+      "delayMs": 1000,
+      "next": [
+        "deliver-friend-concert-03"
+      ]
+    },
+    {
+      "id": "deliver-friend-concert-03",
+      "label": "穆之友自动回复：我真有点看不懂你了",
+      "once": true,
+      "actions": [
+        {
+          "type": "unlock",
+          "key": "friend-concert-03",
+          "value": true
+        }
+      ],
+      "type": "delay",
+      "delayMs": 1000,
+      "next": [
+        "deliver-friend-concert-04"
+      ]
+    },
+    {
+      "id": "deliver-friend-concert-04",
+      "label": "穆之友自动回复：当初你吵着要跟他断绝关系",
+      "once": true,
+      "actions": [
+        {
+          "type": "unlock",
+          "key": "friend-concert-04",
+          "value": true
+        }
+      ],
+      "type": "delay",
+      "delayMs": 1000,
+      "next": [
+        "deliver-friend-concert-05"
+      ]
+    },
+    {
+      "id": "deliver-friend-concert-05",
+      "label": "穆之友自动回复：现在又跑大老远去看他演唱会",
+      "once": true,
+      "actions": [
+        {
+          "type": "unlock",
+          "key": "friend-concert-05",
+          "value": true
+        }
+      ],
+      "type": "delay",
+      "delayMs": 1000,
+      "next": [
+        "deliver-friend-concert-06"
+      ]
+    },
+    {
+      "id": "deliver-friend-concert-06",
+      "label": "穆之友自动回复：你是后悔了嘛",
+      "once": true,
+      "actions": [
+        {
+          "type": "unlock",
+          "key": "friend-concert-06",
+          "value": true
+        }
+      ],
+      "type": "delay",
+      "delayMs": 1000
+    },
+    {
+      "id": "deliver-friend-concert-07",
+      "label": "玩家发送：我只是想见见他",
+      "once": true,
+      "actions": [
+        {
+          "type": "unlock",
+          "key": "friend-concert-07",
+          "value": true
+        }
+      ],
+      "event": "sendMessage",
+      "target": "friend-concert-07",
+      "conditions": [
+        {
+          "key": "read:friend-go",
+          "op": "eq",
+          "value": true
+        },
+        {
+          "key": "unlocked:friend-concert-06",
+          "op": "eq",
+          "value": true
+        }
+      ]
+    },
+    {
+      "id": "deliver-friend-concert-08",
+      "label": "玩家发送：他第一次在这么大的场馆演出",
+      "once": true,
+      "actions": [
+        {
+          "type": "unlock",
+          "key": "friend-concert-08",
+          "value": true
+        }
+      ],
+      "event": "sendMessage",
+      "target": "friend-concert-08",
+      "conditions": [
+        {
+          "key": "read:friend-go",
+          "op": "eq",
+          "value": true
+        },
+        {
+          "key": "unlocked:friend-concert-07",
+          "op": "eq",
+          "value": true
+        }
+      ]
+    },
+    {
+      "id": "deliver-friend-concert-09",
+      "label": "玩家发送：我舍不得错过",
+      "once": true,
+      "actions": [
+        {
+          "type": "unlock",
+          "key": "friend-concert-09",
+          "value": true
+        }
+      ],
+      "event": "sendMessage",
+      "target": "friend-concert-09",
+      "conditions": [
+        {
+          "key": "read:friend-go",
+          "op": "eq",
+          "value": true
+        },
+        {
+          "key": "unlocked:friend-concert-08",
+          "op": "eq",
+          "value": true
+        }
+      ]
+    },
+    {
+      "id": "deliver-friend-concert-10",
+      "label": "玩家发送：不后悔",
+      "once": true,
+      "actions": [
+        {
+          "type": "unlock",
+          "key": "friend-concert-10",
+          "value": true
+        }
+      ],
+      "event": "sendMessage",
+      "target": "friend-concert-10",
+      "conditions": [
+        {
+          "key": "read:friend-go",
+          "op": "eq",
+          "value": true
+        },
+        {
+          "key": "unlocked:friend-concert-09",
+          "op": "eq",
+          "value": true
+        }
+      ]
+    },
+    {
+      "id": "deliver-friend-concert-11",
+      "label": "玩家发送：重来一次我还会做一样的决定",
+      "once": true,
+      "actions": [
+        {
+          "type": "unlock",
+          "key": "friend-concert-11",
+          "value": true
+        }
+      ],
+      "event": "sendMessage",
+      "target": "friend-concert-11",
+      "conditions": [
+        {
+          "key": "read:friend-go",
+          "op": "eq",
+          "value": true
+        },
+        {
+          "key": "unlocked:friend-concert-10",
+          "op": "eq",
+          "value": true
+        }
+      ]
+    },
+    {
+      "id": "deliver-friend-concert-12",
+      "label": "玩家发送：你看他现在过得多好",
+      "once": true,
+      "actions": [
+        {
+          "type": "unlock",
+          "key": "friend-concert-12",
+          "value": true
+        }
+      ],
+      "event": "sendMessage",
+      "target": "friend-concert-12",
+      "conditions": [
+        {
+          "key": "read:friend-go",
+          "op": "eq",
+          "value": true
+        },
+        {
+          "key": "unlocked:friend-concert-11",
+          "op": "eq",
+          "value": true
+        }
+      ],
+      "next": [
+        "deliver-friend-concert-13"
+      ]
+    },
+    {
+      "id": "deliver-friend-concert-13",
+      "label": "穆之友自动回复：好吧",
+      "once": true,
+      "actions": [
+        {
+          "type": "unlock",
+          "key": "friend-concert-13",
+          "value": true
+        }
+      ],
+      "type": "delay",
+      "delayMs": 1000,
+      "next": [
+        "deliver-friend-concert-14"
+      ]
+    },
+    {
+      "id": "deliver-friend-concert-14",
+      "label": "穆之友自动回复：你自己把握好分寸",
+      "once": true,
+      "actions": [
+        {
+          "type": "unlock",
+          "key": "friend-concert-14",
+          "value": true
+        }
+      ],
+      "type": "delay",
+      "delayMs": 1000,
+      "next": [
+        "deliver-friend-concert-15"
+      ]
+    },
+    {
+      "id": "deliver-friend-concert-15",
+      "label": "穆之友自动回复：小心别被他发现了",
+      "once": true,
+      "actions": [
+        {
+          "type": "unlock",
+          "key": "friend-concert-15",
+          "value": true
+        }
+      ],
+      "type": "delay",
+      "delayMs": 1000
+    },
+    {
+      "id": "deliver-friend-concert-16",
+      "label": "玩家发送：不会的",
+      "once": true,
+      "actions": [
+        {
+          "type": "unlock",
+          "key": "friend-concert-16",
+          "value": true
+        }
+      ],
+      "event": "sendMessage",
+      "target": "friend-concert-16",
+      "conditions": [
+        {
+          "key": "read:friend-go",
+          "op": "eq",
+          "value": true
+        },
+        {
+          "key": "unlocked:friend-concert-15",
+          "op": "eq",
+          "value": true
+        }
+      ]
+    },
+    {
+      "id": "deliver-friend-concert-17",
+      "label": "玩家发送：我位置不是很近",
+      "once": true,
+      "actions": [
+        {
+          "type": "unlock",
+          "key": "friend-concert-17",
+          "value": true
+        }
+      ],
+      "event": "sendMessage",
+      "target": "friend-concert-17",
+      "conditions": [
+        {
+          "key": "read:friend-go",
+          "op": "eq",
+          "value": true
+        },
+        {
+          "key": "unlocked:friend-concert-16",
+          "op": "eq",
+          "value": true
+        }
+      ]
+    },
+    {
+      "id": "deliver-friend-concert-18",
+      "label": "玩家发送：我远远得看着他就满足了",
+      "once": true,
+      "actions": [
+        {
+          "type": "unlock",
+          "key": "friend-concert-18",
+          "value": true
+        }
+      ],
+      "event": "sendMessage",
+      "target": "friend-concert-18",
+      "conditions": [
+        {
+          "key": "read:friend-go",
+          "op": "eq",
+          "value": true
+        },
+        {
+          "key": "unlocked:friend-concert-17",
+          "op": "eq",
+          "value": true
+        }
+      ],
+      "next": [
+        "deliver-friend-concert-19"
+      ]
+    },
+    {
+      "id": "deliver-friend-concert-19",
+      "label": "穆之友自动回复：唉你真是的",
+      "once": true,
+      "actions": [
+        {
+          "type": "unlock",
+          "key": "friend-concert-19",
+          "value": true
+        }
+      ],
+      "type": "delay",
+      "delayMs": 1000,
+      "next": [
+        "deliver-friend-concert-20"
+      ]
+    },
+    {
+      "id": "deliver-friend-concert-20",
+      "label": "穆之友自动回复：还是希望你看得开心",
+      "once": true,
+      "actions": [
+        {
+          "type": "unlock",
+          "key": "friend-concert-20",
+          "value": true
+        },
+        {
+          "type": "variable",
+          "key": "friendConversationComplete",
+          "value": true
+        }
+      ],
+      "type": "delay",
+      "delayMs": 1000
     }
   ],
   "tests": [
@@ -1557,6 +2233,111 @@
         "mom-received",
         "mom-duoduo",
         "mom-miss-you"
+      ]
+    },
+    {
+      "name": "穆之友演唱会对话逐条发送与自动回复",
+      "steps": [
+        {
+          "event": "openApp",
+          "target": "wechat"
+        },
+        {
+          "event": "read",
+          "target": "friend-go"
+        },
+        {
+          "event": "sendMessage",
+          "target": "friend-concert-01"
+        },
+        {
+          "advanceMs": 1000
+        },
+        {
+          "advanceMs": 1000
+        },
+        {
+          "advanceMs": 1000
+        },
+        {
+          "advanceMs": 1000
+        },
+        {
+          "advanceMs": 1000
+        },
+        {
+          "event": "sendMessage",
+          "target": "friend-concert-07"
+        },
+        {
+          "event": "sendMessage",
+          "target": "friend-concert-08"
+        },
+        {
+          "event": "sendMessage",
+          "target": "friend-concert-09"
+        },
+        {
+          "event": "sendMessage",
+          "target": "friend-concert-10"
+        },
+        {
+          "event": "sendMessage",
+          "target": "friend-concert-11"
+        },
+        {
+          "event": "sendMessage",
+          "target": "friend-concert-12"
+        },
+        {
+          "advanceMs": 1000
+        },
+        {
+          "advanceMs": 1000
+        },
+        {
+          "advanceMs": 1000
+        },
+        {
+          "event": "sendMessage",
+          "target": "friend-concert-16"
+        },
+        {
+          "event": "sendMessage",
+          "target": "friend-concert-17"
+        },
+        {
+          "event": "sendMessage",
+          "target": "friend-concert-18"
+        },
+        {
+          "advanceMs": 1000
+        },
+        {
+          "advanceMs": 1000
+        }
+      ],
+      "expectUnlocked": [
+        "friend-concert-01",
+        "friend-concert-02",
+        "friend-concert-03",
+        "friend-concert-04",
+        "friend-concert-05",
+        "friend-concert-06",
+        "friend-concert-07",
+        "friend-concert-08",
+        "friend-concert-09",
+        "friend-concert-10",
+        "friend-concert-11",
+        "friend-concert-12",
+        "friend-concert-13",
+        "friend-concert-14",
+        "friend-concert-15",
+        "friend-concert-16",
+        "friend-concert-17",
+        "friend-concert-18",
+        "friend-concert-19",
+        "friend-concert-20"
       ]
     }
   ]

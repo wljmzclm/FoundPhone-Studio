@@ -37,8 +37,13 @@ export function testStory(story: Story, work: Work) {
       }
       if (
         step.event === "sendMessage" &&
-        nextScriptedReply(Object.values(work.data).flat(), state)?.id !==
-          step.target
+        nextScriptedReply(
+          Object.values(work.data).flat(),
+          state,
+          Object.values(work.data)
+            .flat()
+            .find((item) => item.id === step.target)?.title,
+        )?.id !== step.target
       ) {
         errors.push(at + ": 当前不可发送这条消息");
         continue;

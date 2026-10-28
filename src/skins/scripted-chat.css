@@ -371,3 +371,24 @@
   right: -3px;
   border-radius: 50%;
 }
+
+.ios18 .skin-message[data-quoted="true"] {
+  margin-bottom: 55px;
+}
+.ios18 .skin-bubble.has-quote {
+  position: relative;
+}
+.ios18 .wx-message-quote {
+  position: absolute;
+  right: 0;
+  top: calc(100% + 6px);
+  width: max-content;
+  max-width: 290px;
+  padding: 7px 10px;
+  border-radius: 5px;
+  background: #dedede;
+  color: #777;
+  font-size: 13px;
+  line-height: 1.5;
+  white-space: normal;
+}

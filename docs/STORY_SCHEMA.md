@@ -37,3 +37,5 @@
 日历 Item 的 `meta.repeat="yearly"` 按 `time` 前10位的起始日期做年度重复，起始日期之前不出现；`meta.allDay="true"` 显示全天。`meta.anniversary="true"` 显示纪念日快捷入口。未设置重复规则的记录仅在指定日期出现。
 
 `phone.wechatProfile` 可选配置微信个人页：`nickname`、`account`、`avatar`（安全媒体地址）。普通聊天首条消息的 `meta.dateLabel` 可指定日期/时间标签；`meta.unreadBadge: "dot"` 将该会话的未读数字显示为红点。机主真实姓名继续使用 `phone.owner`。
+
+互动回复的 `meta.sendWhenRead` 可指定必须先阅读的内容ID（进入聊天时读取首条消息）；不同聊天的候选回复按当前会话分别计算。`meta.reply` 可显示该条消息下方的引用文字。
