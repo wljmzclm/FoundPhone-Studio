@@ -876,6 +876,8 @@ export function FilesSkin(p: Props) {
 export function MusicSkin(p: Props) {
   const { tab, setTab, items } = useContent(p, "资料库");
   const [song, setSong] = useTrack(p, items);
+  if (!p.creator && items.some((i) => i.meta.persistentPlayback === "true"))
+    return <div aria-hidden="true" />;
   return (
     <div className="catalog-skin native-music">
       <Header p={p} />

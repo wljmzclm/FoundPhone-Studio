@@ -592,38 +592,66 @@ test("matching home wallpaper, owner avatar, left-aligned Weibo names and legibl
   );
 });
 
-test("Netease opens after unlock and keeps the same player when leaving", async ({
+test("local music opens on gesture, plays in the background and loops the complete upload", async ({
   page,
 }) => {
-  let loads = 0;
-  await page.route("https://music.163.com/outchain/**", (route) => {
-    loads++;
-    return route.fulfill({
-      contentType: "text/html; charset=utf-8",
-      body: '<button id="play">播放</button><script>document.querySelector("button").onclick=()=>document.body.dataset.playing="true"</script>',
-    });
-  });
   await page.goto("/");
   await unlock(page);
+  await expect(
+    page.getByRole("button", { name: "打开网易云音乐", exact: true }),
+  ).toHaveCount(0);
+  await page.getByRole("button", { name: "打开音乐", exact: true }).click();
+  const audio = page.locator(".persistent-music audio");
+  await expect(page.locator(".persistent-music")).toHaveClass(/active/);
+  await expect(page.locator(".persistent-music h1")).toHaveText(
+    "多远都要在一起",
+  );
+  await expect(page.locator(".local-music-artist")).toHaveText("王橹杰");
+  await expect(page.locator(".local-music-cover")).toHaveAttribute(
+    "src",
+    "./story-assets/wang-music-cover.jpg",
+  );
+  await expect
+    .poll(() =>
+      audio.evaluate((a: HTMLAudioElement) => !a.paused && a.currentTime > 0.2),
+    )
+    .toBe(true);
+  await expect
+    .poll(() => audio.evaluate((a: HTMLAudioElement) => a.duration))
+    .toBeGreaterThan(210);
+  await audio.evaluate((a) => {
+    (a as HTMLAudioElement).dataset.identity = "same-player";
+  });
   await page
-    .getByRole("button", { name: "打开网易云音乐", exact: true })
-    .click();
-  const player = page.frameLocator('iframe[title="网易云官方音乐播放器"]');
-  await player.getByRole("button", { name: "播放", exact: true }).click();
+    .locator(".phone-screen")
+    .screenshot({ path: "outputs/mu-phone/local-music.png" });
+  const before = await audio.evaluate((a: HTMLAudioElement) => a.currentTime);
   await page
-    .locator(".persistent-netease")
+    .locator(".persistent-music")
     .getByRole("button", { name: "返回桌面", exact: true })
     .click();
-  await expect(page.locator(".persistent-netease")).toHaveClass(/background/);
-  await expect(player.locator("body")).toHaveAttribute("data-playing", "true");
+  await expect(page.locator(".persistent-music")).toHaveClass(/background/);
   await page.getByRole("button", { name: "打开微信", exact: true }).click();
-  await expect(player.locator("body")).toHaveAttribute("data-playing", "true");
+  await expect
+    .poll(() => audio.evaluate((a: HTMLAudioElement) => a.currentTime))
+    .toBeGreaterThan(before + 0.4);
+  await expect(audio).toHaveAttribute("data-identity", "same-player");
+  await audio.evaluate((a: HTMLAudioElement) => {
+    a.currentTime = a.duration - 0.2;
+  });
+  await expect
+    .poll(() => audio.evaluate((a: HTMLAudioElement) => a.currentTime), {
+      timeout: 5000,
+    })
+    .toBeLessThan(3);
+  expect(
+    await audio.evaluate((a: HTMLAudioElement) => a.loop && !a.paused),
+  ).toBe(true);
   await page.getByRole("button", { name: "返回桌面", exact: true }).click();
-  await page
-    .getByRole("button", { name: "打开网易云音乐", exact: true })
-    .click();
-  await expect(page.locator(".persistent-netease")).toHaveClass(/active/);
-  expect(loads).toBe(1);
+  await page.getByRole("button", { name: "打开音乐", exact: true }).click();
+  await expect(audio).toHaveAttribute("data-identity", "same-player");
+  await page.getByRole("button", { name: "暂停音乐", exact: true }).click();
+  expect(await audio.evaluate((a: HTMLAudioElement) => a.paused)).toBe(true);
 });
 
 test("post-story Douyin links appear in supplied order and preserve story graphic", async ({
@@ -880,7 +908,7 @@ test("chapter choice waits for ending and all twelve apps, and can be deferred",
     "微信",
     "短信",
     "微博",
-    "网易云音乐",
+    "音乐",
     "电话",
     "淘宝",
     "天气",
@@ -1044,7 +1072,7 @@ test("blue-pink introduction presents five chapters before the passcode", async 
     "需根据弹窗进行剧情，剧情结束后可继续探索手机，了解更多橹穆的故事。",
   );
   await expect(page.locator(".introduction-note")).toContainText(
-    "大家进入新的章节需先点进网易云播放音乐",
+    "推荐大家进入章节先点进音乐播放bgm",
   );
   await expect(page.locator(".introduction-tagline")).toContainText(
     "点进来默认橹穆99",
@@ -1061,8 +1089,9 @@ test("blue-pink introduction presents five chapters before the passcode", async 
     "人物设定：明星橹 × 素人穆",
   );
   await expect(page.locator(".introduction-guide")).toContainText(
-    "橹2026年18岁，穆21岁（困丞）",
+    "橹2026年18岁，穆21岁",
   );
+  await expect(page.locator(".introduction-guide")).not.toContainText("困丞");
   await expect(chapters.first()).toBeEnabled();
   for (let i = 1; i < 5; i++) await expect(chapters.nth(i)).toBeDisabled();
   await page.screenshot({
@@ -1109,7 +1138,7 @@ test("Taobao purchase records and every installed app are available before main 
     "短信",
     "微博",
     "抖音",
-    "网易云音乐",
+    "音乐",
     "电话",
     "相册",
     "淘宝",

@@ -4401,3 +4401,78 @@
   background: #007aff;
   box-shadow: inset 0 0 0 2px white;
 }
+
+.persistent-music {
+  position: absolute;
+  inset: 54px 0 32px;
+  z-index: 15;
+  overflow: auto;
+  background: linear-gradient(155deg, #313139, #121216);
+  color: white;
+}
+.persistent-music.background {
+  visibility: hidden;
+  pointer-events: none;
+}
+.persistent-music .app-nav {
+  color: white;
+  background: transparent;
+}
+.local-music-content {
+  padding: 18px 26px 25px;
+  text-align: center;
+}
+.local-music-cover {
+  width: 100%;
+  height: 285px;
+  object-fit: contain;
+  border-radius: 12px;
+  background: #16161b;
+  box-shadow: 0 16px 30px #0005;
+}
+.local-music-content h1 {
+  margin: 24px 0 7px;
+  padding: 0;
+  font-size: 23px;
+  color: white;
+}
+.local-music-artist {
+  margin: 0 0 26px;
+  color: #c4c4cf;
+  font-size: 16px;
+}
+.local-music-content input {
+  width: 100%;
+  accent-color: #ff637d;
+}
+.local-music-times {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 5px;
+  font-size: 12px;
+  color: #aaaab6;
+  font-variant-numeric: tabular-nums;
+}
+.local-music-toggle {
+  margin: 24px auto 18px;
+  display: grid;
+  place-items: center;
+  width: 70px;
+  height: 70px;
+  border-radius: 50%;
+  border: 0;
+  background: #ff637d;
+  color: white;
+}
+.local-music-loop {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  color: #ff9aaf;
+  font-size: 13px;
+}
+.local-music-hint {
+  color: #a6a6b5;
+  font-size: 12px;
+}

@@ -1,6 +1,10 @@
 import { StatusGlyph } from "./ios/StatusGlyph";
 import { ChapterEntry } from "./ChapterEntry";
 import { PersistentNetease } from "./skins/PersistentNetease";
+import {
+  PersistentMusic,
+  type PersistentMusicHandle,
+} from "./skins/PersistentMusic";
 import { SocialDetail, socialDetailApps } from "./skins/SocialDetails";
 import { NativeCalculator } from "./ios/Calculator";
 import { HomeLauncher } from "./launcher/HomeLauncher";
@@ -138,6 +142,7 @@ function PhoneRuntime({
 }) {
   const [app, setApp] = useState("");
   const [musicOpened, setMusicOpened] = useState(false);
+  const localMusic = useRef<PersistentMusicHandle>(null);
   const [homeRequest, setHomeRequest] = useState(0);
   const [locked, setLocked] = useState(!creator);
   const [pinOpen, setPinOpen] = useState(false);
@@ -274,6 +279,7 @@ function PhoneRuntime({
     if (!canOpenApp(work, runtimeRef.current, id)) return;
     setApp(id);
     if (id === "netease") setMusicOpened(true);
+    if (!creator && id === "music") localMusic.current?.play();
     setKeyboard(false);
     setRecent((v) => [id, ...v.filter((a) => a !== id)].slice(0, 8));
     setFolder("");
@@ -555,6 +561,19 @@ function PhoneRuntime({
               onBack={() => setApp("")}
             />
           )}
+          {!creator &&
+            work.data.music?.find(
+              (i) => i.meta.persistentPlayback === "true",
+            ) && (
+              <PersistentMusic
+                ref={localMusic}
+                item={work.data.music.find(
+                  (i) => i.meta.persistentPlayback === "true",
+                )!}
+                active={app === "music" && !locked}
+                onBack={() => setApp("")}
+              />
+            )}
           {folder && (
             <div className="folder-overlay" onClick={() => setFolder("")}>
               <h2>{folder}</h2>

@@ -3,7 +3,7 @@
   "id": "mu-zhicheng-phone",
   "title": "命中注定我爱你",
   "description": "以穆祉丞的视角探索手机，从王橹杰的新微博通知开始。后续主剧情待补充。",
-  "revision": 44,
+  "revision": 45,
   "phone": {
     "owner": "穆祉丞",
     "date": "2026-08-17",
@@ -19,7 +19,7 @@
         "messages",
         "weibo",
         "douyin",
-        "netease",
+        "music",
         "phone",
         "photos",
         "taobao",
@@ -38,7 +38,7 @@
         "messages",
         "weibo",
         "douyin",
-        "netease",
+        "music",
         "photos",
         "phone",
         "taobao",
@@ -50,8 +50,8 @@
     },
     "introduction": {
       "title": "命中注定我爱你",
-      "guide": "人物设定：明星橹 × 素人穆\n橹2026年18岁，穆21岁（困丞）。\n\n需根据弹窗进行剧情，剧情结束后可继续探索手机，了解更多橹穆的故事。",
-      "note": "网易云的音乐是我推荐的bgm，大家进入新的章节需先点进网易云播放音乐，下一章的触发需探索完所有的软件。会有点卡，建议用电脑玩。",
+      "guide": "人物设定：明星橹 × 素人穆\n橹2026年18岁，穆21岁。\n\n需根据弹窗进行剧情，剧情结束后可继续探索手机，了解更多橹穆的故事。",
+      "note": "推荐大家进入章节先点进音乐播放bgm，下一章的触发需探索完所有的软件。会有点卡，建议用电脑玩。",
       "tagline": "点进来默认橹穆99",
       "chapters": [
         {
@@ -122,8 +122,8 @@
       "icon": ""
     },
     {
-      "id": "netease",
-      "name": "网易云音乐",
+      "id": "music",
+      "name": "音乐",
       "installed": true,
       "visible": true,
       "dock": false,
@@ -2111,16 +2111,6 @@
         "time": "2026年"
       }
     ],
-    "netease": [
-      {
-        "id": "netease-song-2134502607",
-        "title": "我的音乐",
-        "body": "网易云音乐 · 歌曲 2134502607",
-        "meta": {
-          "neteaseSongId": "2134502607"
-        }
-      }
-    ],
     "phone": [
       {
         "id": "wang-unavailable-contact",
@@ -2366,6 +2356,20 @@
           "listTitle": "重要",
           "listEmphasis": "‼",
           "completed": "true"
+        }
+      }
+    ],
+    "music": [
+      {
+        "id": "wang-duoyuan-song",
+        "title": "多远都要在一起",
+        "sender": "王橹杰",
+        "kind": "audio",
+        "media": "./story-assets/wang-duoyuan.m4a",
+        "body": "",
+        "meta": {
+          "persistentPlayback": "true",
+          "cover": "./story-assets/wang-music-cover.jpg"
         }
       }
     ]
