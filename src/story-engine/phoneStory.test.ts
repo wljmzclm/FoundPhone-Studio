@@ -4,7 +4,7 @@ import { compileStory } from "./compiler";
 import { initialRuntime } from "../schema";
 import { dispatch, advance } from "../engine";
 
-it("delivers Mom, work and friend on the lock screen at one-second intervals and resumes once", () => {
+it("delivers Mom then friend one second later, without the removed work notification or replays", () => {
   const { work } = compileStory(raw);
   let state = dispatch(work, initialRuntime(work), "start");
   expect(state.notifications).toEqual([
@@ -12,25 +12,17 @@ it("delivers Mom, work and friend on the lock screen at one-second intervals and
   ]);
   state = advance(work, state, 999);
   expect(state.notifications).toHaveLength(1);
-  state = advance(work, state, 1);
-  expect(state.notifications.at(-1)).toBe(
-    "微信：工作消息：@全体成员，下周一开组会。",
-  );
   state = dispatch(work, structuredClone(state), "start");
-  state = advance(work, state, 999);
-  expect(state.notifications).toHaveLength(2);
   state = advance(work, state, 1);
-  expect(state.notifications.at(-1)).toBe("微信：穆之友：你真要去看他演唱会？");
-  expect(state.unlocked).toEqual([
-    "opening-mom",
-    "opening-work",
-    "opening-friend",
+  expect(state.notifications).toEqual([
+    "微信：妈妈：儿子什么时候放假回重庆呀？",
+    "微信：穆之友：你真要去看他演唱会？",
   ]);
+  expect(state.unlocked).toEqual(["opening-mom", "opening-friend"]);
   for (const app of work.phone.appAccess!.duringStory)
     state = dispatch(work, state, "openApp", app);
-  state = dispatch(work, state, "sendMessage", "mu-sms-shot");
   state = advance(work, state, 60000);
-  expect(state.notifications).toHaveLength(3);
+  expect(state.notifications).toHaveLength(2);
   expect(state.scheduled ?? []).toEqual([]);
   expect(state.endings).toEqual([]);
 });

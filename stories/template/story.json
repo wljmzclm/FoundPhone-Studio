@@ -2,8 +2,8 @@
   "scriptVersion": 1,
   "id": "mu-zhicheng-phone",
   "title": "命中注定我爱你",
-  "description": "第一章：他来听我的演唱会。锁屏依次收到妈妈、工作消息、穆之友的微信消息，后续剧情待编写。",
-  "revision": 47,
+  "description": "第一章：他来听我的演唱会。锁屏依次收到妈妈、穆之友的微信消息，后续剧情待编写。",
+  "revision": 48,
   "phone": {
     "owner": "穆祉丞",
     "date": "2026-08-17",
@@ -204,10 +204,6 @@
     {
       "id": "mu-mom",
       "name": "妈妈"
-    },
-    {
-      "id": "mu-work-group",
-      "name": "工作消息"
     }
   ],
   "chats": [
@@ -224,23 +220,6 @@
           "id": "opening-mom",
           "body": "儿子什么时候放假回重庆呀？",
           "senderId": "mu-mom",
-          "hidden": true
-        }
-      ]
-    },
-    {
-      "id": "opening-chat-work",
-      "app": "wechat",
-      "title": "工作消息",
-      "participants": [
-        "owner",
-        "mu-work-group"
-      ],
-      "messages": [
-        {
-          "id": "opening-work",
-          "body": "@全体成员，下周一开组会。",
-          "senderId": "mu-work-group",
           "hidden": true
         }
       ]
@@ -1232,28 +1211,6 @@
       ],
       "once": true,
       "next": [
-        "lock-opening-work"
-      ]
-    },
-    {
-      "id": "lock-opening-work",
-      "label": "锁屏收到工作消息消息",
-      "type": "delay",
-      "actions": [
-        {
-          "type": "unlock",
-          "key": "opening-work",
-          "value": true
-        },
-        {
-          "type": "notification",
-          "key": "",
-          "value": "微信：工作消息：@全体成员，下周一开组会。"
-        }
-      ],
-      "once": true,
-      "delayMs": 1000,
-      "next": [
         "lock-opening-friend"
       ]
     },
@@ -1289,20 +1246,18 @@
       ]
     },
     {
-      "name": "锁屏三条微信每隔一秒依次送达",
+      "name": "锁屏两条微信间隔一秒送达",
       "steps": [
         {
-          "advanceMs": 2000
+          "advanceMs": 1000
         }
       ],
       "expectNotifications": [
         "微信：妈妈：儿子什么时候放假回重庆呀？",
-        "微信：工作消息：@全体成员，下周一开组会。",
         "微信：穆之友：你真要去看他演唱会？"
       ],
       "expectUnlocked": [
         "opening-mom",
-        "opening-work",
         "opening-friend"
       ]
     }

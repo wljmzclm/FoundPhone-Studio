@@ -887,7 +887,7 @@ test("concert reminders match the supplied completed states and persist player c
   ).not.toBeChecked();
 });
 
-test("new chapter opens with three lock screen WeChat messages and keeps them in their chats", async ({
+test("new chapter opens with two lock screen WeChat messages and keeps them in their chats", async ({
   page,
 }) => {
   await page.goto("/");
@@ -900,26 +900,22 @@ test("new chapter opens with three lock screen WeChat messages and keeps them in
     "妈妈：儿子什么时候放假回重庆呀？",
   );
   await expect(lock.locator(".device-notice")).toContainText(
-    "工作消息：@全体成员，下周一开组会。",
-    { timeout: 3000 },
-  );
-  await expect(lock.locator(".device-notice")).toContainText(
     "穆之友：你真要去看他演唱会？",
     { timeout: 3000 },
   );
-  await lock.getByRole("button", { name: "3 条通知", exact: true }).click();
-  await expect(lock.locator(".device-notice")).toHaveCount(3);
+  await lock.getByRole("button", { name: "2 条通知", exact: true }).click();
+  await expect(lock.locator(".device-notice")).toHaveCount(2);
   await page
     .locator(".phone-screen")
     .screenshot({ path: "outputs/mu-phone/lock-opening-messages.png" });
+  await expect(lock).not.toContainText("工作消息");
   await unlock(page);
   await page.getByRole("button", { name: "打开微信", exact: true }).click();
   const chats = [
     ["妈妈", "儿子什么时候放假回重庆呀？"],
-    ["工作消息", "@全体成员，下周一开组会。"],
     ["穆之友", "你真要去看他演唱会？"],
   ];
-  await expect(page.locator(".wx-chat-row")).toHaveCount(3);
+  await expect(page.locator(".wx-chat-row")).toHaveCount(2);
   for (const [name, body] of chats) {
     await page.locator(".wx-chat-row").filter({ hasText: name }).click();
     await expect(page.locator(".skin-message .skin-bubble")).toContainText(
@@ -931,6 +927,6 @@ test("new chapter opens with three lock screen WeChat messages and keeps them in
   await page
     .getByRole("button", { name: "进入第一章：他来听我的演唱会", exact: true })
     .click();
-  await page.getByRole("button", { name: "3 条通知", exact: true }).click();
-  await expect(page.locator(".lock-screen .device-notice")).toHaveCount(3);
+  await page.getByRole("button", { name: "2 条通知", exact: true }).click();
+  await expect(page.locator(".lock-screen .device-notice")).toHaveCount(2);
 });
